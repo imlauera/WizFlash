@@ -1,0 +1,1 @@
+Si desea agregar un nuevo archivo de ruta, digamos accounts.py, solo necesita crear el archivo accounts.py en el directorio de rutas, al igual que users.py, luego importarlo en las rutas __init__.py 

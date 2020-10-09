@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+<h1>{% block title %}Ayudame{% endblock %}</h1>
+{% block head %} <link rel="stylesheet" href="{{ url_for('static', filename='css/pricing.css') }}"> {% endblock %}
+
+{% block content %}
+  <div class="container-fluid">
+
+    <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+      <h1 class="display-4">Ayudame</h1>
+      <p class="lead">Si tenés ganas de ayudar a crecer este proyecto, acá tenés algunas formas de hacerlo.</p>
+    </div>
+
+        <div class="container">
+        <div class="card-deck mb-3 text-center">
+          <div class="card mb-4 box-shadow">
+            <div class="card-header">
+              <h4 class="my-0 font-weight-normal">Donación</h4>
+            </div>
+          <div class="card-body">
+            <!-- <h1 class="card-title pricing-card-title">$0 <small class="text-muted">/ mo</small></h1>-->
+            <ul class="list-unstyled mt-3 mb-4">
+              <li>Con tu donación puedo mantener vivo este proyecto, y quizás algún día pueda hacer esto tiempo completo.</li>
+            </ul>
+            <button type="button" class="btn btn-lg btn-block btn-outline-danger">Contactame</button>
+          </div>
+        </div>
+        <div class="card mb-4 box-shadow">
+          <div class="card-header">
+            <h4 class="my-0 font-weight-normal">Programador</h4>
+          </div>
+          <div class="card-body">
+            <ul class="list-unstyled mt-3 mb-4">
+              <li class="">Si tenés manejás Flask, nos podrías ayudar 
+                  con nuevas funciones para implementar.</li>
+              <li>Comentando el código y haciendolo más lindo.</li>
+            </ul>
+            <button type="button" class="btn btn-lg btn-block btn-outline-danger">Contactame</button>
+          </div>
+        </div>
+        <div class="card mb-4 box-shadow">
+          <div class="card-header">
+            <h4 class="my-0 font-weight-normal">Marketing</h4>
+          </div>
+          <div class="card-body">
+            <ul class="list-unstyled mt-3 mb-4">
+              <li>Si tenés habilidades para hacer conocida la aplicación en las redes sociales, 
+                necesitamos tu ayuda.
+              </li>
+            </ul>
+            <button type="button" class="btn btn-lg btn-block btn-outline-danger">Contactame</button>
+          </div>
+        </div>
+        <div class="card mb-4 box-shadow">
+          <div class="card-header">
+            <h4 class="my-0 font-weight-normal">UI/UX - Frontend</h4>
+          </div>
+          <div class="card-body">
+            <ul class="list-unstyled mt-3 mb-4">
+              <li>Si sabés diseñar páginas, manejás bien CSS3, Bootstrap, JS, nos podrías ayudar
+              a mejorar la front-end de la web.</li>
+            </ul>
+            <button type="button" class="btn btn-lg btn-block btn-outline-danger">Contactame</button>
+          </div>
+        </div>
+  </div>
+{% endblock %}

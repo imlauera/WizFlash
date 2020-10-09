@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+<h1>{% block title %}Mi Perfil{% endblock %}</h1>
+
+{% block content %}
+<div class="container rounded  mt-5">
+    <div class="row">
+        <div class="col-md-4 border-right">
+          <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+            <img class="rounded-circle mt-5" src="https://i.pinimg.com/280x280_RS/fb/f8/83/fbf8832e469d9837f08025052e8a8d85.jpg" width="90">
+            <span class="font-weight-bold">{{current_user.username}}</span><span class="text-black-50">whitepower@hitler.com</span><span>Germany</span></div>
+        </div>
+        <div class="col-md-8">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <a href="/"><div class="d-flex flex-row align-items-center back"><i class="fas fa-long-arrow-alt-left mr-1 mb-1"></i>
+                        <h6>Volver al índice</h6>
+                    </div></a>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-6"><input type="text" class="form-control" placeholder="first name" value="John"></div>
+                    <div class="col-md-6"><input type="text" class="form-control" value="Doe" placeholder="Doe"></div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-6"><input type="text" class="form-control" placeholder="Email" value="john_doe12@bbb.com"></div>
+                    <div class="col-md-6"><input type="text" class="form-control" value="+19685969668" placeholder="Phone number"></div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-6"><input type="text" class="form-control" placeholder="address" value="D-113, right avenue block, CA,USA"></div>
+                    <div class="col-md-6"><input type="text" class="form-control" value="USA" placeholder="Country"></div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-6"><input type="text" class="form-control" placeholder="Bank Name" value="Bank of America"></div>
+                    <div class="col-md-6"><input type="text" class="form-control" value="043958409584095" placeholder="Account Number"></div>
+                </div>
+                <div class="mt-5 text-right"><button class="btn btn-primary profile-button" type="button">Save Profile</button></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

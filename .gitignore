@@ -1,0 +1,17 @@
+HOW_TO_MIGRATE
+*.py[cod]
+__pycache__/
+Workspace
+*.swp
+*.db
+instance/*
+__pycache/*
+migrations/*
+static/images/*
+static/fontawesome-free-5.14.0-web
+static/user_data/*
+static/web.kra
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% from "_formhelpers.html" import render_field %}
+
+<h1>{% block title %}Mi Perfil{% endblock %}</h1>
+
+{% block content %}
+      <div class="container-fluid">
+          <div class="row justify-content-center" style="padding: 0px;">
+              <div class="col-lg-10" style="">
+								<h2>Mi Perfil</h2>
+								<hr>
+								<form method="post">
+                  <dl>
+                    {{ form.username.label }}
+                    {{ render_field(form.username, class='form-control', disabled=true, placeholder='Username', ) }}
+                    {{ form.email.label }}
+										{{ render_field(form.email, class='form-control', placeholder='Email') }}
+                    {{ form.desc.label }}
+										{{ render_field(form.desc, class='form-control', placeholder='Description' ) }}
+                  </dl>
+                  <div class="text-center">
+                    {{ render_field(form.csrf_token) }}
+                  </div>
+									{{ render_field(form.recaptcha) }} 
+                  {{ render_field(form.submit, class='btn btn-primary btn-lg btn-block') }}
+								</form>
+              </div>
+          </div>
+      </div>
+{% endblock %}

@@ -1,0 +1,13 @@
+Esta aplicación usa SQLAlchemy, Contexts
+https://flask-sqlalchemy.palletsprojects.com/en/2.x/contexts/
+
+Para operar en ella:
+
+from run import app
+from models import *
+app.app_context().push()
+User.query.all()
+
+O se puede usar también
+which app.app_context():
+  User.query.all()

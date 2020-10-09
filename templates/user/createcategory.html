@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% from "_formhelpers.html" import render_field %}
+
+<h1>{% block title %}Crea una categoría{% endblock %}</h1>
+
+{% block content %}
+  <div class="container-fluid">
+    <div style="overflow: hidden;" class="row justify-content-center">
+      <form method="post">
+        <dl>
+        {{ render_field(form.category, placeholder='Nombre') }} 
+        <div class="text-center">
+          {{ render_field(form.csrf_token) }}
+        </div>
+        {{ render_field(form.recaptcha) }} 
+        {{ render_field(form.submit, class='btn btn-success btn-lg btn-block') }}
+        </dl>
+      </form>
+    </div>
+  </div>
+{% endblock %}

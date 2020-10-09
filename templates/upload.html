@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% from "_formhelpers.html" import render_field %}
+
+<h1>{% block title %}Subir un Catálogo{% endblock %}</h1>
+
+{% block content %}
+  <div class="container-fluid">
+    <div class="row justify-content-center" style="padding: 0px;">
+        <div class="col-lg-10">
+          <h2>Crear una nueva publicación</h2>
+          <hr>
+          <form method="post" enctype="multipart/form-data">
+            <dl>
+              {{ render_field(form.subject, class='form-control', placeholder='Subject') }}
+              {{ form.thumbnail.label }}
+              {{ render_field(form.thumbnail, class='form-control') }}
+              {{ render_field(form.desc, class='form-control', placeholder='Description', cols="35", rows="15") }}
+              {{ form.category.label }}
+              {{ render_field(form.category, class='form-control') }}
+              {{ form.tags.label }}
+							{{ render_field(form.tags, class='form-control') }}
+              {{ form.hidden }} {{ form.hidden.label }}
+            </dl>
+            <div class="text-center">
+              {{ render_field(form.csrf_token) }}
+            </div>
+            {{ render_field(form.submit, class='btn btn-primary btn-lg btn-block') }}
+          </form>
+        </div>
+    </div>
+  </div>
+{% endblock %}

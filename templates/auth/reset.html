@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% from "_formhelpers.html" import render_field %}
+
+<h1>{% block title %}Ingreso{% endblock %}</h1>
+
+{% block content %}
+      <div class="container-fluid">
+          <div class="row justify-content-center">
+              <div class="col-lg-10">
+                <h2>Reset Password</h2>
+								<form class="form" method="post">
+                  <hr>
+                  <dl>
+                    {{ render_field(form.csrf_token) }}
+                    {{ render_field(form.email, class='form-control', placeholder='Email') }}
+                    {{ render_field(form.recaptcha) }}
+                    {{ render_field(form.submit, class="btn btn-outline-primary btn-lg btn-block") }}
+                  </dl>
+								</form>
+              </div>
+          </div>
+      </div>
+{% endblock %}

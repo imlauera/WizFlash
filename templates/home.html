@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+<h1>{% block title %}Inicio{% endblock %}</h1>
+
+
+{% block content %}
+      <div class="container-fluid">
+        <div class="webs-catalog">
+            <ol> 
+              <h4>Recientes
+               <a style="float: right;" class="nav-link btn btn-cyan-dark" href="{% if not current_user.is_authenticated %}/login{%else%}/upload{% endif %}"><i class="fas fa-plus"></i></a>
+              </h4>
+              <h4>
+                <select onchange="location=this.value;">
+                    <option selected disabled>Elegir categoría</option>
+                    {% for category in lista_categorias %}
+                    <option value="/category/{{category.name}}">{{category.name}}</option>
+                    {% endfor %}
+                </select>
+              </h4>
+							{% for post in posts %}
+							<li>
+                <a href="/view/{{post.id}}">{{post.subject}}</a><br/>
+              </li>
+							{% else %}
+								<h3>Nada por acá<h3>
+							{% endfor %}
+						</ol>
+						<ol>
+						<h3>Más vistos</h3>
+						{% for destacado in destacados %}
+						<li>
+              <a href="/view/{{destacado.id}}">{{destacado.subject}} ({{destacado.total_thanks}})</a><br/>
+              {{destacado.desc[:50]}}...<br/>
+              Fecha creación: {{ destacado.created_date.strftime("%m/%d/%Y, %H:%M:%S") }} </li>
+						{% else %}
+							<h3>Nada por acá<h3>
+						{% endfor %}
+						</ol>
+        </div>
+            <h3>Top Usuarios</h3>
+						<ol>
+              {% for user in users %}
+              <li><a href="/user/{{user.username}}">{{user.username}}</a><br/>
+                Agradecimientos: {{user.karma}}<br/>
+              </li>
+              {% else %}
+                <h3>Nada por acá<h3>
+              {% endfor %}
+						</ol>
+                <!-- Más información después de la lista de creadores -->
+{% endblock %}

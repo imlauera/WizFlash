@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% from "_formhelpers.html" import render_field %}
+
+<h1>{% block title %}Acerca de nosotros{% endblock %}</h1>
+
+{% block content %}
+  <div class="container-fluid">
+    <div class="mx-auto" style="width: 60%;">
+        <h3>Comentar</h3>
+        <form method="post">
+          {{ render_field(form.comment, class='form-control', placeholder='Comentario') }}
+          {{ form.files.label }}
+          {{ render_field(form.files, class='form-control') }}
+          {{ render_field(form.csrf_token) }}
+          {{ render_field(form.submit, class='form-control btn btn-danger') }}
+        </form>
+    </div>
+    <hr/>
+    <a href="/"><b>VOLVER</b></a> | 
+    <a href="/thanks/post/{{post.id}}"><b>AGRADECER</b></a> |
+    <a href="/delete/post/{{post.id}}"><b>BORRAR</b></a> 
+    <h1>{{post.subject}}</h1>
+    <h5>Autor: <a href="/user/{{post.autor}}">{{post.autor}}</a></h5>
+    <h5>Vistas: {{post.views}}</h5>
+    <h5>Fecha Creación: {{post.created_date.isoformat()}}</h5>
+    <div style="overflow: hidden;">
+      <div class="d-flex justify-content-between ">
+        <pre>{{post.desc}}</pre>
+        <!-- Tengo que detectar la extensión para saber si muestro un video o una imágen -->
+        {% if post.thumbnail_max %}
+          <a target="_blank" href="{{ url_for ('static', filename='user_data/images/')}}{{post.thumbnail_max}}">
+            <img height=300 src="{{ url_for ('static', filename='user_data/images/')}}{{post.thumbnail_max}}"/>
+          </a>
+        {% else %}
+          <a target="_blank" href="{{ url_for ('static', filename='user_data/images/')}}{{post.thumbnail_max}}">
+            <video width="320" height="240" controls>
+              <source src="{{ url_for ('static', filename='user_data/images/')}}{{post.thumbnail_max}}" type="video/mp4">
+            </video>
+          </a>
+        {% endif %}
+      </div>
+      <b>{{post.total_thanks}} agradecimiento(s)</b><br/>
+      <b>Category:</b> {{category}}<br/>
+      <b>Tags:</b> 
+      {% for tag in post.tags %}
+        <span class="tags">{{tag.tag_name}}</span>
+      {% endfor %}
+      <hr/>
+      {% for c in comments %}
+        <div style="box-shadow: 3px 3px solid lightblue; margin-bottom: 15px; padding: 30px; width: 80%; background-color: #222;">
+          <a href="/user/{{ c.user.username }}">{{c.user.username}}</a> {{c.created_date.strftime("%d/%m/%y (%A) %H:%M:%S")}} No. <a href="#" onclick="javascript:alert('esto va a servir para citar a alguien')">{{c.id}}</a>:<br/>
+          {{  c.comment }}<br/>
+        </div>
+          {% else %}
+          <p>Todavía no hay comentarios.</p>
+      {% endfor %}
+
+    </div>
+  </div>
+{% endblock %}

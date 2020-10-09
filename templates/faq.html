@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+<h1>{% block title %}FAQ{% endblock %}</h1>
+
+{% block content %}
+  <div class="container-fluid">
+    <h1>Preguntas Frecuentes</h1>
+    <div style="overflow: hidden;">
+      <img width=450 style="float: right; border-radius: 10px; " src="{{ url_for ('static', filename='images/faq.jpeg') }}"/>
+      <p>Somos un equipo de estudiantes estudiantes de Ciencias de la Computación y de
+      la carrera de administración de empresas con años de experiencia en el ambiente de sistemas.</p>
+    </div>
+  </div>
+{% endblock %}

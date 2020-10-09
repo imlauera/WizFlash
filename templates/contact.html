@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% from "_formhelpers.html" import render_field %}
+
+<h1>{% block title %}Contacto{% endblock %}</h1>
+
+{% block content %}
+      <div class="container-fluid">
+          <div class="row justify-content-center" style="padding: 0px;">
+              <div class="col-lg-10" style="">
+								<h2>Contáctanos</h2>
+								<hr>
+								<form method="post">
+                  <dl>
+										{{ render_field(form.kind_of_question, class='form-control', placeholder='Select a option') }}
+										{{ render_field(form.subject, class='form-control', placeholder='Subject') }}
+										{{ render_field(form.email, class='form-control', placeholder='Email') }}
+											<!-- <div class="col"><input type="text" class="form-control" name="first_name" placeholder="Nombre" required="required"></div>
+											<div class="col"><input type="text" class="form-control" name="last_name" placeholder="Apellido" required="required"></div> -->
+										<!--<div class="form-group">
+											<input type="email" class="form-control" name="email" placeholder="Email" required="required">
+										</div>-->
+										{{ render_field(form.message, class='form-control', placeholder='Message', cols="35", rows="15") }}
+										{{ form.accept_tos }} {{ form.accept_tos.label }}
+                  </dl>
+                  <div class="text-center">
+                    {{ render_field(form.csrf_token) }}
+                  </div>
+									{{ render_field(form.recaptcha) }} 
+                  {{ render_field(form.submit, class='btn btn-primary btn-lg btn-block') }}
+								</form>
+              </div>
+          </div>
+      </div>
+{% endblock %}

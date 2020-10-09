@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+<h1>{% block title %}Inicio{% endblock %}</h1>
+
+
+{% block content %}
+      <div class="container-fluid">
+          <div class="webs-catalog">
+						<ol style="border: 1px solid lightblue;" >
+              <h3>Categorias <a style="float: right;" class="nav-link btn btn-cyan-dark" href="{% if not current_user.is_authenticated %}/login{%else%}/createcategory{% endif %}"><i class="fas fa-plus"></i></a>
+              </h3>
+							{% for category in lista_categorias %}
+							<li>
+                <a href="/category/{{category.name}}">{{category.name}}</a><br/>
+              </li>
+							{% else %}
+								<h3>Nada por acá<h3>
+							{% endfor %}
+						</ol>
+					</div>
+{% endblock %}

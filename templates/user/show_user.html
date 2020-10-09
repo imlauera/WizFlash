@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+<h1>{% block title %}Mi Perfil{% endblock %}</h1>
+
+{% block content %}
+<div class="container rounded mt-0">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <a href="/"><div class="d-flex flex-row align-items-center back"><i class="fas fa-long-arrow-alt-left mr-1 mb-1"></i>
+            <h6>Volver al índice</h6>
+        </div></a>
+    </div>
+    <img class="rounded-circle mt-4" src="https://i.pinimg.com/280x280_RS/fb/f8/83/fbf8832e469d9837f08025052e8a8d85.jpg" width="90">
+    <a href="/thanks/user/{{user.id}}">AGRADECER</a> |
+    <a href="/report/user/{{user.id}}">REPORTAR</a>
+    <br/> <br/>
+      <p><b>Username</b>: {{user.username}}</p>
+      <p><b>Descripción</b>: {{user.desc}}</p>
+      <p><b>Número publicaciones</b>: {{user.posts}}</p>
+      <p><b>¿Es administrador?</b> {% if user.admin %}Sí{%else%}No{%endif%}</p>
+      <p><b>Agradecimientos</b>: {{user.karma}}</p>
+      <p><b>Usuario creado en</b>: {{user.created_date}}</p>
+    <h2>Los últimos 5 artículos de este usuario</h2>
+    .......
+{% endblock %}

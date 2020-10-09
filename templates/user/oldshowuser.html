@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+<h1>{% block title %}{{user.username}}{% endblock %}</h1>
+
+{% block content %}
+    <div class="container">
+			<!-- Add icon library -->
+				<h1>{{user.username}}</h1>
+        <a href="#">AGRADECER</a> |
+        <a href="#">REPORTAR</a>
+				<p><i class="fas fa-font"></i>{{user.desc}}</p>
+				<i class="fas fa-hands-helping"></i>Agradecimientos: {{user.karma}}<br/>
+				<i class="fas fa-font"></i>Número de publicaciones: {{user.posts}}<br/>
+				<i class="fas fa-clock"></i>Fecha de Creación: {{user.created_date}}<br/>
+				<i class="fas fa-user-shield"></i>Superusuario: {{user.admin}}<br/>
+				<p><button class="btn btn-primary btn-lg">Contact</button></p>
+        <h2>Lista de artículos de este usuario</h2>
+        .......
+    </div>
+{% endblock %}
