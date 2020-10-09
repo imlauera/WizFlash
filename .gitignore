@@ -7,7 +7,6 @@ Workspace
 instance/*
 __pycache/*
 migrations/*
-static/images/*
 static/fontawesome-free-5.14.0-web
 static/user_data/*
 static/web.kra
