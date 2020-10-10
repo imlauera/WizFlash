@@ -26,9 +26,15 @@
     <div style="overflow: hidden;">
         {% for img in post.files %}
           <!-- Chequear la extensión primero antes de mostrar img -->
-          <a target="_blank" href="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}">
-            <img height=100 src="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}"/>
-          </a>
+          {% if img.extension in ('jpg', 'gif', 'jpeg', 'png') %}
+            <a target="_blank" href="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}">
+              <img height=100 src="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}"/>
+            </a>
+          {% elif img.extension in ('webm', 'mp4') %}
+            <a target="_blank" href="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}">
+              <video height=100 src="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}"/>
+            </a>
+          {% endif %}
         {% endfor %}
       <div class="d-flex justify-content-between ">
         <pre>{{post.desc}}</pre>

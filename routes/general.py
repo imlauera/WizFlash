@@ -81,19 +81,21 @@ def view(id=None):
         )
         db.session.add(new_comment)
 
-        for f in form.files.data:
-            filename = secure_filename(f.filename)
-            print(f.filename)
-            f.save(os.path.join(
-                current_app.config['UPLOAD_FOLDER'], 'images', filename
-            ))
-            new_comment_files = FileComment(
-                comment_id=new_comment.id,
-                file=filename,
-                extension=filename.split('.').pop()
-            )
-            db.session.add(new_comment_files)
-            db.session.commit()
+        if form.files.data is not None:
+            for f in form.files.data:
+                filename = secure_filename(f.filename)
+                print(f.filename)
+                f.save(os.path.join(
+                    current_app.config['UPLOAD_FOLDER'], 'images', filename
+                ))
+                new_comment_files = FileComment(
+                    comment_id=new_comment.id,
+                    file=filename,
+                    extension=filename.split('.').pop()
+                )
+                db.session.add(new_comment_files)
+
+        db.session.commit()
 
         return redirect(
             url_for(
