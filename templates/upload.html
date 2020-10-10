@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% from "_formhelpers.html" import render_field %}
-
 <h1>{% block title %}Subir un Catálogo{% endblock %}</h1>
 
 {% block content %}
@@ -12,8 +11,16 @@
           <form method="post" enctype="multipart/form-data">
             <dl>
               {{ render_field(form.subject, class='form-control', placeholder='Subject') }}
-              {{ form.thumbnail.label }}
-              {{ render_field(form.thumbnail, class='form-control') }}
+              {{ form.files.label }}
+              {{ render_field(form.files, class='form-control', onChange="loadFile(event)") }}
+              <strong>
+                <ul id="fileList">
+                  <li>
+                    No hay archivos seleccionados.
+                    <img width=80 id="preview"/>
+                  </li>
+                </ul>
+              </strong>
               {{ render_field(form.desc, class='form-control', placeholder='Description', cols="35", rows="15") }}
               {{ form.category.label }}
               {{ render_field(form.category, class='form-control') }}
@@ -28,5 +35,31 @@
           </form>
         </div>
     </div>
+    <script>
+      // Pequeño script para mostrar los nombres de los archivos seleccionados
+      // Probablemente no sea el mejor lugar para incluir esto
+      var input = document.getElementById('files');
+      var list = document.getElementById('fileList');
+      
+      while (list.hasChildNodes()){
+        list.removeChild(list.firstChild);
+      }
+      loadFile = function (event){
+        $("#fileList").empty()
+        for (x = 0; x < input.files.length; x++){
+          var preview = document.getElementById('fileList preview');
+          img = document.createElement('img');
+          img.width = 80
+          img.src = URL.createObjectURL(input.files[x]);
+          img.onload = function() {
+            URL.revokeObjectURL(output.src) // free memory
+          }
+          li = document.createElement('li');
+          li.innerHTML = 'Filename: ' + input.files[x].name;
+          li.append(img)
+          list.append(li)
+        }
+      }
+    </script>
   </div>
 {% endblock %}

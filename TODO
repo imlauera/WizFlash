@@ -1,4 +1,5 @@
 El nombre de la página va a ser: fivestrikes.com
+flashlightning
 ThunderWisdom
 
 
@@ -115,7 +116,6 @@ Por qué abre tantas veces el mismo archivo?
 Para detectar si es una imágen o un video, tengo que trabajar con un tipo de estructura
 que me envíe algo así como un json, con el nombre del archivo y la extensión por separado.
 Poder adjuntar mútliples imágenes en un post y también en un comentario.
-Hacer un uploads de files como 8kun, 4chan.
 
 Tengo que definir la relación en el campo del padre no del hijo así:
 Para que el efecto cascada funcione tenés que definir así las relaciones en la tabla del padre.
@@ -124,5 +124,7 @@ Para que el efecto cascada funcione tenés que definir así las relaciones en la
 
 "In fact, the relationship.backref keyword is only a common shortcut for placing a second relationship() onto the Address mapping, including the establishment of an event listener on both sides which will mirror attribute operations in both directions."
 
-Arreglar -> Las tags no se cargan por el problema de categorías, (creo que se soluciona usando el efecto cascade)
-Reducir el número de publicaciones cada vez que se borra un post.
+Arreglar -> Las tags no se cargan por el problema de categorías, (creo que se soluciona usando el efecto cascade) (arreglado, por lo menos hasta ahora)
+Reducir el número de publicaciones cada vez que se borra un post (después lo hago)
+Hacer un uploads de files como 8kun, 4chan.
+No permitir mútliples agradecimientos a usuarios, debería ser uno por día.

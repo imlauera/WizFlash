@@ -120,7 +120,7 @@ class UploadForm(FlaskForm):
     )
     hidden = BooleanField('Hidden?')
     tags = StringField('Tags (separado por espacios)', [InputRequired()])
-    thumbnail = MultipleFileField(
+    files = MultipleFileField(
         'File(s)',
         [
             FileRequired(),
