@@ -103,7 +103,7 @@ def faq():
 
 @routes.route('/output/<msg>')
 def output(msg='Hola'):
-    return '<h1>{}</h1>'.format(msg) 
+    return '<h1>{}</h1>'.format(msg)
 
 @routes.route('/video/id/<videoId>')
 def video(videoId=None):
@@ -126,4 +126,4 @@ def video(videoId=None):
     for line in transcript:
       output += 'alguien dijo <span style="color: red;">' + line['text'] + '</span> en el minuto ' + str(line['start']) + '<br/>'
 
-    return 'YouTube: <p>{}</p>'.format(output) 
+    return 'YouTube: <p>{}</p>'.format(output)

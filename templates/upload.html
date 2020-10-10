@@ -14,10 +14,9 @@
               {{ form.files.label }}
               {{ render_field(form.files, class='form-control', onChange="loadFile(event)") }}
               <strong>
-                <ul id="fileList">
-                  <li>
+                <ul id="fileList" style="">
+                  <li style="">
                     No hay archivos seleccionados.
-                    <img width=80 id="preview"/>
                   </li>
                 </ul>
               </strong>
@@ -40,23 +39,40 @@
       // Probablemente no sea el mejor lugar para incluir esto
       var input = document.getElementById('files');
       var list = document.getElementById('fileList');
-      
-      while (list.hasChildNodes()){
-        list.removeChild(list.firstChild);
-      }
       loadFile = function (event){
         $("#fileList").empty()
         for (x = 0; x < input.files.length; x++){
           var preview = document.getElementById('fileList preview');
-          img = document.createElement('img');
-          img.width = 80
-          img.src = URL.createObjectURL(input.files[x]);
-          img.onload = function() {
-            URL.revokeObjectURL(output.src) // free memory
-          }
+          file_extension = input.files[x].name.split('.').pop();
+
           li = document.createElement('li');
-          li.innerHTML = 'Filename: ' + input.files[x].name;
-          li.append(img)
+          li.style = "display: inline; margin-right: 20px; "
+
+          if (file_extension === 'jpg' ||
+              file_extension === 'jpeg'||
+              file_extension === 'png' ||
+              file_extension === 'svg' ||
+              file_extension === 'gif') {
+
+                img = document.createElement('img');
+                img.width = 80
+                img.src = URL.createObjectURL(input.files[x]);
+                img.onload = function() {
+                  URL.revokeObjectURL(output.src) // free memory
+                }
+                li.append(img)
+          }
+          if (file_extension === 'webm' || file_extension === 'mp4'){
+
+                vid = document.createElement('video');
+                vid.width = 80
+                vid.src = URL.createObjectURL(input.files[x]);
+                vid.onload = function() {
+                  URL.revokeObjectURL(output.src) // free memory
+                }
+                li.append(vid)
+          }
+
           list.append(li)
         }
       }
