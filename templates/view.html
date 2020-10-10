@@ -24,20 +24,15 @@
     <h5>Vistas: {{post.views}}</h5>
     <h5>Fecha Creación: {{post.created_date.isoformat()}}</h5>
     <div style="overflow: hidden;">
+        {% for img in post.files %}
+          <!-- Chequear la extensión primero antes de mostrar img -->
+          <a target="_blank" href="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}">
+            <img height=100 src="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}"/>
+          </a>
+        {% endfor %}
       <div class="d-flex justify-content-between ">
         <pre>{{post.desc}}</pre>
         <!-- Tengo que detectar la extensión para saber si muestro un video o una imágen -->
-        {% if post.thumbnail_max %}
-          <a target="_blank" href="{{ url_for ('static', filename='user_data/images/')}}{{post.thumbnail_max}}">
-            <img height=300 src="{{ url_for ('static', filename='user_data/images/')}}{{post.thumbnail_max}}"/>
-          </a>
-        {% else %}
-          <a target="_blank" href="{{ url_for ('static', filename='user_data/images/')}}{{post.thumbnail_max}}">
-            <video width="320" height="240" controls>
-              <source src="{{ url_for ('static', filename='user_data/images/')}}{{post.thumbnail_max}}" type="video/mp4">
-            </video>
-          </a>
-        {% endif %}
       </div>
       <b>{{post.total_thanks}} agradecimiento(s)</b><br/>
       <b>Category:</b> {{category}}<br/>

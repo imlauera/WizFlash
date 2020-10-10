@@ -14,13 +14,14 @@ from models import (
     Post,
     CategoryList,
     Category,
-    Tag
+    Tag,
+    FilePost
 )
 
 import datetime
 import os
 from werkzeug.utils import secure_filename
-from werkzeug.datastructures import FileStorage
+# from werkzeug.datastructures import FileStorage
 from flask_login import (
     current_user,
     login_required,
@@ -152,30 +153,17 @@ def upload():
 
     print(form.errors)
 
-    if form.is_submitted():
-        print("submitted")
-
-    # c = Category.query.filter_by(name='gaming').first()
-    # print(c.id)
-
-    print(form.errors)
-    print('Estoy acá1')
-
     if form.validate_on_submit():
-        f = form.files.data
-        filename = secure_filename(f.filename)
-        # Detectar si es un video o una imágen
-        # depediendo el ext guardar en diferentes carpetas.
-        # ext = os.path.splitext(filename)[1]
-        f.save(os.path.join(
-            current_app.config['UPLOAD_FOLDER'], 'images', filename
-        ))
 
         # ¿Existe la categoría a la que intentás agregar un post?
+        # Pensarlo mejor
         c = CategoryList.query.filter_by(name=form.category.data).first()
-        if c is not None:
+        if c is None:
             return """<h1>No existe esa categoría</h1>
                     <br/><a href="/upload">Volver a intentar</a> """
+
+        print(form.files.data)
+        filename = secure_filename(form.files.data[0].filename)
 
         # Ahora debería guardar el catalogo del negocio en la db
         new_post = Post(
@@ -198,6 +186,22 @@ def upload():
 
         db.session.add(new_post)
         db.session.commit()
+
+        files = form.files.data
+        for f in files:
+
+            filename = secure_filename(f.filename)
+            print(f.filename)
+            f.save(os.path.join(
+                current_app.config['UPLOAD_FOLDER'], 'images', filename
+            ))
+            new_post_files = FilePost(
+                post_id=new_post.id,
+                file=filename,
+                extension=filename.split('.').pop()
+            )
+            db.session.add(new_post_files)
+            db.session.commit()
 
         # Agrego una categoría al post, si no existe no deberías poder
         # agregar un post a una categoría inexistente

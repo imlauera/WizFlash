@@ -20,7 +20,7 @@ from wtforms.validators import (
 from wtforms.widgets import TextArea
 from flask_wtf.file import (
     FileField,
-    FileRequired,
+    # FileRequired,
     FileAllowed,
 )
 from util.validators import Unique
@@ -123,7 +123,6 @@ class UploadForm(FlaskForm):
     files = MultipleFileField(
         'File(s)',
         [
-            FileRequired(),
             FileAllowed(
                 [
                     'webm',
@@ -137,7 +136,8 @@ class UploadForm(FlaskForm):
                 """Sólo archivos jpg, png, gif,
                 jpeg, mp4, webm están permitidos!"""
             )
-        ]
+        ],
+        #widget=FileInput(multiple=True, accept=['image/*'])
     )
     # recaptcha = RecaptchaField("Are you real?")
     submit = SubmitField("Upload")

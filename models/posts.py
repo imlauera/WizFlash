@@ -56,6 +56,12 @@ class Post(db.Model):
         cascade="all,delete",
         backref="post"
     )
+    files = db.relationship(
+        "FilePost",
+        cascade="all,delete",
+        backref="post"
+    )
+
     # One To Many relationship, es decir un
     # post puede tener muchos archivos adjuntos.
     # No sé si es la mejor forma de hacerlo.
@@ -120,6 +126,7 @@ class Comment(db.Model):
     user = db.relationship('User', cascade='all, delete')
     created_date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     comment = db.Column(db.String, nullable=False)
+    files = db.relationship('FileComment', cascade='all, delete')
     # Para poder acceder desde la view al subject: category.post.comment
     # post = db.relationship('Post', cascade='all, delete')
 
@@ -144,6 +151,16 @@ class Thank(db.Model):
     )
 
 
+class FileComment(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    comment_id = db.Column(
+        db.Integer,
+        db.ForeignKey('comment.id'),
+    )
+    file = db.Column(db.String, nullable=False)
+    extension = db.Column(db.String, nullable=False)
+
+
 class FilePost(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     post_id = db.Column(
@@ -151,6 +168,4 @@ class FilePost(db.Model):
         db.ForeignKey('post.id'),
     )
     file = db.Column(db.String, nullable=False)
-
-    def __repr__(self):
-        return '<Catalog %r>' % self.username
+    extension = db.Column(db.String, nullable=False)

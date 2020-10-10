@@ -128,3 +128,5 @@ Arreglar -> Las tags no se cargan por el problema de categorías, (creo que se s
 Reducir el número de publicaciones cada vez que se borra un post (después lo hago)
 Hacer un uploads de files como 8kun, 4chan.
 No permitir mútliples agradecimientos a usuarios, debería ser uno por día.
+Cuando vas a subir una imágen, no la tenés que subir con el nombre original, tenés que subirla con el nombre de la hora o algo parecido y guardar la 
+extensión por separado en la db.
