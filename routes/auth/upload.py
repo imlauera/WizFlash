@@ -201,7 +201,8 @@ def upload():
                 extension=filename.split('.').pop()
             )
             db.session.add(new_post_files)
-            db.session.commit()
+
+        db.session.commit()
 
         # Agrego una categoría al post, si no existe no deberías poder
         # agregar un post a una categoría inexistente
