@@ -1,10 +1,17 @@
 from .. import routes
-from flask import render_template, redirect, url_for, current_app
+from flask import (
+    render_template,
+    redirect,
+    url_for,
+    current_app,
+    request
+)
 from forms import (
     UploadForm,
     DeleteForm,
     ThankPostForm,
     ThankUserForm,
+    DeleteCommentForm,
     CreateCategoryForm
 )
 from models import (
@@ -12,6 +19,7 @@ from models import (
     Thank,
     User,
     Post,
+    Comment,
     CategoryList,
     Category,
     Tag,
@@ -113,6 +121,23 @@ def delete(id=None):
     return render_template('user/delete.html', form=form)
 
 
+@routes.route('/delete/comment/<id>', methods=['GET', 'POST'])
+@login_required
+def delete_comment(id=None):
+    form = DeleteCommentForm()
+
+    post_id = request.args.get("id")
+    if form.validate_on_submit():
+        comment = Comment.query.get(id)
+        db.session.delete(comment)
+        db.session.commit()
+
+        return redirect(url_for('routes.view', id=post_id))
+        # Ahora debería guardar el catalogo del negocio en la db
+
+    return render_template('user/delete.html', form=form)
+
+
 @routes.route('/categories', methods=['GET', 'POST'])
 def categories():
     lista_categorias = CategoryList.query.all()
@@ -135,7 +160,7 @@ def createcategory():
         )
         db.session.add(new_category)
         db.session.commit()
-        return redirect(url_for('routes.index'))
+        return redirect(url_for('routes.categories'))
     '''
     else:
         return redirect(
@@ -157,7 +182,7 @@ def upload():
     lista_categorias = CategoryList.query.all()
 
     # Hacerlo de una forma más pythonica o como quiera que se diga.
-    Categorias = []
+    Categorias = [('', "Elegir Categoría")]
     for c in lista_categorias:
         Categorias.append((c.name, c.name.title()))
     form.category.choices = Categorias
@@ -173,8 +198,13 @@ def upload():
             return """<h1>No existe esa categoría</h1>
                     <br/><a href="/upload">Volver a intentar</a> """
 
-        print(form.files.data)
-        filename = secure_filename(form.files.data[0].filename)
+        # La complejidad de implementar el
+        # MultipleFileField con los validadores
+        # me desmotivaron a usarlo, ahora
+        # sólo voy a permitir un archivo por post.
+        # filename = secure_filename(form.files.data[0].filename)
+
+        filename = secure_filename(form.files.data.filename)
 
         # Ahora debería guardar el catalogo del negocio en la db
         new_post = Post(
@@ -198,6 +228,7 @@ def upload():
         db.session.add(new_post)
         db.session.commit()
 
+        '''
         files = form.files.data
         for f in files:
 
@@ -212,7 +243,20 @@ def upload():
                 extension=filename.split('.').pop()
             )
             db.session.add(new_post_files)
+        '''
 
+        file = form.files.data
+
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(
+            current_app.config['UPLOAD_FOLDER'], 'images', filename
+        ))
+        new_post_files = FilePost(
+            post_id=new_post.id,
+            file=filename,
+            extension=filename.split('.').pop()
+        )
+        db.session.add(new_post_files)
         db.session.commit()
 
         # Agrego una categoría al post, si no existe no deberías poder
@@ -233,7 +277,8 @@ def upload():
                 tag_name=tag,
             )
             new_post.tags.append(new_post_tag)
-            db.session.commit()
+
+        db.session.commit()
 
         return redirect(url_for('routes.view', id=new_post.id))
 

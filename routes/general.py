@@ -1,5 +1,10 @@
 from . import routes
-from flask import render_template, redirect, url_for, current_app
+from flask import (
+    render_template,
+    redirect,
+    url_for,
+    current_app
+)
 from forms import ContactForm, CommentForm
 from models import (
     db,
@@ -8,7 +13,6 @@ from models import (
     CategoryList,
     Category,
     Comment,
-    FileComment
 )
 import os
 import datetime
@@ -62,6 +66,7 @@ def view(id=None):
     ).order_by(
         Comment.created_date.desc()
     )
+
     post.views += 1
     db.session.commit()
 
@@ -72,30 +77,51 @@ def view(id=None):
 
     if form.validate_on_submit():
         # Ahora tengo que agregar el comentario a la db.
-        print("Esto acá")
+
+        print(form.file.data)
+        filename = secure_filename(
+            form.file.data.filename
+        ) if (
+            form.file.data is not None
+        ) else ''
+
+        # filename = filename if (filename is not None) else ''
+
+        print("el valor de filename es: {}".format(filename))
         new_comment = Comment(
-                post_id=id,
-                comment=form.comment.data,
-                created_date=datetime.datetime.utcnow(),
-                user_id=current_user.id
+            post_id=id,
+            comment=form.comment.data,
+            created_date=datetime.datetime.utcnow(),
+            user_id=current_user.id,
+            filename=filename,
+            file_ext=filename.split('.').pop(),
         )
         db.session.add(new_comment)
+        db.session.commit()
 
+        file = form.file.data
+
+        if file is not None:
+            file.save(os.path.join(
+                current_app.config['UPLOAD_FOLDER'], 'images', filename
+            ))
+
+        ''' No more multiple files uploader
         if form.files.data is not None:
-            for f in form.files.data:
-                filename = secure_filename(f.filename)
-                print(f.filename)
-                f.save(os.path.join(
-                    current_app.config['UPLOAD_FOLDER'], 'images', filename
-                ))
-                new_comment_files = FileComment(
-                    comment_id=new_comment.id,
-                    file=filename,
-                    extension=filename.split('.').pop()
-                )
-                db.session.add(new_comment_files)
+            filename = secure_filename(f.filename)
+            print(f.filename)
+            f.save(os.path.join(
+                current_app.config['UPLOAD_FOLDER'], 'images', filename
+            ))
+            new_comment_files = FileComment(
+                comment_id=new_comment.id,
+                file=filename,
+                extension=filename.split('.').pop()
+            )
+            db.session.add(new_comment_files)
 
         db.session.commit()
+        '''
 
         return redirect(
             url_for(

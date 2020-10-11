@@ -7,7 +7,6 @@ from wtforms import (
     PasswordField,
     BooleanField,
     SubmitField,
-    MultipleFileField,
 )
 from wtforms.fields.html5 import EmailField
 from wtforms.validators import (
@@ -20,7 +19,7 @@ from wtforms.validators import (
 from wtforms.widgets import TextArea
 from flask_wtf.file import (
     FileField,
-    # FileRequired,
+    FileRequired,
     FileAllowed,
 )
 from util.validators import Unique
@@ -117,12 +116,14 @@ class UploadForm(FlaskForm):
         [
             InputRequired()
         ],
+        choices=[("", "Elegir categoría")]
     )
     hidden = BooleanField('Hidden?')
     tags = StringField('Tags (separado por espacios)', [InputRequired()])
-    files = MultipleFileField(
-        'File(s)',
+    files = FileField(
+        'Archivo',
         [
+            FileRequired(),
             FileAllowed(
                 [
                     'webm',
@@ -137,13 +138,22 @@ class UploadForm(FlaskForm):
                 jpeg, mp4, webm están permitidos!"""
             )
         ],
-        #widget=FileInput(multiple=True, accept=['image/*'])
+        # widget=FileInput(multiple=True, accept=['image/*'])
     )
     # recaptcha = RecaptchaField("Are you real?")
     submit = SubmitField("Upload")
 
 
 class DeleteForm(FlaskForm):
+    accept = BooleanField(
+        'Estoy seguro que quiero borrar esto',
+        [DataRequired()]
+    )
+    # recaptcha = RecaptchaField()
+    submit = SubmitField("Borrar")
+
+
+class DeleteCommentForm(FlaskForm):
     accept = BooleanField(
         'Estoy seguro que quiero borrar esto',
         [DataRequired()]
@@ -160,10 +170,10 @@ class CommentForm(FlaskForm):
         ],
         widget=TextArea()
     )
-    files = FileField(
+    file = FileField(
         'Archivo',
         [
-            # FileRequired(),
+            FileRequired(),
             FileAllowed(
                 [
                     'webm',
@@ -177,7 +187,8 @@ class CommentForm(FlaskForm):
                 """Sólo archivos jpg, png, gif,
                 jpeg, mp4, webm están permitidos!"""
             )
-        ]
+        ],
+        # widget=FileInput(multiple=True, accept=['image/*'])
     )
     # recaptcha = RecaptchaField()
     submit = SubmitField("Comentar")

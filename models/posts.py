@@ -48,7 +48,6 @@ class Post(db.Model):
     )
     comments = db.relationship(
         "Comment",
-        cascade="all,delete",
         backref="post"
     )
     thanks = db.relationship(
@@ -123,10 +122,11 @@ class Comment(db.Model):
     )
     # Para que pueda acceder a los datos
     # del usuario haciendo comment.user.username
-    user = db.relationship('User', cascade='all, delete')
+    user = db.relationship('User')
     created_date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     comment = db.Column(db.String, nullable=False)
-    files = db.relationship('FileComment', cascade='all, delete')
+    filename = db.Column(db.String)
+    file_ext = db.Column(db.String)
     # Para poder acceder desde la view al subject: category.post.comment
     # post = db.relationship('Post', cascade='all, delete')
 
@@ -149,16 +149,6 @@ class Thank(db.Model):
         db.Integer,
         db.ForeignKey('post.id')
     )
-
-
-class FileComment(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    comment_id = db.Column(
-        db.Integer,
-        db.ForeignKey('comment.id'),
-    )
-    file = db.Column(db.String, nullable=False)
-    extension = db.Column(db.String, nullable=False)
 
 
 class FilePost(db.Model):
