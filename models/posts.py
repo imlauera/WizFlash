@@ -167,5 +167,6 @@ class FilePost(db.Model):
         db.Integer,
         db.ForeignKey('post.id'),
     )
+
     file = db.Column(db.String, nullable=False)
     extension = db.Column(db.String, nullable=False)

@@ -127,8 +127,8 @@ def categories():
 @login_required
 def createcategory():
     form = CreateCategoryForm()
-    print(form.errors)
 
+    # if current_user.admin:
     if form.validate_on_submit():
         new_category = CategoryList(
             name=form.category.data,
@@ -136,6 +136,17 @@ def createcategory():
         db.session.add(new_category)
         db.session.commit()
         return redirect(url_for('routes.index'))
+    '''
+    else:
+        return redirect(
+                    url_for(
+                        'routes.output',
+                        msg="""No podés crear una
+                        categoría porque no sos administrador."""
+                    )
+                )
+    '''
+
     return render_template('user/createcategory.html', form=form)
 
 
