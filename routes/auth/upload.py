@@ -7,6 +7,7 @@ from flask import (
     current_app,
     request
 )
+import strgen
 from forms import (
     UploadForm,
     DeleteForm,
@@ -204,13 +205,31 @@ def upload():
                 )
             )
 
-        # La complejidad de implementar el
-        # MultipleFileField con los validadores
-        # me desmotivaron a usarlo, ahora
-        # sólo voy a permitir un archivo por post.
-        # filename = secure_filename(form.files.data[0].filename)
-
+        # Quiero el nombre del archivo para obtener la extensión,
+        # pero no voy a usar el nombre del archivo para identificarlo
         filename = secure_filename(form.files.data.filename)
+
+        extension = filename.split('.').pop()
+        # Voy a guardar el archivo con un nombre random.
+        filename = strgen.StringGenerator("[\\d\\w]{20}").render()
+        filename += '.'+extension
+
+        print("Vamos a intentar guardarlo \
+              como {}{}".format(filename, extension))
+
+        # Compruebo que no esté usado.
+        name_used = FilePost.query.filter_by(file=filename).first()
+        # Si está usado generá otro hasta que no lo esté.
+        print('Name_used vale %s' % name_used)
+        while (name_used is not None):
+            filename = strgen.StringGenerator(
+                "[\\d\\w]{20}"
+            ).render()
+            filename += '.'+extension
+            name_used = FilePost.query.filter_by(file=filename).first()
+            print("El nombre del archivo estaba \
+                  usado voy a usar este {}\
+                  en su lugar". format(filename))
 
         # Ahora debería guardar el catalogo del negocio en la db
         new_post = Post(
@@ -234,33 +253,15 @@ def upload():
         db.session.add(new_post)
         db.session.commit()
 
-        '''
-        files = form.files.data
-        for f in files:
-
-            filename = secure_filename(f.filename)
-            print(f.filename)
-            f.save(os.path.join(
-                current_app.config['UPLOAD_FOLDER'], 'images', filename
-            ))
-            new_post_files = FilePost(
-                post_id=new_post.id,
-                file=filename,
-                extension=filename.split('.').pop()
-            )
-            db.session.add(new_post_files)
-        '''
-
         file = form.files.data
 
-        filename = secure_filename(file.filename)
         file.save(os.path.join(
             current_app.config['UPLOAD_FOLDER'], 'images', filename
         ))
         new_post_files = FilePost(
             post_id=new_post.id,
             file=filename,
-            extension=filename.split('.').pop()
+            extension=extension
         )
         db.session.add(new_post_files)
         db.session.commit()
@@ -274,7 +275,6 @@ def upload():
         db.session.add(new_post_category)
         db.session.commit()
 
-        print(form.tags.data)
         tags = form.tags.data.split(' ')
         print(tags)
 
