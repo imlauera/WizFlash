@@ -17,23 +17,15 @@ from models import (
 
 from forms import LoginForm, RegisterForm, ResetForm, ProfileForm
 # from util import ts, send_email
-from flask_login import current_user, login_user, logout_user, login_required
+from flask_login import (
+    current_user,
+    login_user,
+    logout_user,
+    login_required
+)
 
 from werkzeug.security import check_password_hash as checkph
 from werkzeug.security import generate_password_hash as genph
-
-
-@routes.route('/register/success')
-def register_success():
-    return """<h3>Ahora estás registrado.</h3>
-            <a href="/index">Home</a>"""
-
-
-@routes.route('/login/success')
-def login_success():
-    return """<h3>Recién ahora se validaron los datos pero
-            todavía no estás logueado, acá tengo
-            que chequear tus credenciales.</h3>"""
 
 
 @routes.route('/user/<username>')

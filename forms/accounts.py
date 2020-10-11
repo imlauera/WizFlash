@@ -173,7 +173,6 @@ class CommentForm(FlaskForm):
     file = FileField(
         'Archivo',
         [
-            FileRequired(),
             FileAllowed(
                 [
                     'webm',

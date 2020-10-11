@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% from "_formhelpers.html" import render_field %}
+
+<h1>{% block title %}Acerca de nosotros{% endblock %}</h1>
+
+{% block content %}
+  <div class="container-fluid">
+    <div style="overflow: hidden;" class="row justify-content-center">
+      <h1>{{msg}}</h1>
+    </div>
+  </div>
+{% endblock %}

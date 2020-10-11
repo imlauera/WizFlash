@@ -1,4 +1,5 @@
 from . import routes
+import bbcode
 from flask import (
     render_template,
     redirect,
@@ -75,9 +76,7 @@ def view(id=None):
         return """<h1>Cuando creaste el post
         pusiste una categoría que ahora no existe.</h1>"""
 
-    if form.validate_on_submit():
-        # Ahora tengo que agregar el comentario a la db.
-
+    if form.validate_on_submit() and current_user.is_anonymous is not True:
         print(form.file.data)
         filename = secure_filename(
             form.file.data.filename
@@ -90,7 +89,7 @@ def view(id=None):
         print("el valor de filename es: {}".format(filename))
         new_comment = Comment(
             post_id=id,
-            comment=form.comment.data,
+            comment=bbcode.render_html(form.comment.data),
             created_date=datetime.datetime.utcnow(),
             user_id=current_user.id,
             filename=filename,
@@ -127,6 +126,12 @@ def view(id=None):
             url_for(
                 'routes.view',
                 id=id
+            )
+        )
+    elif form.validate_on_submit() and current_user.is_anonymous is True:
+        return redirect(
+            url_for(
+                'routes.login',
             )
         )
 
@@ -176,7 +181,10 @@ def faq():
 
 @routes.route('/output/<msg>')
 def output(msg='Hola'):
-    return '<h1>{}</h1>'.format(msg)
+    return render_template(
+        'output.html',
+        msg=msg
+    )
 
 
 @routes.route('/video/id/<videoId>')

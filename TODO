@@ -1,5 +1,6 @@
 El nombre de la página va a ser: fivestrikes.com
 flashlightning
+
 ThunderWisdom
 
 
@@ -139,3 +140,5 @@ Agregar la función de YouTube embed.
 
 Tengo que aprender a migrar la db.
 Sólo se debería poder crear una categoría si sos admin.
+Si el usuario está desconectado, deberían estar desabilitadas los inputs.
+Al borrar un comentario, comprobar quien es el quien lo borra lol.

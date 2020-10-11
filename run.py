@@ -1,8 +1,8 @@
 from flask import Flask
 # A diferencia de (import routes) usando from routes import *
-# podes acceder a las funciones directamente sin el prefijo 
+# podes acceder a las funciones directamente sin el prefijo
 from routes import *
-# Cuando hago esto estoy llamando al archivo __init__ de la 
+# Cuando hago esto estoy llamando al archivo __init__ de la
 # carpeta models
 from models import *
 from auth import *
@@ -25,6 +25,11 @@ db.init_app(app)
 migrate.init_app(app, db)
 app.register_blueprint(routes)
 login_manager.init_app(app)
+
+
+@login_manager.unauthorized_handler
+def unauthorized_callback():
+    return redirect('/login')
 
 
 if __name__ == '__main__':

@@ -1,4 +1,5 @@
 from .. import routes
+import bbcode
 from flask import (
     render_template,
     redirect,
@@ -57,11 +58,12 @@ def thanks_post(id=None):
         ).first()
 
         if thanked is not None:
-            return """
-                <h1>Ya agradeciste este post!</h1>
-                <br/>
-                <a href="/">Volver</a>
-                """
+            return redirect(
+                url_for(
+                    'routes.output',
+                    msg="""Ya agradeciste este post!"""
+                )
+            )
 
         post.total_thanks += 1
         new_thank = Thank(
@@ -195,8 +197,12 @@ def upload():
         # Pensarlo mejor
         c = CategoryList.query.filter_by(name=form.category.data).first()
         if c is None:
-            return """<h1>No existe esa categoría</h1>
-                    <br/><a href="/upload">Volver a intentar</a> """
+            return redirect(
+                url_for(
+                    'routes.output',
+                    msg='No existe esa categoría'
+                )
+            )
 
         # La complejidad de implementar el
         # MultipleFileField con los validadores
@@ -209,7 +215,7 @@ def upload():
         # Ahora debería guardar el catalogo del negocio en la db
         new_post = Post(
             subject=form.subject.data,
-            desc=form.desc.data,
+            desc=bbcode.render_html(form.desc.data),
             autor=current_user.username,
             # Crear el thumbnail pequeño
             thumbnail=filename,
