@@ -5,6 +5,7 @@ from flask import (
     request,
     flash,
 )
+import bbcode
 # from util.security import is_safe_url
 # Con esta linea estoy importando la variable routes de __init__.py
 from . import routes
@@ -31,31 +32,22 @@ from werkzeug.security import generate_password_hash as genph
 @routes.route('/user/<username>')
 def show_user(username):
     user = User.query.filter_by(username=username).first_or_404()
-    return render_template('user/show_user.html', user=user)
+    return render_template('user/show_user.html', user=user, bbcode=bbcode)
 
 
 @routes.route('/register/', methods=['GET', 'POST'])
 def register():
     form = RegisterForm()
-    print(form.errors)
-
-    print(form.errors)
 
     if form.validate_on_submit():
         # No los puedo subir si están duplicados.
         user = User(
             username=form.username.data,
             hash_password=genph(form.password.data),
-            karma=0,
-            posts=0,
-            email=form.email.data,
-            email_confirmed=False,
             desc="Este usuario aún no ha modificado su descripción.",
-            banned=False,
             # date.today().isoformat()
             # created_date = date.today(),
-            created_date=datetime.datetime.utcnow(),
-            admin=False
+            created_date=datetime.datetime.utcnow()
         )
         db.session.add(user)
         db.session.commit()
@@ -134,10 +126,14 @@ def reset():
     # print(form.validate_on_submit())
     if form.validate_on_submit():
         print('Estoy acá2')
-        return """<h4>Por el momento el recover password
-            no esta implementado y no creo que
-            lo este en por un tiempo largo</h4>"""
-
+        return redirect(
+                url_for(
+                    'routes.output',
+                    msg="<h4>Por el momento el sistema de recuperación de \
+                    contraseña no esta implementado y no creo que \
+                    lo este en por un tiempo largo</h4>"
+                )
+        )
     return render_template('auth/reset.html', form=form)
 
 
@@ -147,16 +143,24 @@ def settings():
     return redirect(url_for('routes.profile'))
 
 
-@routes.route("/settings/profile", methods=['GET'])
+@routes.route("/settings/profile", methods=['GET', 'POST'])
 @login_required
 def profile():
     form = ProfileForm()
+
+    print(form.errors)
+    if form.validate_on_submit():
+        user = User.query.get(current_user.id)
+
+        print(form.desc.data)
+        user.email = form.email.data
+        user.desc = form.desc.data
+
+        db.session.commit()
+
     form.username.data = current_user.username
     form.email.data = current_user.email
     form.desc.data = current_user.desc
-    print(form.errors)
-    if form.validate_on_submit():
-        return '<h4>Aún no implementado</h4>'
 
     return render_template('user/profile.html', form=form)
 

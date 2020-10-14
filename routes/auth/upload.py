@@ -1,5 +1,4 @@
 from .. import routes
-import bbcode
 from flask import (
     render_template,
     redirect,
@@ -234,8 +233,7 @@ def upload():
         # Ahora debería guardar el catalogo del negocio en la db
         new_post = Post(
             subject=form.subject.data,
-            desc=bbcode.render_html(form.desc.data),
-            autor=current_user.username,
+            desc=form.desc.data,
             # Crear el thumbnail pequeño
             thumbnail=filename,
             thumbnail_max=filename,
@@ -246,10 +244,6 @@ def upload():
             total_thanks=0,
             hidden=False,
         )
-        # Ahora tengo que subir la cantidad de posteos del usuario.
-        user = User.query.get(current_user.id)
-        user.posts += 1
-
         db.session.add(new_post)
         db.session.commit()
 

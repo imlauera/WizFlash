@@ -17,7 +17,6 @@ ahora a medida que vayas subiendo archivos que te aparezcan más inputs) permiti
 [x] Implementar login del usuario con flask login maybe https://flask-login.readthedocs.io/en/latest/
 [x] Comprobar si el usuario está logueado
 [~] Para contar las vistas que tienen y lo reciente que es el post agregar esos campos a la db.
-Cambiar id_post por post_id
 [~] Dividir cada tema/post por categorias, para ello hacer una tabla de categorías. 
 [-] Que cada post tenga agradecimientos
 [-] No va a ser anonímo pero tampoco vamos a solicitar el correo, es mejor ahora que lo pienso.
@@ -42,11 +41,11 @@ defecto están ocultos.
 [-] Agregar mensajes globales (cobrar 50 pe por esto)
 [x] Hacer la parte de support me (actualmente dice pricing)
 [-] Upload de audios, archivos, fotos.
-[-] Agregar tabla de comments
-[-] Cambiar /services a /help
+[x] Agregar tabla de comments
+[x] Cambiar /services a /help
 [x] No pedir el correo en el registro y cambiar lo del login
-[-] Cambiar redirect a index cuando subís algo
-[-] Implementar /users/ route
+[x] Cambiar redirect a la view cuando subís algo
+[x] Implementar /user/ route
 
 La parte de likes sólo se debería poder votar una sóla vez (para esto hay que crear otra tabla sólo de likes).
 La tabla debería ser algo como
@@ -142,3 +141,17 @@ Tengo que aprender a migrar la db.
 Sólo se debería poder crear una categoría si sos admin.
 Si el usuario está desconectado, deberían estar desabilitadas los inputs.
 Al borrar un comentario, comprobar quien es el quien lo borra lol.
+Agrgar mensaje de validación cuando el logueo es incorrecto.
+Agregar pasar esto a una función
+        filename = secure_filename(form.files.data.filename)
+
+        extension = filename.split('.').pop()
+        # Voy a guardar el archivo con un nombre random.
+        filename = strgen.StringGenerator("[\\d\\w]{20}").render()
+        filename += '.'+extension
+
+        print("Vamos a intentar guardarlo \
+              como {}{}".format(filename, extension))
+
+Hacer todo anónimo, el registro solo debería servir para no hacer catpchas.
+Si usás bootstrap usá las librerías localmenten no con cdn.

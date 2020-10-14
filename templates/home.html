@@ -3,49 +3,42 @@
 
 
 {% block content %}
-      <div class="container-fluid">
-        <div class="webs-catalog">
-            <ol> 
-              <h4>Recientes
-               <a style="float: right;" class="nav-link btn btn-cyan-dark" href="{% if not current_user.is_authenticated %}/login{%else%}/upload{% endif %}"><i class="fas fa-plus"></i></a>
-              </h4>
-              <h4>
-                <select onchange="location=this.value;">
-                    <option selected disabled>Elegir categoría</option>
-                    {% for category in lista_categorias %}
-                    <option value="/category/{{category.name}}">{{category.name}}</option>
-                    {% endfor %}
-                </select>
-              </h4>
-							{% for post in posts %}
-							<li>
-                <a href="/view/{{post.id}}">{{post.subject}}</a><br/>
-              </li>
-							{% else %}
-								<h3>Nada por acá<h3>
-							{% endfor %}
-						</ol>
-						<ol>
-						<h3>Más vistos</h3>
-						{% for destacado in destacados %}
-						<li>
-              <a href="/view/{{destacado.id}}">{{destacado.subject}} ({{destacado.total_thanks}})</a><br/>
-              {{destacado.desc[:50]}}...<br/>
-              Fecha creación: {{ destacado.created_date.strftime("%m/%d/%Y, %H:%M:%S") }} </li>
-						{% else %}
-							<h3>Nada por acá<h3>
-						{% endfor %}
-						</ol>
-        </div>
-            <h3>Top Usuarios</h3>
-						<ol>
-              {% for user in users %}
-              <li><a href="/user/{{user.username}}">{{user.username}}</a><br/>
-                Agradecimientos: {{user.karma}}<br/>
-              </li>
-              {% else %}
-                <h3>Nada por acá<h3>
-              {% endfor %}
-						</ol>
-                <!-- Más información después de la lista de creadores -->
+		<div class="container">
+		<h3>
+			<select onchange="location=this.value;" class="form-control">
+					<option selected disabled>Elegir categoría</option>
+					{% for category in lista_categorias %}
+					<option value="/category/{{category.name}}">{{category.name}}</option>
+					{% endfor %}
+			</select>
+		</h3>
+    <!-- Content Row -->
+    <div class="row">
+			<div class="card border-primary mb-3" style="max-width: 18rem;">
+				<div class="card-header">Header</div>
+				<div class="card-body text-primary">
+					<h5 class="card-title">Primary card title</h5>
+					<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+				</div>
+			</div>
+			{% for post in posts %}
+				<div class="col-md-4 mb-5">
+					<div class="card h-100">
+						<div class="card-body">
+							<h2 class="card-title">{{post.subject}}</h2>
+							<img width=80 src="{{url_for('static', filename='user_data/images/')}}{{post.thumbnail}}"/>
+							<span class="card-text" style="float: right;">{{post.desc[:50]}}</span>
+
+						</div>
+						<div class="card-footer">
+							<a href="/view/{{post.id}}" class="btn btn-primary btn-sm">View</a>
+							<span style="float: right;">Vistas: {{post.views}}</span>
+						</div>
+					</div>
+				</div>
+			{% else %}
+				<h3>Nada por acá<h3>
+			{% endfor %}
+    </div>
+    <!-- /.row -->
 {% endblock %}

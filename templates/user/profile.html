@@ -8,11 +8,16 @@
           <div class="row justify-content-center" style="padding: 0px;">
               <div class="col-lg-10" style="">
 								<h2>Mi Perfil</h2>
+                <h5>
+                  <a href="/user/{{current_user.username}}">VER PERFIL</a>  |
+                  <a href="/reset">CAMBIAR CONTRASEÑA</a>
+                </h5>
+
 								<hr>
 								<form method="post">
                   <dl>
                     {{ form.username.label }}
-                    {{ render_field(form.username, class='form-control', disabled=true, placeholder='Username', ) }}
+                    {{ render_field(form.username, class='form-control', disabled=true, placeholder='Username') }}
                     {{ form.email.label }}
 										{{ render_field(form.email, class='form-control', placeholder='Email') }}
                     {{ form.desc.label }}
@@ -21,7 +26,6 @@
                   <div class="text-center">
                     {{ render_field(form.csrf_token) }}
                   </div>
-									{{ render_field(form.recaptcha) }} 
                   {{ render_field(form.submit, class='btn btn-primary btn-lg btn-block') }}
 								</form>
               </div>

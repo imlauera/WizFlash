@@ -1,5 +1,5 @@
 /* Toggle Styles */
-body { background-color: #e2e4e6!important;}
+body { background-color: #000!important;}
 
 #wrapper {
     padding-left: 0;
@@ -23,7 +23,7 @@ text-align: justify; text-justify: inter-word; }
     left: 250px;
     width: 0;
     height: 100%;
-    background: #f9f9f9;
+    background: #000;
     margin-left: -250px;
     overflow-y: auto;
     -webkit-transition: all 0.5s ease;
@@ -40,10 +40,6 @@ text-align: justify; text-justify: inter-word; }
     width: 100%;
     position: absolute;
     padding: 15px;
-}
-
-.light {
-  background-color: #f1f1f1;
 }
 
 
@@ -179,139 +175,23 @@ pre{
 .btn-cyan-dark:focus {background: lightblue; color:#000!important;}
 
 /* Esta técnica es buenisima para cambiar el theme */
-.dark  { background: #000!important; color: red;}
-.dark input { background-color: #000!important; color: white!important; }
-.dark input:focus { background-color: red!important; color: black!important; }
-.dark select { background-color: #000!important; color: white!important; }
-.dark textarea { background-color: #000!important; color: white!important; }
-.dark #page-content-wrapper { background-color: #000!important; color: white; }
-.dark .card-body { background-color: #000!important; color: white!important; }
-.dark #navbar { background-color: #000!important; color: white!important; }
-.dark #navbar .nav-item a:hover { background-color: red; color: #f1f1f1!important; }
-.dark #navbar .dropdown {list-style: none; background-color: black; display: inline-block; }
-.dark #navbar .dropdown .nav-link {color:#fff; text-decoration: none;}
-.dark #navbar .dropdown .dropdown-menu {color: #fff; background-color: black; text-decoration: none; border: 1px solid red;}
-.dark #navbar .dropdown .dropdown-menu .dropdown-divider{ border-color: red; }
-.dark #navbar .dropdown .dropdown-menu a{color: #fff; background-color: black; text-decoration: none;}
-.dark #navbar .dropdown .btn {background: black; color:#fff;}
-.dark #navbar .dropdown .btn:hover {background: red; color:#f1f1f1!important;}
-.dark #navbar .dropdown .btn:active {background: red; color:#f1f1f1!important;}
-.dark #navbar .dropdown .btn:focus {background: red; color:#f1f1f1!important;}
-.dark #navbar .dropdown-menu .dropdown-item {display: inline-block;  width: 100%;}
-.dark #navbar .dropdown-menu .dropdown-item:hover { background: red; color: #f1f1f1!important; display: inline-block;  width: 100%;}
-
-.dark #navbar .nav-item .nav-link { color:#fff!important; }
-
-.dark #navbar .nav-item .btn:hover {background: red; color:#f1f1f1!important;}
-.dark #navbar .nav-item .btn:active {background: red; color:#f1f1f1!important;}
-.dark #navbar .nav-item .btn:focus {background: red; color:#f1f1f1!important;}
-
-.dark #navbar .container .dropdown .dropdown-menu a:hover { color: #fff; background-color: #b91773; border-color: #fff; }
-.dark #myTab .nav-item  .active { color: #fff!important; background-color: #000!important; border-color: #fff; }
-.dark #myTab .nav-item .nav-link { color: #555; background-color: #000!important; border-color: #fff; }
-.dark #myTab .nav-tabs .nav-item .nav-link:hover { color: #fff; background-color: #b91773; border-color: #fff; }
-
-.dark footer { background-color: #000!important; color: white!important; }
-.dark .emp-profile{
-    padding: 3%;
-    margin-top: 3%;
-    margin-bottom: 3%;
-    border-radius: 0.5rem;
-    background: #000;
-}
-.dark .profile-img{ text-align: center; }
-.dark .profile-img img{ width: 70%; height: 100%; }
-.dark .profile-img .file {
-    position: relative;
-    overflow: hidden;
-    margin-top: -20%;
-    width: 70%;
-    border: none;
-    border-radius: 0;
-    font-size: 15px;
-    background: #000;
-}
-.dark .profile-img .file input {
-    position: absolute;
-    opacity: 0;
-    right: 0;
-    top: 0;
-}
-.dark .profile-head h5{ color: #333; }
-.dark .profile-head h6{ color: #0062cc; }
-.dark .profile-edit-btn{
-    border: none;
-    border-radius: 1.5rem;
-    width: 70%;
-    padding: 2%;
-    font-weight: 600;
-    color: #6c757d;
-    cursor: pointer;
-}
-
-.dark .proile-rating{ font-size: 12px; color: #818182; margin-top: 5%; }
-.dark .proile-rating span{ color: #495057; font-size: 15px; font-weight: 600; }
-
-.dark .profile-head .nav-tabs{ margin-bottom:5%; }
-.dark .profile-head .nav-tabs .nav-link{ font-weight:600; border: none; }
-.dark .profile-head .nav-tabs .nav-link.active{ border: none; border-bottom:2px solid #0062cc; }
-.dark .profile-work{ padding: 14%; margin-top: -15%; }
-.dark .profile-work p{
-    font-size: 12px;
-    color: #818182;
-    font-weight: 600;
-    margin-top: 10%;
-}
-.dark .profile-work a{
-    text-decoration: none;
-    color: #495057;
-    font-weight: 600;
-    font-size: 14px;
-}
-.dark .profile-work ul{ list-style: none; }
-.dark .profile-tab label{ font-weight: 600; }
-.dark .profile-tab p{ font-weight: 600; color: #0062cc; }
-
-/* HelpMe Page */
-.dark .container { max-width: 1200px; }
-.dark .pricing-header { max-width: 700px; }
-.dark .card-header { background-color: #000; }
-.dark .card-deck .card { border: 1px solid #222; min-width: 220px;}
-.dark .card-img-top { background-color: #000;}
-.dark .border-top { border-top: 1px solid #333; }
-.dark .border-bottom { border-bottom: 1px solid #333; }
-.dark .box-shadow { box-shadow: 0 .25rem .75rem rgba(255, 255, 255, .05); }
-.dark .webs-catalog > div {
-    border: 2px solid #222;
-    color: black;
-}
-.dark .webs-catalog > div:hover {
-    border: 2px solid #888;
-    color: black;
-}
-.dark pre { color: white;}
-
-/* Después de esto sólo tenés que agrgar un toggleClass a html llamando a esta clase:
-Ejemplo: $("html").toggleClass("dark"); */
-
-.dark h5 { color: #999; }
-.dark ol {
-  border: 1px solid #2d2a2d;
-}
-.dark ol p { color: #eee; }
-.dark ol li a{
-  background-color: #2d2a2d;
-  color: #32c1f1;
-}
-.dark ol li:hover a {
-  color: lightblue;
-  font-weight: bold;
-}
-
-.dark #sidebar-wrapper {
-  background-color: #111;
-}
-.tags { border: 1px solid black; }
-.dark .tags { background-color: #444; color: lightblue; }
-.dark .sidebar-nav > .sidebar-brand a:hover { color: #fff; }
-.dark a { color: #b19cd9; }
+ { background: #000!important; color: red;}
+input { background-color: #000!important; color: white!important; }
+input:focus { background-color: red!important; color: black!important; }
+select { background-color: #000!important; color: white!important; }
+textarea { background-color: #000!important; color: white!important; }
+#page-content-wrapper { background-color: #000!important; color: white; }
+.card-body { background-color: #000!important; color: white!important; }
+#navbar { background-color: #000!important; color: white!important; }
+#navbar .nav-item a:hover { background-color: red; color: #f1f1f1!important; }
+#navbar .dropdown {list-style: none; background-color: black; display: inline-block; }
+#navbar .dropdown .nav-link {color:#fff; text-decoration: none;}
+#navbar .dropdown .dropdown-menu {color: #fff; background-color: black; text-decoration: none; border: 1px solid red;}
+#navbar .dropdown .dropdown-menu .dropdown-divider{ border-color: red; }
+#navbar .dropdown .dropdown-menu a{color: #fff; background-color: black; text-decoration: none;}
+#navbar .dropdown .btn {background: black; color:#fff;}
+#navbar .dropdown .btn:hover {background: red; color:#f1f1f1!important;}
+#navbar .dropdown .btn:active {background: red; color:#f1f1f1!important;}
+#navbar .dropdown .btn:focus {background: red; color:#f1f1f1!important;}
+#navbar .dropdown-menu .dropdown-item {display: inline-block;  width: 100%;}
+#navbar .dropdown-menu .dropdown-item:hover { background: red; color: #f1f1f1!important; display: inline-block;  width: 100%;}

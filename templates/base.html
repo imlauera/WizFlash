@@ -1,5 +1,5 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="es">
 <head>
   <link rel="shortcut icon" href="{{ url_for('static', filename='images/thunder.ico') }}" type="image/x-icon">
   <title>{% block title %}{% endblock %} - FlashLightning</title>
@@ -73,6 +73,7 @@
                 </li>-->
 								<li class="nav-item ">
 									<a class="nav-link" href="/categories">Categorias </a>
+				</select>
 								</li>
             </ul>
 						<ul class="nav navbar-nav navbar-center">
@@ -85,6 +86,11 @@
 							</form>
 						</ul>
 						<ul class="navbar-nav navbar-right ml-auto">
+              <li class="nav-item ">
+                <a class="nav-link" href="{% if not current_user.is_authenticated %}/login{%else%}/upload{% endif %}">
+                  <i class="fas fa-plus"></i>
+                </a>
+              </li>
 							<li class="nav-item dropdown {% if nbar in ('action1','action2','action3') %}active{% endif %}">
 									<a class="nav-link dropdown-toggle btn " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {% if current_user.is_authenticated %}

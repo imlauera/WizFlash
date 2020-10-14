@@ -9,12 +9,16 @@
             <h6>Volver al índice</h6>
         </div></a>
     </div>
-    <img class="rounded-circle mt-4" src="https://i.pinimg.com/280x280_RS/fb/f8/83/fbf8832e469d9837f08025052e8a8d85.jpg" width="90">
+    {% if current_user.profile_user == 'default' %}
+      <img class="rounded-circle mt-4" src="https://i.pinimg.com/280x280_RS/fb/f8/83/fbf8832e469d9837f08025052e8a8d85.jpg" width="90">
+    {% else %}
+    <img class="rounded-circle mt-4" src="{{user.profile_img}}" width="90">
+    {% endif %}
     <a href="/thanks/user/{{user.id}}">AGRADECER</a> |
     <a href="/report/user/{{user.id}}">REPORTAR</a>
     <br/> <br/>
       <p><b>Username</b>: {{user.username}}</p>
-      <p><b>Descripción</b>: {{user.desc}}</p>
+      <p><b>Descripción</b>: {{bbcode.render_html(user.desc)|safe}}</p>
       <p><b>Número publicaciones</b>: {{user.posts}}</p>
       <p><b>¿Es administrador?</b> {% if user.admin %}Sí{%else%}No{%endif%}</p>
       <p><b>Agradecimientos</b>: {{user.karma}}</p>

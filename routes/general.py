@@ -1,5 +1,4 @@
 from . import routes
-import bbcode
 from flask import (
     render_template,
     redirect,
@@ -10,7 +9,6 @@ from forms import ContactForm, CommentForm
 from models import (
     db,
     Post,
-    User,
     CategoryList,
     Category,
     Comment,
@@ -22,6 +20,7 @@ from werkzeug.utils import secure_filename
 from flask_login import (
     current_user,
 )
+import bbcode
 
 
 @routes.route('/')
@@ -30,14 +29,12 @@ def index():
     # Orden descending
     posts = Post.query.order_by(Post.created_date.desc()).limit(25)
     destacados = Post.query.order_by(Post.views.desc()).limit(10)
-    users_best_reputation = User.query.order_by(User.karma.desc()).limit(10)
     lista_categorias = CategoryList.query.all()
     return render_template(
         'home.html',
         sidebar='catalog',
         posts=posts,
         destacados=destacados,
-        users=users_best_reputation,
         lista_categorias=lista_categorias
     )
 
@@ -73,8 +70,13 @@ def view(id=None):
 
     category = Category.query.filter_by(post_id=id).first()
     if category is None:
-        return """<h1>Cuando creaste el post
-        pusiste una categoría que ahora no existe.</h1>"""
+        return redirect(
+            url_for(
+                'routes.output',
+                msg="<h1>Cuando creaste el post \
+                pusiste una categoría que ahora no existe.</h1>"
+            )
+        )
 
     if form.validate_on_submit() and current_user.is_anonymous is not True:
         print(form.file.data)
@@ -89,9 +91,9 @@ def view(id=None):
         print("el valor de filename es: {}".format(filename))
         new_comment = Comment(
             post_id=id,
-            comment=bbcode.render_html(form.comment.data),
+            comment=form.comment.data,
+            subject=form.subject.data,
             created_date=datetime.datetime.utcnow(),
-            user_id=current_user.id,
             filename=filename,
             file_ext=filename.split('.').pop(),
         )
@@ -105,33 +107,10 @@ def view(id=None):
                 current_app.config['UPLOAD_FOLDER'], 'images', filename
             ))
 
-        ''' No more multiple files uploader
-        if form.files.data is not None:
-            filename = secure_filename(f.filename)
-            print(f.filename)
-            f.save(os.path.join(
-                current_app.config['UPLOAD_FOLDER'], 'images', filename
-            ))
-            new_comment_files = FileComment(
-                comment_id=new_comment.id,
-                file=filename,
-                extension=filename.split('.').pop()
-            )
-            db.session.add(new_comment_files)
-
-        db.session.commit()
-        '''
-
         return redirect(
             url_for(
                 'routes.view',
                 id=id
-            )
-        )
-    elif form.validate_on_submit() and current_user.is_anonymous is True:
-        return redirect(
-            url_for(
-                'routes.login',
             )
         )
 
@@ -140,6 +119,7 @@ def view(id=None):
             post=post,
             category=category.category.name,
             form=form,
+            bbcode=bbcode,
             comments=comments
     )
 

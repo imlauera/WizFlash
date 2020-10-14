@@ -9,13 +9,16 @@
         <h3>Comentar</h3>
         <form method="post" enctype="multipart/form-data">
           {{ render_field(form.file, class='form-control') }}
+          {{ render_field(form.subject, class='form-control', placeholder='Título') }}
           {{ render_field(form.comment, class='form-control', placeholder='Comentario') }}
+          {{ render_field(form.subject, class='form-control', placeholder='Password') }}
           {{ render_field(form.csrf_token) }}
           {{ render_field(form.submit, class='form-control btn btn-danger') }}
         </form>
     </div>
     <hr/>
     <a href="/"><b>VOLVER</b></a> | 
+    <a href="/view/{{post.id+1}}"><b>SIGUIENTE</b></a> |
     <a href="/thanks/post/{{post.id}}"><b>AGRADECER</b></a> |
     <a href="/delete/post/{{post.id}}"><b>BORRAR</b></a> 
     <h1>{{post.subject}}</h1>
@@ -36,7 +39,7 @@
           {% endif %}
         {% endfor %}
       <div class="d-flex justify-content-between ">
-        <p>{{post.desc|safe}}</p>
+        <p>{{bbcode.render_html(post.desc)|safe}}</p>
         <!-- Tengo que detectar la extensión para saber si muestro un video o una imágen -->
       </div>
       <b>{{post.total_thanks}} agradecimiento(s)</b><br/>
@@ -48,7 +51,7 @@
       <hr/>
       {% for c in comments %}
         <div style="box-shadow: 3px 3px solid lightblue; margin-bottom: 15px; padding: 30px; width: 80%; background-color: #222;">
-          <a href="/user/{{ c.user.username }}">{{c.user.username}}</a> {{c.created_date.strftime("%d/%m/%y (%A) %H:%M:%S")}} No. <a href="#" onclick="javascript:alert('esto va a servir para citar a alguien')">{{c.id}}</a> | <a href="/delete/comment/{{c.id}}?id={{post.id}}">X</a><br/>
+          <a href="#">Anon</a> {{c.created_date.strftime("%d/%m/%y (%A) %H:%M:%S")}} No. <a href="#" onclick="javascript:alert('esto va a servir para citar a alguien')">{{c.id}}</a> | <a href="/delete/comment/{{c.id}}?id={{post.id}}">X</a><br/>
           {% if c.file_ext in ('jpg', 'gif', 'jpeg', 'png') %}
             <a target="_blank" href="{{ url_for ('static', filename='user_data/images/')}}{{c.filename}}">
               <img height=100 src="{{ url_for ('static', filename='user_data/images/')}}{{c.filename}}"/>
@@ -59,7 +62,7 @@
             </a>
           {% endif %}
           <br/>
-          {{  c.comment|safe }}<br/>
+          {{  bbcode.render_html(c.comment)|safe }}<br/>
         </div>
           {% else %}
           <p>Todavía no hay comentarios.</p>

@@ -28,7 +28,6 @@ class Tag (db.Model):
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     subject = db.Column(db.String, nullable=False)
-    autor = db.Column(db.String, nullable=False)
     desc = db.Column(db.String, nullable=True)
     views = db.Column(db.Integer, nullable=True)
     hidden = db.Column(db.Integer, nullable=True)
@@ -116,13 +115,9 @@ class Comment(db.Model):
             db.Integer,
             db.ForeignKey(Post.id)
     )
-    user_id = db.Column(
-            db.Integer,
-            db.ForeignKey(User.id)
-    )
     # Para que pueda acceder a los datos
     # del usuario haciendo comment.user.username
-    user = db.relationship('User')
+    subject = db.Column(db.Integer, nullable=True)
     created_date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     comment = db.Column(db.String, nullable=False)
     filename = db.Column(db.String)

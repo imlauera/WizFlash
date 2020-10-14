@@ -65,17 +65,6 @@ class RegisterForm(FlaskForm):
             )
         ]
     )
-    email = EmailField(
-        "Email",
-        validators=[
-            InputRequired("Please enter your email address."),
-            Email("This field requires a valid email address"),
-            Unique(
-                User, User.email,
-                message='There is already an account with that email.'
-            )
-        ]
-    )
     password = PasswordField('New Password', [
       DataRequired(),
       EqualTo('confirm', message='Passwords must match')
@@ -163,6 +152,9 @@ class DeleteCommentForm(FlaskForm):
 
 
 class CommentForm(FlaskForm):
+    subject = StringField(
+        'Título'
+    )
     comment = StringField(
         'Comentario',
         validators=[
@@ -195,11 +187,7 @@ class CommentForm(FlaskForm):
 
 class ProfileForm(FlaskForm):
     username = StringField(
-        'Username',
-        [
-            InputRequired("Please enter the subject"),
-            Length(min=4, max=25)
-        ]
+        'Username'
     )
     email = EmailField(
         "Email",
@@ -212,11 +200,11 @@ class ProfileForm(FlaskForm):
         # Validators
         validators=[
             InputRequired("Please enter your message here"),
-            Length(min=125)
+            Length(min=5)
         ],
         widget=TextArea()
     )
-    recaptcha = RecaptchaField()
+    # recaptcha = RecaptchaField()
     submit = SubmitField("Go")
 
 
