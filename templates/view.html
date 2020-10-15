@@ -4,24 +4,10 @@
 <h1>{% block title %}{{post.subject}}{% endblock %}</h1>
 
 {% block content %}
-  <div class="container-fluid">
-    <div class="mx-auto" style="width: 40%;">
-        <h3>Comentar</h3>
-        <form method="post" enctype="multipart/form-data">
-          {{ render_field(form.file, class='form-control') }}
-          {{ render_field(form.subject, class='form-control', placeholder='Título') }}
-          {{ render_field(form.comment, class='form-control', placeholder='Comentario') }}
-          {{ render_field(form.subject, class='form-control', placeholder='Password') }}
-          {{ render_field(form.csrf_token) }}
-          {{ render_field(form.submit, class='form-control btn btn-danger') }}
-        </form>
-    </div>
-    <hr/>
-    <a href="/"><b>VOLVER</b></a> | 
-    <a href="/view/{{post.id+1}}"><b>SIGUIENTE</b></a> |
-    <a href="/thanks/post/{{post.id}}"><b>AGRADECER</b></a> |
+  <div class="container">
+    <a href="javascript:history.back()"><b>VOLVER</b></a> | 
     <a href="/delete/post/{{post.id}}"><b>BORRAR</b></a> 
-    <h1>{{post.subject}}</h1>
+    <h3>{{post.subject}}</h3>
     <h5>Autor: <a href="/user/{{post.autor}}">{{post.autor}}</a></h5>
     <h5>Vistas: {{post.views}}</h5>
     <h5>Fecha Creación: {{post.created_date.isoformat()}}</h5>
@@ -30,40 +16,58 @@
           <!-- Chequear la extensión primero antes de mostrar img -->
           {% if img.extension in ('jpg', 'gif', 'jpeg', 'png') %}
             <a target="_blank" href="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}">
-              <img height=100 src="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}"/>
+              <img height=350 src="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}"/>
             </a>
           {% elif img.extension in ('webm', 'mp4') %}
-            <a target="_blank" href="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}">
-              <video height=100 src="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}"/>
-            </a>
+            <video height=350 src="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}" controls/>
+              Your browser does not support the video tag.
+            </video>
           {% endif %}
         {% endfor %}
       <div class="d-flex justify-content-between ">
         <p>{{bbcode.render_html(post.desc)|safe}}</p>
         <!-- Tengo que detectar la extensión para saber si muestro un video o una imágen -->
       </div>
-      <b>{{post.total_thanks}} agradecimiento(s)</b><br/>
       <b>Category:</b> {{category}}<br/>
       <b>Tags:</b> 
       {% for tag in post.tags %}
         <span class="tags">{{tag.tag_name}}</span>
       {% endfor %}
       <hr/>
+      <div class="container w-50">
+          <p class="lead text-center">Comentar</p>
+          <form method="post" enctype="multipart/form-data">
+            {{ render_field(form.file, class='form-control') }}
+            <div class="form-row">
+              <div class="col-sm-10 my-1">
+                {{ render_field(form.subject, class='form-control', placeholder='Título') }}
+              </div>
+              <div class="col-sm-2 my-1">
+                {{ render_field(form.submit, class='btn form-control btn-sm btn-dark') }}
+              </div>
+            </div>
+            {{ render_field(form.comment, class='form-control', placeholder='Comentario') }}
+            {{ render_field(form.password, class='form-control', placeholder='Contraseña (se usa para borrar un comentario)') }}
+            {{ render_field(form.csrf_token) }}
+          </form>
+      </div>
+      <hr/>
       {% for c in comments %}
-        <div style="box-shadow: 3px 3px solid lightblue; margin-bottom: 15px; padding: 30px; width: 80%; background-color: #222;">
-          <a href="#">Anon</a> {{c.created_date.strftime("%d/%m/%y (%A) %H:%M:%S")}} No. <a href="#" onclick="javascript:alert('esto va a servir para citar a alguien')">{{c.id}}</a> | <a href="/delete/comment/{{c.id}}?id={{post.id}}">X</a><br/>
+        <div id="{{c.id}}">
+          <strong>Anon</strong> Title: <strong class="text-primary">{{c.subject}}</strong> {{c.created_date.strftime("%d/%m/%y (%A) %H:%M:%S")}} No. <a href="#" onclick="javascript:alert('esto va a servir para citar a alguien')">{{c.id}}</a> | <a href="/delete/comment/{{c.id}}?id={{post.id}}">X</a><br/>
           {% if c.file_ext in ('jpg', 'gif', 'jpeg', 'png') %}
             <a target="_blank" href="{{ url_for ('static', filename='user_data/images/')}}{{c.filename}}">
-              <img height=100 src="{{ url_for ('static', filename='user_data/images/')}}{{c.filename}}"/>
+              <img height=200 style="padding: 5px; border: 2px solid #a8c4e3; border-radius: 5px;" src="{{ url_for ('static', filename='user_data/images/')}}{{c.filename}}"/>
             </a>
           {% elif c.file_ext in ('webm', 'mp4') %}
-            <a target="_blank" href="{{ url_for ('static', filename='user_data/images/')}}{{c.filename}}">
-              <video height=100 src="{{ url_for ('static', filename='user_data/images/')}}{{c.filename}}"/>
-            </a>
+              <video height=200 src="{{ url_for ('static', filename='user_data/images/')}}{{c.filename}}" controls/>
+                Your browser does not support the video tag.
+              </video>
           {% endif %}
           <br/>
           {{  bbcode.render_html(c.comment)|safe }}<br/>
         </div>
+        <hr/>
           {% else %}
           <p>Todavía no hay comentarios.</p>
       {% endfor %}

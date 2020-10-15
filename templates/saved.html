@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+<h1>{% block title %}Inicio{% endblock %}</h1>
+
+
+{% block content %}
+		<div class="container">
+		<h3>
+			<select onchange="location=this.value;" class="form-control">
+					<option selected disabled>Elegir categoría</option>
+					{% for category in lista_categorias %}
+					<option value="/category/{{category.name}}">{{category.name}}</option>
+					{% endfor %}
+			</select>
+		</h3>
+    <!-- Content Row -->
+    <div class="row">
+			{% for post in posts %}
+				<div class="col-md-4 mb-5">
+					<div class="card h-100">
+						<div class="card-body">
+							<h2 class="card-title">{{post.subject}}</h2>
+							<img width=80 src="{{url_for('static', filename='user_data/images/')}}{{post.thumbnail}}"/>
+							<span class="card-text" style="float: right;">{{post.desc[:50]}}</span>
+
+						</div>
+						<div class="card-footer">
+							<a href="/view/{{post.id}}" class="btn btn-primary btn-sm">View</a>
+							<span style="float: right;">Vistas: {{post.views}}</span>
+						</div>
+					</div>
+				</div>
+			{% else %}
+				<h3>Nada por acá<h3>
+			{% endfor %}
+    </div>
+    <!-- /.row -->
+{% endblock %}

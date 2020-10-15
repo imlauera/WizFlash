@@ -102,6 +102,7 @@ class Category(db.Model):
     # Me obliga a usar esto para definir bien la relación
     category = db.relationship('CategoryList', backref='categories')
     # Igual necesito establecer esta relación aunque no la use.
+    # Esto está mal hecho en realidad deberías agregar el post_id con append
     category_name = db.Column(db.String, db.ForeignKey(CategoryList.name))
 
     # Para poder acceder desde la view al subject: category.post.subject
@@ -119,6 +120,7 @@ class Comment(db.Model):
     # del usuario haciendo comment.user.username
     subject = db.Column(db.Integer, nullable=True)
     created_date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    password = db.Column(db.String, nullable=False)
     comment = db.Column(db.String, nullable=False)
     filename = db.Column(db.String)
     file_ext = db.Column(db.String)

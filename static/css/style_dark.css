@@ -1,0 +1,20 @@
+.webs-catalog {
+  padding: 15px;
+  border-radius: 5px;
+  display: grid;
+  /* 
+    El auto-fit estira el elemento a la resolución del monitor,
+    el auto-fill al igual que el auto-fit hace que entre más elementos en la misma fila pero no los estira
+  */
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  grid-gap: 20px;
+}
+.webs-catalog > div {
+    border: 2px solid #eee;
+    color: black;
+}
+.webs-catalog > div:hover {
+    border: 2px solid #999;
+    color: black;
+}
+

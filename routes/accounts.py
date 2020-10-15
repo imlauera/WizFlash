@@ -44,7 +44,6 @@ def register():
         user = User(
             username=form.username.data,
             hash_password=genph(form.password.data),
-            desc="Este usuario aún no ha modificado su descripción.",
             # date.today().isoformat()
             # created_date = date.today(),
             created_date=datetime.datetime.utcnow()

@@ -155,3 +155,4 @@ Agregar pasar esto a una función
 
 Hacer todo anónimo, el registro solo debería servir para no hacer catpchas.
 Si usás bootstrap usá las librerías localmenten no con cdn.
+No permitir usar /category/<nombre de la categoría> si la categoría no existe.

@@ -8,7 +8,7 @@
     <div style="overflow: hidden;" class="row justify-content-center">
       <form method="post">
         <dl>
-        {{ render_field(form.category, placeholder='Nombre') }} 
+        {{ render_field(form.category, class='form-control', placeholder='Nombre') }} 
         <div class="text-center">
           {{ render_field(form.csrf_token) }}
         </div>

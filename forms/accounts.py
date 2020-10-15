@@ -162,6 +162,12 @@ class CommentForm(FlaskForm):
         ],
         widget=TextArea()
     )
+    password = StringField(
+        'Contraseña',
+        validators=[
+            InputRequired()
+        ]
+    )
     file = FileField(
         'Archivo',
         [

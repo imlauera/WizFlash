@@ -78,7 +78,6 @@ def thanks_post(id=None):
 
 
 @routes.route('/thanks/user/<id>', methods=['GET', 'POST'])
-@login_required
 def thanks_user(id=None):
     form = ThankUserForm()
     print(form.errors)
@@ -101,7 +100,6 @@ def thanks_user(id=None):
 
 
 @routes.route('/delete/post/<id>', methods=['GET', 'POST'])
-@login_required
 def delete(id=None):
     form = DeleteForm()
     print(form.errors)
@@ -124,7 +122,6 @@ def delete(id=None):
 
 
 @routes.route('/delete/comment/<id>', methods=['GET', 'POST'])
-@login_required
 def delete_comment(id=None):
     form = DeleteCommentForm()
 
@@ -151,7 +148,6 @@ def categories():
 
 
 @routes.route('/createcategory', methods=['GET', 'POST'])
-@login_required
 def createcategory():
     form = CreateCategoryForm()
 
@@ -178,7 +174,6 @@ def createcategory():
 
 
 @routes.route('/upload', methods=['GET', 'POST'])
-@login_required
 def upload():
     form = UploadForm()
     lista_categorias = CategoryList.query.all()

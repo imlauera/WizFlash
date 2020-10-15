@@ -17,9 +17,6 @@ import os
 import datetime
 from youtube_transcript_api import YouTubeTranscriptApi
 from werkzeug.utils import secure_filename
-from flask_login import (
-    current_user,
-)
 import bbcode
 
 
@@ -47,6 +44,7 @@ def aboutus():
 @routes.route('/category/<name>', methods=['GET', 'POST'])
 def category(name=None):
     posts_category = Category.query.filter_by(category_name=name).limit(20)
+
     print(posts_category)
     return render_template(
         'category.html',
@@ -78,7 +76,7 @@ def view(id=None):
             )
         )
 
-    if form.validate_on_submit() and current_user.is_anonymous is not True:
+    if form.validate_on_submit():
         print(form.file.data)
         filename = secure_filename(
             form.file.data.filename
@@ -92,6 +90,7 @@ def view(id=None):
         new_comment = Comment(
             post_id=id,
             comment=form.comment.data,
+            password=form.password.data,
             subject=form.subject.data,
             created_date=datetime.datetime.utcnow(),
             filename=filename,

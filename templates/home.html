@@ -1,44 +1,34 @@
-{% extends 'base.html' %}
-<h1>{% block title %}Inicio{% endblock %}</h1>
-
+{% extends 'base.html' %} 
+{% block title%}Directorio{%endblock%}
 
 {% block content %}
-		<div class="container">
-		<h3>
-			<select onchange="location=this.value;" class="form-control">
-					<option selected disabled>Elegir categoría</option>
-					{% for category in lista_categorias %}
-					<option value="/category/{{category.name}}">{{category.name}}</option>
-					{% endfor %}
-			</select>
-		</h3>
-    <!-- Content Row -->
-    <div class="row">
-			<div class="card border-primary mb-3" style="max-width: 18rem;">
-				<div class="card-header">Header</div>
-				<div class="card-body text-primary">
-					<h5 class="card-title">Primary card title</h5>
-					<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-				</div>
-			</div>
-			{% for post in posts %}
-				<div class="col-md-4 mb-5">
-					<div class="card h-100">
-						<div class="card-body">
-							<h2 class="card-title">{{post.subject}}</h2>
-							<img width=80 src="{{url_for('static', filename='user_data/images/')}}{{post.thumbnail}}"/>
-							<span class="card-text" style="float: right;">{{post.desc[:50]}}</span>
+  <div class="webs-catalog">
+  {% for post in posts %}
+    <div class="card h-100">
+      <div class="card-body" style="overflow: hidden;">
+        <h5 class="card-title">{{post.subject}}</h5>
+        {% for img in post.files %}
+          <!-- Chequear la extensión primero antes de mostrar img -->
+          {% if img.extension in ('jpg', 'gif', 'jpeg', 'png') %}
+            <a target="_blank" href="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}">
+              <img height=150 src="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}"/>
+            </a>
+          {% elif img.extension in ('webm', 'mp4') %}
+            <video height=200 src="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}" controls/>
+              Your browser does not support the video tag.
+            </video>
+          {% endif %}
+        {% endfor %}
+        <span class="card-text">{{post.desc[:150]}}</span>
 
-						</div>
-						<div class="card-footer">
-							<a href="/view/{{post.id}}" class="btn btn-primary btn-sm">View</a>
-							<span style="float: right;">Vistas: {{post.views}}</span>
-						</div>
-					</div>
-				</div>
-			{% else %}
-				<h3>Nada por acá<h3>
-			{% endfor %}
+      </div>
+      <div class="card-footer">
+        <a href="/view/{{post.id}}" class="btn btn-primary btn-lg">Ver</a>
+        <span style="float: right;">Vistas: {{post.views}}</span>
+      </div>
     </div>
-    <!-- /.row -->
+  {% else %}
+    <h4>No hay entradas.</h4>
+  {% endfor %}
+  </div>
 {% endblock %}

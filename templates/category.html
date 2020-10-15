@@ -4,17 +4,14 @@
 
 {% block content %}
       <div class="container-fluid">
-          <div class="webs-catalog">
-						<ol style="border: 1px solid lightblue;" >
-              <h3>{{category_name}} <a style="float: right;" class="nav-link btn btn-cyan-dark" href="{% if not current_user.is_authenticated %}/login{%else%}/upload{% endif %}"><i class="fas fa-plus"></i></a>
-              </h3>
-							{% for category in posts_category %}
-							<li>
-                <a href="/view/{{category.post_id}}">{{category.post.subject}}</a><br/>
-              </li>
-							{% else %}
-								<h3>Nada por acá<h3>
-							{% endfor %}
-						</ol>
-					</div>
+        <div class="container">
+          <h3>{{category_name}} <a style="float: right;" class="nav-link" href="/upload"><i class="fas fa-plus"></i></a></h3>
+          <hr/>
+
+          {% for category in posts_category %}
+            <a href="/view/{{category.post_id}}">{{category.post.subject}}</a><br/>
+          {% else %}
+            <h3>Nada por acá<h3>
+          {% endfor %}
+        </div>
 {% endblock %}

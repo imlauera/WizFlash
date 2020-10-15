@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="shortcut icon" href="{{ url_for('static', filename='images/thunder.ico') }}" type="image/x-icon">
+  <title>{% block title %}{% endblock %} - FlashLightning</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> 
+  <script defer src="{{ url_for('static', filename='fontawesome-free-5.14.0-web/js/all.js') }}"></script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+  <!-- Google Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+  {% block head %}{% endblock %}
+
+</head>
+<body>
+    <div id="wrapper">
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                    <li class="sidebar-brand"> <a href="/" style="color: #e3212;"><i class="fas fa-bolt"></i> FlashLightning</a></li>
+                    <!-- <li> <a class="{% if sidebar == 'catalog' %}active{% endif %}" href="/">Directorio</a> </li>
+                    <li> <a class="{% if sidebar == 'contact' %}active{% endif %}" href="/contact">Contacto</a> </li>-->
+                    <center>
+                      <h5>Actividad Reciente</h5>
+                      <ul style="">
+                        <p>
+                          hizmy: comentó en [post]<br/>
+                          <a href="/user/futterstaffel">futterstaffel</a>: publicó [post]<br/>
+                          cgrif: agradeció la publicación [post]<br/>
+                          peter_griffing: agradeció al usuario [user]<br/>
+                        </p>
+                      </ul>
+                      <hr/>
+                      <h5>Mensajes Globales</h5>
+                      <ul>
+                        <b>hitler</b>: Todos putos, pagué 5 usd para decir esto<br/>
+                        <b>hizmy</b>: Quien hizo esta mierda.<br/> 
+                        <b>homie</b>: Visitá mi página web https://sdoifjds.com<br/> 
+                          <div><a  href="/globalmsgs">VER TODOS LOS MENSAJES GLOBALES DE LA ÚLTIMA SEMANA</a></div>
+                      </ul>
+                      <hr/>
+                      <h5>Publicidad</h5>
+                      <ul> 
+                      <p>
+                        Visitá MercadoLibre, and take all the pain away.<br/>
+                        Escuchá Disturbed, nos pagaron 1000 usd para poner esto acá.<br/>
+                        Visitá Argentina, un país de mierda pero lindo si querés hacer turismo para valorar más a tu país<br/>
+                      </p>
+                      </ul>
+                      <hr/>
+                      <a target="_blank" href="https://discord.gg/9WXuaBJ"><i style="font-size: 30px;"class="fab fa-discord"></i> Discord</a>
+                    </center>
+            </ul>
+
+    </div>
+        <!-- /#sidebar-wrapper -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top light" id="navbar">
+        <button href="#menu-toggle" class="btn btn-link" id="menu-toggle">
+          <i class="fas fa-bars" style="color: #B19CD9; font-size: 24px;"></i>
+        </button>
+        <!-- Para ver el ícono de la hamburguesa cuando tu viewport es más chico-->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <!--<li class="nav-item {% if nbar == 'acercade' %}active{% endif %}">
+                  <a class="nav-link btn" href="/contact">Contacto</a>
+                </li>-->
+								<li class="nav-item ">
+									<a class="nav-link" href="/categories">Categorias </a>
+				</select>
+								</li>
+            </ul>
+						<ul class="nav navbar-nav navbar-center">
+							<!-- Search form -->
+							<form class="form-inline mr-auto">
+								<div class="md-form my-0">
+									<input class="form-control" id="search" type="text" placeholder="Search" aria-label="Search">
+									<button class="btn btn-cyan-dark btn-rounded" type="submit"><i class="fas fa-search " aria-hidden="true"></i></button>
+								</div>
+							</form>
+						</ul>
+						<ul class="navbar-nav navbar-right ml-auto">
+              <li class="nav-item ">
+                <a class="nav-link" href="{% if not current_user.is_authenticated %}/login{%else%}/upload{% endif %}">
+                  <i class="fas fa-plus"></i>
+                </a>
+              </li>
+							<li class="nav-item dropdown {% if nbar in ('action1','action2','action3') %}active{% endif %}">
+									<a class="nav-link dropdown-toggle btn " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {% if current_user.is_authenticated %}
+                      <i class="fas fa-user"></i>
+                      {{ current_user.username }}
+                    {% else %}
+                      <i class="fas fa-user-secret"></i>
+                      Anon
+                    {% endif %}
+									</a>
+									<div class="dropdown-menu dropdown-menu-right " aria-labelledby="navbarDropdown">
+                    {% if current_user.is_authenticated %}
+											<a class="dropdown-item" href="/settings/profile"><span class="fas fa-user"></span> Perfil</a>
+											<a class="dropdown-item" href="/logout"><span class="fas fa-sign-out-alt"></span> Salir</a>
+                    {% else %}
+											<a class="dropdown-item" href="/login"><span class="fas fa-user"></span> Ingreso</a>
+											<a class="dropdown-item" href="/register"><span class="fas fa-pencil-alt"></span> Registro</a>
+                    {% endif %}
+									</div>
+							</li>
+							<li class="nav-item dropdown {% if nbar in ('action1','action2','action3') %}active{% endif %}">
+									<a class="nav-link dropdown-toggle btn" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										<i class="fas fa-cog"></i>
+									</a>
+									<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+										<div class="form-check btn btn-block">
+											<input class="form-check-input" type="checkbox" id="darkmode">
+											<label class="form-check-label " for="darkmode">
+												Modo Oscuro
+											</label>
+										</div>
+									</div>
+							</li>
+              <li class="nav-item dropdown {% if nbar in ('action1','action2','action3') %}active{% endif %}">
+                  <a class="nav-link dropdown-toggle btn" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-question"></i>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="/aboutus">Nosotros</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="/rules">Reglas</a>
+                      <a class="dropdown-item" href="/contact">Contacto</a>
+                      <a class="dropdown-item" href="/faq">FAQ</a>
+                      <a class="dropdown-item" href="/helpme">Ayudar</a>
+                  </div>
+              </li>
+						</ul>
+        </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        {% block content %}{% endblock %}
+    <footer class="pt-5 text-muted" style="">
+      <p class="float-right">
+        <a href="#">Arriba</a>
+      </p>
+      <p><a href="/">Índice</a></p>
+    </footer>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <script>
+     /* Menu Toggle Script */
+      $("#menu-toggle").click(function(e) {
+          e.preventDefault();
+          $("#wrapper").toggleClass("toggled");
+      });
+			
+      /* Para alternar entre light y dark theme  */
+			function toggle_theme(){
+						$("html").toggleClass("dark");
+			}
+
+			var themeSwitch = document.getElementById('darkmode');
+			themeSwitch.addEventListener( 'change', function() {
+        toggle_theme();
+				if(this.checked) {
+          localStorage.setItem('themeSwitch', 'dark'); // save theme selection 
+				} else {
+          localStorage.removeItem('themeSwitch'); // reset theme selection 
+				}
+			});
+
+			if (localStorage.getItem('themeSwitch') === 'dark'){
+				themeSwitch.checked = true;
+				toggle_theme();
+			}
+    </script>
+  </body>
+</html>
