@@ -2,33 +2,32 @@
 {% block title%}Directorio{%endblock%}
 
 {% block content %}
-  <div class="webs-catalog">
+  <div style="background: #eee;">
   {% for post in posts %}
-    <div class="card h-100">
-      <div class="card-body" style="overflow: hidden;">
-        <h5 class="card-title">{{post.subject}}</h5>
-        {% for img in post.files %}
-          <!-- Chequear la extensión primero antes de mostrar img -->
-          {% if img.extension in ('jpg', 'gif', 'jpeg', 'png') %}
-            <a target="_blank" href="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}">
-              <img height=150 src="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}"/>
-            </a>
-          {% elif img.extension in ('webm', 'mp4') %}
-            <video height=200 src="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}" controls/>
-              Your browser does not support the video tag.
-            </video>
-          {% endif %}
-        {% endfor %}
-        <span class="card-text">{{post.desc[:150]}}</span>
+      <details class="w-75 m-auto">
+          <summary class="h3">{{post.subject}} <span class="text-primary float-right">Vistas: {{post.views}}</span></summary>
+        <a href="/view/{{post.id}}">
+        <div style="border-left: 5px solid #eee; background-color: #f9f9f9;">
+          <div class="" style="overflow: hidden; margin-left: 20px; ">
+            {% for img in post.files %}
+              <!-- Chequear la extensión primero antes de mostrar img -->
+              {% if img.extension in ('jpg', 'gif', 'jpeg', 'png') %}
+                  <img height=150 src="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}"/>
+              {% elif img.extension in ('webm', 'mp4') %}
+                <video height=200 src="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}" controls/>
+                  Your browser does not support the video tag.
+                </video>
+              {% endif %}
+            {% endfor %}
+            <br/>
+            <span class="card-text ">{{post.desc}}</span>
 
-      </div>
-      <div class="card-footer">
-        <a href="/view/{{post.id}}" class="btn btn-primary btn-lg">Ver</a>
-        <span style="float: right;">Vistas: {{post.views}}</span>
-      </div>
-    </div>
-  {% else %}
-    <h4>No hay entradas.</h4>
-  {% endfor %}
+          </div>
+        </div>
+        </a>
+      </details>
+      {% else %}
+        <h4>No hay entradas.</h4>
+      {% endfor %}
   </div>
 {% endblock %}

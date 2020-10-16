@@ -28,13 +28,12 @@ from werkzeug.security import generate_password_hash as genph
 def index():
     # Orden descending
     posts = Post.query.order_by(Post.created_date.desc()).limit(25)
-    destacados = Post.query.order_by(Post.views.desc()).limit(10)
+    # destacados = Post.query.order_by(Post.views.desc()).limit(10)
     lista_categorias = CategoryList.query.all()
     return render_template(
         'home.html',
         sidebar='catalog',
         posts=posts,
-        destacados=destacados,
         lista_categorias=lista_categorias
     )
 
@@ -46,12 +45,17 @@ def aboutus():
 
 @routes.route('/category/<name>', methods=['GET', 'POST'])
 def category(name=None):
-    posts_category = Category.query.filter_by(category_name=name).limit(20)
+    posts = db.session.query(Post)
+    # Esta fue una consulta dificil
+    posts = posts.filter(
+        Post.categories.any(Category.category_name == name)
+    ).order_by(Post.created_date.desc()).all()
 
-    print(posts_category)
+    print(posts)
+
     return render_template(
         'category.html',
-        posts_category=posts_category,
+        posts=posts,
         category_name=name
     )
 
@@ -59,15 +63,21 @@ def category(name=None):
 @routes.route('/search', methods=['GET', 'POST'])
 def search(query=None):
     # posts_category = Category.query.filter_by(category_name=name).limit(20)
-    nombre = request.args.get('q')
+    query = request.args.get('q')
     # Acá tenemos una lista de los tags a buscar, y queremos obtener
-    # los posts que tengan la mayoría de tags
+    tags = query.split(' ')
 
-    lista_resultados = Tag.query.filter_by(tag_name=nombre)
+    # https://stackoverflow.com/questions/26270927/flask-sqlalchemy-query-many-to-many-tagging-with-multiple-requred-tags
+    q = db.session.query(Post)
+    for tag in tags:
+        q = q.filter(Post.tags.any(Tag.tag_name.contains(tag)))
+
+    search_result = q.all()
+
     return render_template(
         'search.html',
-        q=nombre,
-        busqueda=lista_resultados
+        query=query,
+        search_result=search_result
     )
 
 
@@ -89,8 +99,8 @@ def view(id=None):
         return redirect(
             url_for(
                 'routes.output',
-                msg="<h1>Cuando creaste el post \
-                pusiste una categoría que ahora no existe.</h1>"
+                msg="Cuando creaste el post \
+                pusiste una categoría que ahora no existe."
             )
         )
 

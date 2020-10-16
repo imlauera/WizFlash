@@ -121,7 +121,7 @@ def delete(id=None):
             return redirect(
                 url_for(
                     'routes.output',
-                    msg="""Contraseña errónea."""
+                    msg="""Contraseña errónea, bro."""
                 )
             )
 
@@ -148,7 +148,7 @@ def delete_comment(id=None):
             return redirect(
                 url_for(
                     'routes.output',
-                    msg="""Contraseña errónea."""
+                    msg="""Contraseña errónea, bro."""
                 )
             )
 
@@ -280,6 +280,7 @@ def upload():
             category=c,
             post_id=new_post.id
         )
+
         db.session.add(new_post_category)
         db.session.commit()
 

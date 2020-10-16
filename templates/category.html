@@ -8,8 +8,8 @@
           <h3>{{category_name}} <a style="float: right;" class="nav-link" href="/upload"><i class="fas fa-plus"></i></a></h3>
           <hr/>
 
-          {% for category in posts_category %}
-            <a href="/view/{{category.post_id}}">{{category.post.subject}}</a><br/>
+          {% for category in posts %}
+            <a href="/view/{{category.id}}">{{category.subject}}</a><br/>
           {% else %}
             <h3>Nada por acá<h3>
           {% endfor %}

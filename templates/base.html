@@ -26,40 +26,7 @@
 	</head>
 
 	<body>
-		<div class="container-fluid">
-			<div class="row justify-content-center">
-														<div class="col-12 col-md-10 col-lg-5">
-																<form method="GET" action="/search" class="card card-sm">
-																		<div class="card-body row no-gutters align-items-center">
-																				<div class="col-auto">
-																						<i class="fas fa-search h4 text-body"></i>
-																				</div>
-																				<!--end of col-->
-																				<div class="col">
-                                          <input name="q" type="search" class="form-control form-control-lg form-control-borderless", placeholder="Buscar por tags"/>
-																				</div>
-																			<!--end of col-->
-																				<div class="col-auto">
-																						<button class="btn btn-lg btn-primary" type="submit">Buscar</button>
-																				</div>
-																				<!--end of col-->
-																		</div>
-																</form>
-														</div>
-														<!--end of col-->
-												</div>
-			<div class="jumbotron mt-3">
-				<a class="btn btn-lg btn-primary" href="/" role="button">Directorio &raquo;</a>
-				<a class="btn btn-lg btn-primary" href="/categories" role="button">Categorías &raquo;</a>
-				<a class="btn btn-lg btn-primary" href="/upload" role="button">Crear &raquo;</a>
-
-
-				<hr/>
-				{% block content %} {% endblock %}
-			</div>
-		</div>
-
-    <nav class="navbar fixed-bottom navbar-expand-sm navbar-light bg-light">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="/">FlashLightning</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -69,14 +36,23 @@
           <li class="nav-item active">
             <a class="nav-link" href="/">Directorio<span class="sr-only">(current)</span></a>
           </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="/categories">Categorías</a>
+          </li>
         </ul>
+				<ul class="navbar-nav navbar-center">
+					<form class="form-inline my-2 my-lg-0" action="/search">
+						<input class="form-control mr-sm-2" name="q" type="search" placeholder="Buscar por tags" aria-label="Search">
+						<button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Buscar</button>
+					</form>
+				</ul>
 						<ul class="navbar-nav navbar-right ml-auto">
               <li class="nav-item ">
                 <a class="nav-link" href="/upload">
-                  <i class="fas fa-plus"></i>
+									Crear
                 </a>
               </li>
-							<li class="nav-item dropup {% if nbar in ('action1','action2','action3') %}active{% endif %}">
+							<li class="nav-item dropdown {% if nbar in ('action1','action2','action3') %}active{% endif %}">
 									<a class="nav-link dropdown-toggle btn " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {% if current_user.is_authenticated %}
                       <i class="fas fa-user"></i>
@@ -96,7 +72,7 @@
                     {% endif %}
 									</div>
 							</li>
-              <li class="nav-item dropup {% if nbar in ('action1','action2','action3') %}active{% endif %}">
+              <li class="nav-item dropdown {% if nbar in ('action1','action2','action3') %}active{% endif %}">
                   <a class="nav-link dropdown-toggle btn" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-question"></i>
                   </a>
@@ -112,6 +88,12 @@
 						</ul>
       </div>
     </nav>
+		<div class="container-fluid">
+			<div class="jumbotron m-auto">
+				{% block content %} {% endblock %}
+			</div>
+		</div>
+
 
 		<!-- Bootstrap core JavaScript
 		================================================== -->

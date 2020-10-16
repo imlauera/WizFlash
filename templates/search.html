@@ -4,11 +4,11 @@
 
 {% block content %}
   <div class="container-fluid">
-    <h5>Mostrando resultados de {{q}}:</h5>
+    <h5>Mostrando resultados de <span class="text-primary">[{{query}}]</span>:</h5>
     <hr/>
     <ol>
-      {% for resultado in busqueda %}
-        <li><a href="/category/{{resultado.name}}">{{resultado.name}}</a></li>
+      {% for r in search_result %}
+        <li><a href="/view/{{r.id}}">{{r.subject}}</a></li>
       {% else %}
         <h3>Nada por acá<h3>
       {% endfor %}

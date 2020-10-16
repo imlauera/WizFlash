@@ -156,3 +156,7 @@ Agregar pasar esto a una función
 Hacer todo anónimo, el registro solo debería servir para no hacer captchas.
 Si usás bootstrap usá las librerías localmenten no con cdn.
 No permitir usar /category/<nombre de la categoría> si la categoría no existe.
+Cuando subís una imágen en Comment también deberías generar un nombre
+random de archivo, cosa que no lo estoy haciendo, sólo copia lo que hiciste
+en el anterior, sólo copia lo que hiciste
+No permitir buscar en blanco.
