@@ -9,6 +9,7 @@
       <form method="post">
         <dl>
           {{ form.accept }} {{ form.accept.label }}
+          {{ render_field(form.password, class="form-control", placeholder="Contraseña") }}
         <div class="text-center">
           {{ render_field(form.csrf_token) }}
         </div>

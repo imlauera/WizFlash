@@ -2,6 +2,7 @@ from . import routes
 from flask import (
     render_template,
     redirect,
+    request,
     url_for,
     current_app
 )
@@ -9,6 +10,7 @@ from forms import ContactForm, CommentForm
 from models import (
     db,
     Post,
+    Tag,
     CategoryList,
     Category,
     Comment,
@@ -18,6 +20,7 @@ import datetime
 from youtube_transcript_api import YouTubeTranscriptApi
 from werkzeug.utils import secure_filename
 import bbcode
+from werkzeug.security import generate_password_hash as genph
 
 
 @routes.route('/')
@@ -50,6 +53,21 @@ def category(name=None):
         'category.html',
         posts_category=posts_category,
         category_name=name
+    )
+
+
+@routes.route('/search', methods=['GET', 'POST'])
+def search(query=None):
+    # posts_category = Category.query.filter_by(category_name=name).limit(20)
+    nombre = request.args.get('q')
+    # Acá tenemos una lista de los tags a buscar, y queremos obtener
+    # los posts que tengan la mayoría de tags
+
+    lista_resultados = Tag.query.filter_by(tag_name=nombre)
+    return render_template(
+        'search.html',
+        q=nombre,
+        busqueda=lista_resultados
     )
 
 
@@ -90,7 +108,7 @@ def view(id=None):
         new_comment = Comment(
             post_id=id,
             comment=form.comment.data,
-            password=form.password.data,
+            hash_password=genph(form.password.data),
             subject=form.subject.data,
             created_date=datetime.datetime.utcnow(),
             filename=filename,

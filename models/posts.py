@@ -37,6 +37,7 @@ class Post(db.Model):
     # a partir de la primera imagen o video que se sube
     thumbnail = db.Column(db.String, nullable=False)
     thumbnail_max = db.Column(db.String, nullable=False)
+    hash_password = db.Column(db.String, nullable=False)
     created_date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     total_thanks = db.Column(db.Integer, nullable=True)
     # Crea el atributo .post en Category y Comment
@@ -120,7 +121,7 @@ class Comment(db.Model):
     # del usuario haciendo comment.user.username
     subject = db.Column(db.Integer, nullable=True)
     created_date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
-    password = db.Column(db.String, nullable=False)
+    hash_password = db.Column(db.String, nullable=False)
     comment = db.Column(db.String, nullable=False)
     filename = db.Column(db.String)
     file_ext = db.Column(db.String)

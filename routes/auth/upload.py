@@ -26,6 +26,8 @@ from models import (
     Tag,
     FilePost
 )
+from werkzeug.security import check_password_hash as checkph
+from werkzeug.security import generate_password_hash as genph
 
 import datetime
 import os
@@ -112,8 +114,16 @@ def delete(id=None):
 
     if form.validate_on_submit():
         post = Post.query.get(id)
-        db.session.delete(post)
-        db.session.commit()
+        if checkph(post.hash_password, form.password.data):
+            db.session.delete(post)
+            db.session.commit()
+        else:
+            return redirect(
+                url_for(
+                    'routes.output',
+                    msg="""Contraseña errónea."""
+                )
+            )
 
         return redirect(url_for('routes.index'))
         # Ahora debería guardar el catalogo del negocio en la db
@@ -128,11 +138,19 @@ def delete_comment(id=None):
     post_id = request.args.get("id")
     if form.validate_on_submit():
         comment = Comment.query.get(id)
-        db.session.delete(comment)
-        db.session.commit()
+        if checkph(comment.hash_password, form.password.data):
+            db.session.delete(comment)
+            db.session.commit()
 
-        return redirect(url_for('routes.view', id=post_id))
-        # Ahora debería guardar el catalogo del negocio en la db
+            return redirect(url_for('routes.view', id=post_id))
+            # Ahora debería guardar el catalogo del negocio en la db
+        else:
+            return redirect(
+                url_for(
+                    'routes.output',
+                    msg="""Contraseña errónea."""
+                )
+            )
 
     return render_template('user/delete.html', form=form)
 
@@ -231,6 +249,7 @@ def upload():
             desc=form.desc.data,
             # Crear el thumbnail pequeño
             thumbnail=filename,
+            hash_password=genph(form.password.data),
             thumbnail_max=filename,
             # tags = form.tags.data,
             # cambiar a category

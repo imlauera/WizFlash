@@ -153,6 +153,6 @@ Agregar pasar esto a una función
         print("Vamos a intentar guardarlo \
               como {}{}".format(filename, extension))
 
-Hacer todo anónimo, el registro solo debería servir para no hacer catpchas.
+Hacer todo anónimo, el registro solo debería servir para no hacer captchas.
 Si usás bootstrap usá las librerías localmenten no con cdn.
 No permitir usar /category/<nombre de la categoría> si la categoría no existe.

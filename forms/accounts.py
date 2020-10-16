@@ -129,6 +129,12 @@ class UploadForm(FlaskForm):
         ],
         # widget=FileInput(multiple=True, accept=['image/*'])
     )
+    password = StringField(
+        "Password",
+        [
+            InputRequired("Please enter your password.")
+        ]
+    )
     # recaptcha = RecaptchaField("Are you real?")
     submit = SubmitField("Upload")
 
@@ -138,11 +144,23 @@ class DeleteForm(FlaskForm):
         'Estoy seguro que quiero borrar esto',
         [DataRequired()]
     )
+    password = StringField(
+        'Contraseña',
+        validators=[
+            InputRequired()
+        ]
+    )
     # recaptcha = RecaptchaField()
     submit = SubmitField("Borrar")
 
 
 class DeleteCommentForm(FlaskForm):
+    password = StringField(
+        'Contraseña',
+        validators=[
+            InputRequired()
+        ]
+    )
     accept = BooleanField(
         'Estoy seguro que quiero borrar esto',
         [DataRequired()]
@@ -186,6 +204,12 @@ class CommentForm(FlaskForm):
             )
         ],
         # widget=FileInput(multiple=True, accept=['image/*'])
+    )
+    password = StringField(
+        'Contraseña',
+        validators=[
+            InputRequired()
+        ]
     )
     # recaptcha = RecaptchaField()
     submit = SubmitField("Comentar")

@@ -25,8 +25,9 @@
               {{ form.category.label }}
               {{ render_field(form.category, class='form-control') }}
               {{ form.tags.label }}
-							{{ render_field(form.tags, class='form-control') }}
-              <input id="asdf" placeholder="YouTube Embed (todavía no funciona)" class="form-control" type="text"/><br/>
+							{{ render_field(form.tags, class='form-control', placeholder='Tags') }}
+              {{ render_field(form.password, class='form-control', placeholder='Contraseña (asegurate de guardarla, sin esto no podés borrar la publicación)') }}
+              <input placeholder="YouTube Embed (todavía no funciona)" class="form-control" type="text"/><br/>
               {{ form.hidden }} {{ form.hidden.label }}
             </dl>
             <div class="text-center">

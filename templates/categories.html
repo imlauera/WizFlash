@@ -9,9 +9,9 @@
     <hr/>
     <ol>
       {% for category in lista_categorias %}
-      <li><a href="/category/{{category.name}}">{{category.name}}</a></li>
+        <li><a href="/category/{{category.name}}">{{category.name}}</a></li>
       {% else %}
-      <h3>Nada por acá<h3>
+        <h3>Nada por acá<h3>
       {% endfor %}
     </ol>
 {% endblock %}
