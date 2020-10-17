@@ -16,7 +16,8 @@
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 		<!-- Bootstrap core CSS -->
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 		<!-- Font Awesome -->
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
@@ -33,11 +34,11 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
+          <li class="nav-item {% if nbar == 'directory' %}active{% endif %}">
             <a class="nav-link" href="/">Directorio<span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="/categories">Categorías</a>
+            <a class="nav-link {% if nbar == 'categories' %}active{% endif %}" href="/categories">Categorías</a>
           </li>
         </ul>
 				<ul class="navbar-nav navbar-center">
@@ -47,9 +48,9 @@
 					</form>
 				</ul>
 						<ul class="navbar-nav navbar-right ml-auto">
-              <li class="nav-item ">
-                <a class="nav-link" href="/upload">
-									Crear
+              <li class="nav-item">
+                <a class="nav-link btn" role="button" href="/upload">
+                  <i class="fas fa-plus"></i> Crear
                 </a>
               </li>
 							<li class="nav-item dropdown {% if nbar in ('action1','action2','action3') %}active{% endif %}">
@@ -88,7 +89,8 @@
 						</ul>
       </div>
     </nav>
-		<div class="container-fluid">
+
+		<div class="container-fluid jumbotron-fluid" style="margin-top: 40px;">
 			<div class="jumbotron m-auto">
 				{% block content %} {% endblock %}
 			</div>

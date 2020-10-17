@@ -161,7 +161,8 @@ def categories():
     print(lista_categorias)
     return render_template(
         'categories.html',
-        lista_categorias=lista_categorias
+        lista_categorias=lista_categorias,
+        nbar='categories'
     )
 
 

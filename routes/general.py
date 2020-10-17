@@ -32,7 +32,7 @@ def index():
     lista_categorias = CategoryList.query.all()
     return render_template(
         'home.html',
-        sidebar='catalog',
+        nbar='directory',
         posts=posts,
         lista_categorias=lista_categorias
     )

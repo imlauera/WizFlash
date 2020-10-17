@@ -2,11 +2,11 @@
 {% block title%}Directorio{%endblock%}
 
 {% block content %}
-  <div style="background: #eee;">
+  <div>
   {% for post in posts %}
       <details class="w-75 m-auto" open>
         <summary class="h4" style="margin-bottom: 10px;">{{post.subject}}</summary>
-        <div style="background-color: #ebebeb; margin-bottom: 15px;">
+        <div style="margin-bottom: 15px;">
           <div class="bg-light" style="overflow: hidden;">
             {% for img in post.files %}
 						<a target="_blank" href="/view/{{post.id}}"/>
@@ -17,7 +17,7 @@
 							<strong>Abrir imágen</strong>
 						</a>
               <!-- Chequear la extensión primero antes de mostrar img -->
-              <div class="float-left">
+              <div class="float-left mr-3">
 								{% if img.extension in ('jpg', 'gif', 'jpeg', 'png') %}
 										<img style="height: 150; max-width: 150px" style="float:left;" src="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}"/>
 								{% elif img.extension in ('webm', 'mp4') %}
