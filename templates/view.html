@@ -16,7 +16,7 @@
           <!-- Chequear la extensión primero antes de mostrar img -->
           {% if img.extension in ('jpg', 'gif', 'jpeg', 'png') %}
             <a target="_blank" href="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}">
-              <img height=350 src="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}"/>
+              <img style="height:350; max-width: 500px;" src="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}"/>
             </a>
           {% elif img.extension in ('webm', 'mp4') %}
             <video height=350 src="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}" controls/>
