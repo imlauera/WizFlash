@@ -2,40 +2,76 @@
 {% block title%}Directorio{%endblock%}
 
 {% block content %}
-  <div>
-  {% for post in posts %}
-      <details class="w-75 m-auto" open>
-        <summary class="h4" style="margin-bottom: 10px;">{{post.subject}}</summary>
-        <div style="margin-bottom: 15px;">
-          <div class="bg-light" style="overflow: hidden;">
-            {% for img in post.files %}
-						<a href="/view/{{post.id}}"/>
-							<strong>Abrir hilo</strong>
-						</a>
-						| 
-						<a target="_blank" href="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}"/>
-							<strong>Abrir imágen</strong>
-						</a>
-              <!-- Chequear la extensión primero antes de mostrar img -->
-              <div class="float-left mr-3">
-								{% if img.extension in ('jpg', 'gif', 'jpeg', 'png') %}
-										<img style="height: 150; max-width: 150px" style="float:left;" src="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}"/>
-								{% elif img.extension in ('webm', 'mp4') %}
-									<video style="height: 150; max-width: 150px" src="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}" controls/>
-										Your browser does not support the video tag.
-									</video>
-								{% endif %}
-              </div>
-            {% endfor %}
-            <p>{{post.desc[:250]}}...</p>
-						<strong class="text-muted ">Vistas: {{post.views}}</strong>
-						<strong class="text-primary">Comentarios: 43</strong>
-						<br/>
-          </div>
-        </div>
-      </details>
-      {% else %}
-        <h4>No hay entradas.</h4>
-      {% endfor %}
-  </div>
+  <div class="w-75 m-auto">
+		<p class="text-center">
+			<a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+				Crear Hilo
+			</a>
+		</p>
+		<div class="collapse" id="collapseExample">
+			<div class="card card-body">
+				<form method="post" enctype="multipart/form-data" action="/upload">
+					<dl>
+						{{ render_field(form.subject, class='form-control', placeholder='Título') }}
+						{{ form.files.label }}
+						{{ render_field(form.files, class='form-control', onChange="loadFile(event)") }}
+						<strong>
+							<ul id="fileList" style="">
+								<li style="">
+									No seleccionaste ningún archivo.
+								</li>
+							</ul>
+						</strong>
+						{{ render_field(form.desc, class='form-control', placeholder='Descripción', cols="35", rows="15") }}
+						{{ render_field(form.category, class='form-control') }}
+						{{ render_field(form.tags, class='form-control', placeholder='Tags') }}
+						{{ render_field(form.password, class='form-control', placeholder='Contraseña (asegurate de guardarla, sin esto no podés borrar la publicación)') }}
+						<input placeholder="YouTube Embed (todavía no funciona)" class="form-control" type="text"/><br/>
+						{{ form.hidden }} {{ form.hidden.label }}
+					</dl>
+					<div class="text-center">
+						{{ render_field(form.csrf_token) }}
+					</div>
+					{{ render_field(form.submit, class='btn btn-primary btn-lg btn-block') }}
+				</form>
+			</div>
+		</div>
+
+		<div class="">
+			{% for post in posts %}
+					<details class="" style="" open>
+
+						<summary class="h4" style="">{{post.subject}}</summary>
+						<div style="margin:10px 0px; border: 1px solid #ccc;">
+							<div class="bg-light" style="overflow: hidden;">
+								{% for img in post.files %}
+								<a class="btn btn-link btn-md" href="/view/{{post.id}}"/>
+									<strong>Ver Hilo</strong>
+								</a>
+								|
+								<a class="btn btn-link btn-md" target="_blank" href="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}"/>
+									<strong>Ver Imágen</strong>
+								</a>
+									<!-- Chequear la extensión primero antes de mostrar img -->
+									<div class="float-left mr-3">
+										{% if img.extension in ('jpg', 'gif', 'jpeg', 'png') %}
+												<img style="height: 150; max-width: 150px" style="float:left;" src="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}"/>
+										{% elif img.extension in ('webm', 'mp4') %}
+											<video style="height: 150; max-width: 150px" src="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}" controls/>
+												Your browser does not support the video tag.
+											</video>
+										{% endif %}
+									</div>
+								{% endfor %}
+								<p>{{post.desc[:250]}}...</p>
+								<span class="text-muted ">Vistas: {{post.views}}</span>
+								<span class="text-muted">Comentarios: 43</span>
+							</div>
+						</div>
+					</details>
+					{% else %}
+						<h4>No hay entradas.</h4>
+					{% endfor %}
+		</div>
+	</div>
 {% endblock %}

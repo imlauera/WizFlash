@@ -6,7 +6,7 @@ from flask import (
     url_for,
     current_app
 )
-from forms import ContactForm, CommentForm
+from forms import ContactForm, CommentForm, UploadForm
 from models import (
     db,
     Post,
@@ -26,6 +26,13 @@ from werkzeug.security import generate_password_hash as genph
 @routes.route('/')
 @routes.route('/index')
 def index():
+    form = UploadForm()
+    lista_categorias = CategoryList.query.all()
+    Categorias = [('', "Elegir Categoría")]
+    for c in lista_categorias:
+        Categorias.append((c.name, c.name.title()))
+    form.category.choices = Categorias
+
     # Orden descending
     posts = Post.query.order_by(Post.created_date.desc()).limit(25)
     # destacados = Post.query.order_by(Post.views.desc()).limit(10)
@@ -34,6 +41,7 @@ def index():
         'home.html',
         nbar='directory',
         posts=posts,
+        form=form,
         lista_categorias=lista_categorias
     )
 

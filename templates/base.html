@@ -49,23 +49,7 @@
 				</ul>
 						<ul class="navbar-nav navbar-right ml-auto">
 							<li class="nav-item dropdown dropleft">
-								<a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle "><i class="fas fa-plus"></i> Crear</a>
-												<div class="dropdown-menu action-form">
-									<form action="/examples/actions/confirmation.php" method="post">
-										<div class="form-group">
-											<input type="text" class="form-control" placeholder="Título" required="required">
-										</div>
-										<div class="form-group">
-                      <textarea name="desc" rows="4" placeholder="Descripción" cols="50"></textarea>
-										</div>
-										<div class="form-group">
-											<input type="password" class="form-control" placeholder="Contraseña" required="required">
-										</div>
-										<input type="submit" class="btn btn-primary btn-block" value="Crear">
-										<div class="text-center mt-2">
-											<a href="/upload">Pantalla Completa</a>
-										</div>
-									</form>
+								<a href="/upload" class="nav-link"><i class="fas fa-plus"></i> Crear</a>
 							</li>
 							<li class="nav-item dropdown {% if nbar in ('action1','action2','action3') %}active{% endif %}">
 									<a class="nav-link dropdown-toggle btn " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -104,7 +88,7 @@
       </div>
     </nav>
 
-		<div class="container-fluid jumbotron-fluid" style="margin-top: 40px;">
+		<div class="container-fluid jumbotron-fluid" style="margin-top: 20px;">
 			<div class="jumbotron m-auto">
 				{% block content %} {% endblock %}
 			</div>
