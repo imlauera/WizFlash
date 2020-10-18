@@ -4,11 +4,10 @@
 <h1>{% block title %}{{post.subject}}{% endblock %}</h1>
 
 {% block content %}
-  <div class="container">
-    <a href="/"><b>INICIO</b></a> | 
-    <a href="/delete/post/{{post.id}}"><b>BORRAR</b></a> 
+  <div class="container-fluid">
+    <a href="/"><span>INICIO</span></a> | 
+    <a href="/delete/post/{{post.id}}"><span>BORRAR</span></a> 
     <h3>{{post.subject}}</h3>
-    <h5>Autor: <a href="/user/{{post.autor}}">{{post.autor}}</a></h5>
     <h5>Vistas: {{post.views}}</h5>
     <h5>Fecha Creación: {{post.created_date.isoformat()}}</h5>
     <div style="overflow: hidden;">

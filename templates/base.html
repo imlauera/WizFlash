@@ -43,8 +43,14 @@
         </ul>
 				<ul class="navbar-nav navbar-center">
 					<form class="form-inline my-2 my-lg-0" action="/search">
-						<input class="form-control mr-sm-2" name="q" type="search" placeholder="Buscar por tags" aria-label="Search">
-            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+            <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-0">
+              <div class="input-group">
+                <input type="search" name="q" placeholder="What're you searching for?" aria-describedby="button-addon1" class="form-control border-0 bg-light">
+                <div class="input-group-append">
+                  <button id="button-addon1" type="submit" class="btn btn-link text-primary"><i class="fa fa-search"></i></button>
+                </div>
+              </div>
+            </div>
 					</form>
 				</ul>
 						<ul class="navbar-nav navbar-right ml-auto">
@@ -87,6 +93,7 @@
 						</ul>
       </div>
     </nav>
+
 
 		<div class="container-fluid jumbotron-fluid" style="margin-top: 20px;">
 			<div class="jumbotron m-auto">
