@@ -38,6 +38,7 @@ class Post(db.Model):
     thumbnail = db.Column(db.String, nullable=False)
     thumbnail_max = db.Column(db.String, nullable=False)
     hash_password = db.Column(db.String, nullable=False)
+    fixed = db.Column(db.Boolean)
     created_date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     total_thanks = db.Column(db.Integer, nullable=True)
     # Crea el atributo .post en Category y Comment

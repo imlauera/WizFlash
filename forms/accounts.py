@@ -186,6 +186,7 @@ class CommentForm(FlaskForm):
             InputRequired()
         ]
     )
+
     file = FileField(
         'Archivo',
         [
@@ -202,8 +203,7 @@ class CommentForm(FlaskForm):
                 """Sólo archivos jpg, png, gif,
                 jpeg, mp4, webm están permitidos!"""
             )
-        ],
-        # widget=FileInput(multiple=True, accept=['image/*'])
+        ]
     )
     password = StringField(
         'Contraseña',

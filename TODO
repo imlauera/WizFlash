@@ -1,8 +1,6 @@
 El nombre de la página va a ser: fivestrikes.com
 flashlightning
 
-ThunderWisdom
-
 
 El mensaje de bad proxy me tira porque no uso el is_safe_url lo saqué porque sino
 no puedo acceder a la db.
@@ -162,3 +160,7 @@ en el anterior, sólo copia lo que hiciste
 No permitir buscar en blanco.
 Si al buscador le pasas otra variable se bugea el programa lol.
 Cambiar id collapseExample en home.html xd
+Si un posteo tiene demasiadas denuncias debería mandarme un correo, y ocultar la imágen.
+Establecer un min-height a las cartas.
+Al publicar una imagen dar más datos de esta, como 4chan.
+Tabla con un modal onclick

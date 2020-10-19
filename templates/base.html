@@ -13,6 +13,8 @@
 		<link rel="stylesheet" href="{{url_for('static', filename='css/style_dark.css')}}"/>
 		<meta name="color-scheme" content="dark light">
 
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 		<!-- Bootstrap core CSS -->
@@ -28,7 +30,7 @@
 
 	<body>
     <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand text-primary" href="/">FlashLightning</a>
+      <a class="navbar-brand " href="/">FlashLightning</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -43,9 +45,9 @@
         </ul>
 				<ul class="navbar-nav navbar-center">
 					<form class="form-inline my-2 my-lg-0" action="/search">
-            <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-0">
+            <div class="p-1 bg-light shadow-sm mb-0">
               <div class="input-group">
-                <input type="search" name="q" placeholder="What're you searching for?" aria-describedby="button-addon1" class="form-control border-0 bg-light">
+                <input type="search" name="q" placeholder="¿Qué estás buscando?" aria-describedby="button-addon1" class="form-control border-0 bg-light">
                 <div class="input-group-append">
                   <button id="button-addon1" type="submit" class="btn btn-link text-primary"><i class="fa fa-search"></i></button>
                 </div>
@@ -95,7 +97,7 @@
     </nav>
 
 
-		<div class="container-fluid jumbotron-fluid" style="margin-top: 20px;">
+		<div class="container-fluid " style="margin-top: 3em;">
 			<div class="jumbotron m-auto">
 				{% block content %} {% endblock %}
 			</div>

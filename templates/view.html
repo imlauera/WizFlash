@@ -5,7 +5,6 @@
 
 {% block content %}
   <div class="container-fluid">
-    <a href="/"><span>INICIO</span></a> | 
     <a href="/delete/post/{{post.id}}"><span>BORRAR</span></a> 
     <h3>{{post.subject}}</h3>
     <h5>Vistas: {{post.views}}</h5>
@@ -18,7 +17,7 @@
               <img style="height:350; max-width: 500px;" src="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}"/>
             </a>
           {% elif img.extension in ('webm', 'mp4') %}
-            <video height=350 src="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}" controls/>
+            <video height=350 src="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}" loop controls/>
               Your browser does not support the video tag.
             </video>
           {% endif %}
@@ -52,19 +51,20 @@
           </form>
       </div>
       <hr/>
+
       {% for c in comments %}
         <div id="{{c.id}}">
           <strong>Anon</strong> Title: <strong class="text-primary">{{c.subject}}</strong> {{c.created_date.strftime("%d/%m/%y (%A) %H:%M:%S")}} No. <a href="#" onclick="javascript:alert('esto va a servir para citar a alguien')">{{c.id}}</a> | <a href="/delete/comment/{{c.id}}?id={{post.id}}">X</a><br/>
-          {% if c.file_ext in ('jpg', 'gif', 'jpeg', 'png') %}
-            <a target="_blank" href="{{ url_for ('static', filename='user_data/images/')}}{{c.filename}}">
-              <img height=200 style="padding: 5px; border: 2px solid #a8c4e3; border-radius: 5px;" src="{{ url_for ('static', filename='user_data/images/')}}{{c.filename}}"/>
-            </a>
-          {% elif c.file_ext in ('webm', 'mp4') %}
-              <video height=200 src="{{ url_for ('static', filename='user_data/images/')}}{{c.filename}}" controls/>
-                Your browser does not support the video tag.
-              </video>
-          {% endif %}
-          <br/>
+						{% if c.file_ext in ('jpg', 'gif', 'jpeg', 'png') %}
+							<a target="_blank" href="{{ url_for ('static', filename='user_data/images/')}}{{c.filename}}">
+								<img height=250 style="padding: 5px; border: 2px solid #a8c4e3; border-radius: 5px;" src="{{ url_for ('static', filename='user_data/images/')}}{{c.filename}}"/>
+							</a>
+						{% elif c.file_ext in ('webm', 'mp4') %}
+								<video height=400 src="{{ url_for ('static', filename='user_data/images/')}}{{c.filename}}" controls/>
+									Your browser does not support the video tag.
+								</video>
+						{% endif %}
+            <br/>
           {{  bbcode.render_html(c.comment)|safe }}<br/>
         </div>
         <hr/>

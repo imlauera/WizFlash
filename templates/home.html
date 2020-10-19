@@ -2,25 +2,40 @@
 {% block title%}Directorio{%endblock%}
 
 {% block content %}
-  <div class="w-100">
-		<table border = "0" bgcolor="" >
-			{% for post in posts %}
-			 <tr>
-					<td>{{post.desc[:250]}}</td>
-			 </tr>
-			 <tr>
-					<td style="color: #593196; font-size: 15px;">
-            <a href="/view/{{post.id}}"<span>{{post.views}}</span> views</a> |
-            {{post.created_date.strftime("%A %d/%m/%y %H:%M:%S")}} |
-						<a href="/view/{{post.id}}">24 comments</a>
-					</td>
-			 </tr>
-			 <tr> 
-					<td style="padding-bottom: 1em;"></td>
-			 </tr>
-			{% else %}
-				<tr><td>No hay entradas.</td></tr>
-			{% endfor %}
-	  </table>
+<div class="w-100 m-auto">
+	{% for post in news %}
+<div class="card-deck">
+	<div class="card mb-3" style="height: 250px; overflow: hidden;">
+		<div class="row no-gutters">
+			<div class="col-md-4">
+					{% for img in post.files %}
+						<!-- Chequear la extensión primero antes de mostrar img -->
+						<a target="_blank" href="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}">
+						{% if img.extension in ('jpg', 'gif', 'jpeg', 'png') %}
+								<img class="card-img" style="" src="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}"/>
+						{% elif img.extension in ('webm', 'mp4') %}
+								<video class="card-img" height=350 src="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}"/>
+									Your browser does not support the video tag.
+								</video>
+						{% endif %}
+						</a>
+					{% endfor %}
+			</div>
+			<div class="col-md-8">
+				<div class="card-body">
+					<h5 class="card-title"><a href="/view/{{post.id}}">{{post.subject}}</a></h5>
+					<p class="card-text">{{bbcode.render_html(post.desc)|safe}}</p>
+					<p class="card-text"><small class="text-muted">{{post.views}} vistas.</small></p>
+				</div>
+			</div>
+		</div>
+</div>
+</div>
+		{% else %}
+			<tr><td>No hay entradas.</td></tr>
+  {% endfor %}
+</div>
+
 	</div>
+</div>
 {% endblock %}

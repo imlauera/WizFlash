@@ -1,4 +1,4 @@
-body { background-color: #f9f8fc!important; }
+body {}
 .webs-catalog {
   padding: 15px;
   border-radius: 5px;
@@ -11,12 +11,8 @@ body { background-color: #f9f8fc!important; }
   grid-gap: 20px;
 }
 .webs-catalog > div {
-    border: 2px solid #eee;
-    color: black;
 }
 .webs-catalog > div:hover {
-    border: 2px solid #999;
-    color: black;
 }
 .span a { color: white; }
 
@@ -48,3 +44,13 @@ body {
   color: #222;
   line-height: 24px;
 }
+
+.popup {
+	display: none;
+}
+
+.parent:hover .popup {
+	display: block;
+}
+
+

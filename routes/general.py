@@ -19,8 +19,8 @@ import os
 import datetime
 from youtube_transcript_api import YouTubeTranscriptApi
 from werkzeug.utils import secure_filename
-import bbcode
 from werkzeug.security import generate_password_hash as genph
+import bbcode
 
 
 @routes.route('/')
@@ -34,14 +34,21 @@ def index():
     form.category.choices = Categorias
 
     # Orden descending
-    posts = Post.query.order_by(Post.created_date.desc()).limit(25)
+    news = Post.query.order_by(Post.created_date.desc()).limit(25)
+
+    posts = db.session.query(Post)
+    fijados = posts.filter(
+        Post.categories.any(Category.category_name == 'Fijados')
+    ).order_by(Post.created_date.desc()).all()
     # destacados = Post.query.order_by(Post.views.desc()).limit(10)
     lista_categorias = CategoryList.query.all()
     return render_template(
         'home.html',
         nbar='directory',
-        posts=posts,
+        news=news,
+        fijados=fijados,
         form=form,
+        bbcode=bbcode,
         lista_categorias=lista_categorias
     )
 
@@ -92,6 +99,7 @@ def search(query=None):
 @routes.route('/view/<id>', methods=['GET', 'POST'])
 def view(id=None):
     form = CommentForm()
+
     post = Post.query.get_or_404(id)
     comments = Comment.query.filter_by(
         post_id=id
