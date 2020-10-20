@@ -8,7 +8,7 @@ body {}
     el auto-fill al igual que el auto-fit hace que entre más elementos en la misma fila pero no los estira
   */
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  grid-gap: 20px;
+  grid-gap: 10px;
 }
 .webs-catalog > div {
 }
