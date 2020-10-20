@@ -1,18 +1,18 @@
-{% extends 'base.html' %}
-<h1>{% block title %}Inicio{% endblock %}</h1>
-
+{% extends 'base.html' %} 
+{% block title%}Directorio{%endblock%}
 
 {% block content %}
 <div class="webs-catalog">
-	{% for post in posts %}
+	{% for post in news %}
+
   <div class="card" style="">
 			<!-- Chequear la extensión primero antes de mostrar img -->
 		{% for img in post.files %}
 			{% if img.extension in ('jpg', 'gif', 'jpeg', 'png') %}
-					<img class="card-img" style="filter: brightness(25%); width: 100%; height: 100%; object-fit: cover;" src="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}"/>
+					<img class="card-img" style="filter: brightness(30%); width: 100%; height: 100%; object-fit: cover;" src="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}"/>
 			{% elif img.extension in ('webm', 'mp4') %}
 					<!-- esto es solucionable porque no vamos a usar el video en sí si no una imágen generada del video -->
-					<video class="card-img " style="filter: brightness(25%); width: 100%; height: 100%; object-fit: cover;" src="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}"/>
+					<video class="card-img " style="filter: brightness(30%); width: 100%; height: 100%; object-fit: cover;" src="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}"/>
 						Your browser does not support the video tag.
 					</video>
 			{% endif %}
@@ -22,7 +22,7 @@
 				<p class="card-text ">{{post.subject[:250]}}</p>
 				<h6 class="card-subtitle mb-2 text-muted">{{post.views}} vistas</h6>
 				<div class="link d-flex">
-					<a href="/view/{{post.id}}" target="_blank" class="btn btn-outline-light card-link"> Leer Más</a>
+					<a href="/view/{{post.id}}" target="_blank" class="btn btn-outline-light card-link"> Más</a>
 					<a href="/report/{{post.id}}" target="_blank" class="btn btn-outline-danger card-link"><i class="fas fa-flag"></i> Reportar</a>
 				</div>
 			</div>

@@ -6,12 +6,11 @@ from flask import (
     url_for,
     current_app
 )
-from forms import ContactForm, CommentForm, UploadForm
+from forms import ContactForm, CommentForm
 from models import (
     db,
     Post,
     Tag,
-    CategoryList,
     Category,
     Comment,
 )
@@ -23,16 +22,8 @@ from werkzeug.security import generate_password_hash as genph
 import bbcode
 
 
-@routes.route('/')
-@routes.route('/index')
-def index():
-    form = UploadForm()
-    lista_categorias = CategoryList.query.all()
-    Categorias = [('', "Elegir Categoría")]
-    for c in lista_categorias:
-        Categorias.append((c.name, c.name.title()))
-    form.category.choices = Categorias
-
+@routes.route('/misc')
+def misc():
     # Orden descending
     news = Post.query.order_by(Post.created_date.desc()).limit(25)
 
@@ -41,15 +32,13 @@ def index():
         Post.categories.any(Category.category_name == 'Fijados')
     ).order_by(Post.created_date.desc()).all()
     # destacados = Post.query.order_by(Post.views.desc()).limit(10)
-    lista_categorias = CategoryList.query.all()
+
     return render_template(
-        'home.html',
+        'misc.html',
         nbar='directory',
         news=news,
         fijados=fijados,
-        form=form,
-        bbcode=bbcode,
-        lista_categorias=lista_categorias
+        bbcode=bbcode
     )
 
 
@@ -58,7 +47,7 @@ def aboutus():
     return render_template('aboutus.html')
 
 
-@routes.route('/category/<name>', methods=['GET', 'POST'])
+@routes.route('/c/<name>', methods=['GET', 'POST'])
 def category(name=None):
     posts = db.session.query(Post)
 

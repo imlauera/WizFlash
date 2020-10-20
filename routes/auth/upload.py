@@ -155,12 +155,26 @@ def delete_comment(id=None):
     return render_template('user/delete.html', form=form)
 
 
+'''
 @routes.route('/categories', methods=['GET', 'POST'])
 def categories():
     lista_categorias = CategoryList.query.all()
     print(lista_categorias)
     return render_template(
         'truehome.html',
+        lista_categorias=lista_categorias,
+        nbar='categories'
+    )
+'''
+
+
+@routes.route('/', methods=['GET'])
+@routes.route('/index', methods=['GET'])
+def index():
+    lista_categorias = CategoryList.query.all()
+    print(lista_categorias)
+    return render_template(
+        'home.html',
         lista_categorias=lista_categorias,
         nbar='categories'
     )
@@ -177,7 +191,7 @@ def createcategory():
         )
         db.session.add(new_category)
         db.session.commit()
-        return redirect(url_for('routes.categories'))
+        return redirect(url_for('routes.index'))
     '''
     else:
         return redirect(
