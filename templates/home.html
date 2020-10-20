@@ -6,7 +6,7 @@
 	{% for post in news %}
 
 		{% for img in post.files %}
-  <div class="card" style="overflow: hidden; min-height: 200px;">
+  <div class="card" style="">
 			<!-- Chequear la extensión primero antes de mostrar img -->
 			{% if img.extension in ('jpg', 'gif', 'jpeg', 'png') %}
 					<img class="card-img" style="filter: brightness(30%); width: 100%; height: 100%; object-fit: cover;" src="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}"/>
@@ -22,8 +22,8 @@
 				<h6 class="card-subtitle mb-2 text-warning">{{post.views}} vistas</h6>
 				<p class="card-text ">{{post.subject[:250]}}</p>
 				<div class="link d-flex">
-					<a href="/view/{{post.id}}" target="_blank" class="card-link text-danger"><i class="fas fa-flag"></i> Leer Más</a>
-					<a href="/report/{{post.id}}" target="_blank" class="card-link text-danger"><i class="fas fa-flag"></i> Reportar</a>
+					<a href="/view/{{post.id}}" target="_blank" class="btn btn-outline-primary card-link text-primary"> Leer Más</a>
+					<a href="/report/{{post.id}}" target="_blank" class="btn btn-outline-danger card-link text-danger"><i class="fas fa-flag"></i> Reportar</a>
 				</div>
 			</div>
 		</div>

@@ -1,0 +1,19 @@
+{% extends 'base.html' %} 
+{% block title%}Directorio{%endblock%}
+
+{% block content %}
+<div class="webs-catalog" style="grid-auto-rows: 200px;">
+  {% for category in lista_categorias %}
+  <div class="card text-center" style="background-color: #111;">
+    <!-- Chequear la extensión primero antes de mostrar img -->
+    <div class="card-img-overlay text-white d-flex flex-column justify-content-center">
+      <h1 class="card-title text-white text-center">/{{category.name}}/</h1>
+      <p class="card-text ">Pequeña descripción</p>
+      <a href="/category/{{category.name}}" target="_blank" class="btn btn-info card-link"><i class="fas fa-hand-point-right"></i> Entrar</a>
+    </div>
+  </div>
+	{% else %}
+			No hay entradas.
+  {% endfor %}
+</div>
+{% endblock %}

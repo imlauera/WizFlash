@@ -61,6 +61,7 @@ def aboutus():
 @routes.route('/category/<name>', methods=['GET', 'POST'])
 def category(name=None):
     posts = db.session.query(Post)
+
     # Esta fue una consulta dificil
     posts = posts.filter(
         Post.categories.any(Category.category_name == name)

@@ -160,7 +160,7 @@ def categories():
     lista_categorias = CategoryList.query.all()
     print(lista_categorias)
     return render_template(
-        'categories.html',
+        'truehome.html',
         lista_categorias=lista_categorias,
         nbar='categories'
     )
