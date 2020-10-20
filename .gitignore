@@ -1,5 +1,4 @@
 HOW_TO_MIGRATE
-TODO
 *.py[cod]
 __pycache__/
 node_modules/
