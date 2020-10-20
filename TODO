@@ -94,7 +94,6 @@ a post desde Category.
 Tengo que verificar que la categoría que está subiendo esté en la lista.
 Borrar comentarios boludos.
 [x] Agregar migrate urgente.
-Cambiar css por scss para hacer el dark mode
 Cambie la tabla Thanks así que tengo que cambiar el código tmb.
 Cuando fallás un form no deberías perder toda la información para esto implementar todos los validatos que
 faltan.
