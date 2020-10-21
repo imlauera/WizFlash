@@ -21,7 +21,7 @@
                   </li>
                 </ul>
               </strong>
-              {{ render_field(form.desc, class='form-control', placeholder='Descripción', cols="35", rows="15") }}
+              {{ render_field(form.desc, class='form-control', placeholder='Descripción', cols="35", rows="10") }}
               {{ form.category.label }}
               {{ render_field(form.category, class='form-control') }}
               {{ form.tags.label }}
@@ -33,7 +33,7 @@
             <div class="text-center">
               {{ render_field(form.csrf_token) }}
             </div>
-            {{ render_field(form.submit, class='btn btn-primary btn-lg btn-block') }}
+            {{ render_field(form.submit, class='btn btn-info btn-lg btn-block') }}
           </form>
         </div>
     </div>

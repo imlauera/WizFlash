@@ -1,18 +1,35 @@
 body {}
 .webs-catalog {
-  padding: 15px;
-  border-radius: 5px;
   display: grid;
   /* 
     El auto-fit estira el elemento a la resolución del monitor,
     el auto-fill al igual que el auto-fit hace que entre más elementos en la misma fila pero no los estira
   */
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   grid-gap: 5px;
-  grid-auto-rows: 400px;
+  grid-auto-rows: 600px;
 }
 .webs-catalog > div {
 }
+.webs-catalog .card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.form-control{
+    background-color:  #000!important;
+    color: white!important;
+    border: 0px!important;
+}
+
+.webs-catalog .card-img-overlay{
+  background-color: rgba(0,0,0,0.85);
+}
+.webs-catalog .card-img-overlay:hover{
+  background-color: rgba(0,0,0,0.65);
+}
+
+
 .webs-catalog > div:hover {
 }
 .span a { color: white; }

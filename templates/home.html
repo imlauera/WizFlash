@@ -4,11 +4,11 @@
 {% block content %}
 <div class="webs-catalog" style="grid-auto-rows: 250px;">
   {% for category in lista_categorias %}
-  <div class="card text-center" style="background-color: #111;">
+  <div class="card text-center" style="background-color: #111; overflow: auto;">
     <!-- Chequear la extensión primero antes de mostrar img -->
     <div class="card-img-overlay text-white d-flex flex-column justify-content-center">
       <h1 class="card-title text-white text-center">/{{category.name}}/</h1>
-      <p class="card-text ">Pequeña descripción</p>
+      <p class="card-text ">{{category.desc}}</p>
       <a href="/c/{{category.name}}" target="_blank" class="btn btn-info card-link">Entrar</a>
     </div>
   </div>

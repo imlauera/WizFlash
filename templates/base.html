@@ -39,12 +39,15 @@
           <li class="nav-item ">
             <a class="nav-link {% if nbar == 'categories' %}active{% endif %}" href="/misc">Misc</a>
           </li>
+          <li class="nav-item ">
+            <a class="nav-link {% if nbar == 'categories' %}active{% endif %}" href="/globalmsgs">GlobalMsg</a>
+          </li>
         </ul>
 				<ul class="navbar-nav navbar-center">
 					<form class="form-inline my-2 my-lg-0" action="/search">
             <div class="p-1 bg-light shadow-sm mb-0">
               <div class="input-group">
-                <input type="search" name="q" placeholder="¿Qué estás buscando?" aria-describedby="button-addon1" class="form-control border-0 bg-light">
+                <input type="search" name="q" placeholder="¿Qué estás buscando?" aria-describedby="button-addon1" class="form-control border-0 bg-light text-dark">
                 <div class="input-group-append">
                   <button id="button-addon1" type="submit" class="btn btn-link text-primary"><i class="fa fa-search"></i></button>
                 </div>
@@ -94,10 +97,8 @@
     </nav>
 
 
-		<div class="container-fluid " style="margin-top: 3em;">
-			<div class="jumbotron m-auto">
-				{% block content %} {% endblock %}
-			</div>
+		<div class="container-fluid" style="margin-top: 5em;">
+        {% block content %} {% endblock %}
 		</div>
 
 

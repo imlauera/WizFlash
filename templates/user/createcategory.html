@@ -12,6 +12,7 @@
         <div class="text-center">
           {{ render_field(form.csrf_token) }}
         </div>
+        {{ render_field(form.desc, class='form-control', placeholder='Pequeña Descripción') }} 
         {{ render_field(form.recaptcha) }} 
         {{ render_field(form.submit, class='btn btn-success btn-lg btn-block') }}
         </dl>

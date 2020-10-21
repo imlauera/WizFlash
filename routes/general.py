@@ -223,7 +223,7 @@ def video(videoId=None):
 
     output = ''
     for line in transcript:
-        output += 'alguien dijo <span style="color: red;">' + line['text']
-        + '</span> en el minuto ' + str(line['start']) + '<br/>'
+        output += 'alguien dijo <span style="color: red;">' + line['text'] \
+            + '</span> en el minuto ' + str(line['start']) + '<br/>'
 
     return 'YouTube: <p>{}</p>'.format(output)

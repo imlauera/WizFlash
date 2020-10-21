@@ -4,8 +4,9 @@
 <h1>{% block title %}{{post.subject}}{% endblock %}</h1>
 
 {% block content %}
-  <div class="container-fluid">
-    <a href="/delete/post/{{post.id}}"><span>BORRAR</span></a> 
+  <div class="container">
+    <a href="/delete/post/{{post.id}}" class="text-info"><span>BORRAR</span></a> |
+    <a href="/delete/post/{{post.id}}" class="text-info"><span>REPORTAR</span></a> 
     <h3>{{post.subject}}</h3>
     <h5>Vistas: {{post.views}}</h5>
     <h5>Fecha Creación: {{post.created_date.isoformat()}}</h5>
@@ -41,19 +42,19 @@
                 {{ render_field(form.subject, class='form-control', placeholder='Título') }}
               </div>
               <div class="col-sm-2 my-1">
-                {{ render_field(form.submit, class='btn form-control btn-sm btn-dark') }}
+                {{ render_field(form.submit, class='btn form-control btn-sm btn-info') }}
               </div>
             </div>
-            {{ render_field(form.comment, class='form-control', placeholder='Comentario *') }}
-            {{ render_field(form.password, class='form-control', placeholder='Contraseña * (sirve para poder borrar el comentario)') }}
-            <input name="YouTube" class="form-control" type="text" placeholder="YouTube Embed (no implementado)"/>
+            {{ render_field(form.comment, class='form-control', placeholder='Comentario*') }}
+            {{ render_field(form.password, class='form-control', placeholder='Contraseña* (sirve para poder borrar el comentario)') }}
+            <input name="YouTube" class="form-control" type="text" placeholder="YouTube Embed"/>
             {{ render_field(form.csrf_token) }}
           </form>
       </div>
       <hr/>
 
       {% for c in comments %}
-        <div id="{{c.id}}">
+        <div id="{{c.id}}" class="container" style="background-color: #111; padding: 20px; border-radius: 15px;">
           <strong>Anon</strong> Title: <strong class="text-primary">{{c.subject}}</strong> {{c.created_date.strftime("%d/%m/%y (%A) %H:%M:%S")}} No. <a href="#" onclick="javascript:alert('esto va a servir para citar a alguien')">{{c.id}}</a> | <a href="/delete/comment/{{c.id}}?id={{post.id}}">X</a><br/>
 						{% if c.file_ext in ('jpg', 'gif', 'jpeg', 'png') %}
 							<a target="_blank" href="{{ url_for ('static', filename='user_data/images/')}}{{c.filename}}">

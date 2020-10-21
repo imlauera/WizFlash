@@ -97,7 +97,7 @@ Borrar comentarios boludos.
 Cambie la tabla Thanks así que tengo que cambiar el código tmb.
 Cuando fallás un form no deberías perder toda la información para esto implementar todos los validatos que
 faltan.
-La página por defecto va a estar en dark mode, el light mode lo dejamos para dentro de unos años.
+[x] La página por defecto va a estar en dark mode, el light mode lo dejamos para dentro de unos años.
 Identificar los links de cada post.
 listar las categorias en crear un post.
 Que se puedan subir imágenes y videos y mostrarlos bien.
@@ -160,6 +160,7 @@ Establecer un min-height a las cartas.
 Al publicar una imagen dar más datos de esta, como 4chan.
 Tabla con un modal onclick
 En la primera página solo listar las categorías como cualquier chan 
-Agregar Disclaimer: this post and the subject matter and contents thereof - text, media, or otherwise - do not necessarily reflect the views of the 8kun administration en cada publicación y comentario pero en espaoñll.
+Agregar Disclaimer: this post and the subject matter and contents thereof - text, media, or otherwise - do not necessarily reflect the views of the 8kun administration en cada publicación y comentario pero en español.
 cambiar el directorio en donde el usuario sube imágenes.
-Ssitema anti flood en todos lados.
+Sistema anti flood.
+Arreglar resolución imágen en los comentarios.

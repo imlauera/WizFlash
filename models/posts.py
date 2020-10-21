@@ -81,6 +81,7 @@ class Post(db.Model):
 
 class CategoryList(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    desc = db.Column(db.String)
     name = db.Column(
         db.String,
         unique=True,

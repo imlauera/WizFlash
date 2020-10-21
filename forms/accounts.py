@@ -107,7 +107,7 @@ class UploadForm(FlaskForm):
         ],
         choices=[("", "Elegir categoría")]
     )
-    hidden = BooleanField('Hidden?')
+    hidden = BooleanField('Oculto?')
     tags = StringField('Tags (separado por espacios)', [InputRequired()])
     files = FileField(
         'Archivo',
@@ -240,8 +240,9 @@ class ProfileForm(FlaskForm):
 
 class CreateCategoryForm(FlaskForm):
     category = StringField('Nombre', [InputRequired()])
+    desc = StringField('Desc', [InputRequired(), Length(max=30)])
     recaptcha = RecaptchaField("Are you real?")
-    submit = SubmitField("Crear")
+    submit = SubmitField("Crear categoría")
 
 
 class ThankPostForm(FlaskForm):
