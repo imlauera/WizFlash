@@ -1,0 +1,11 @@
+Models:
+class Post:
+  fijado = db.Column(db.Boolean) 
+Hacer una página aparte para los moderadores.
+No quiero usar el sistema de usuarios que tengo, 
+
+Categoría:
+user:
+password:
+mod password: 
+A

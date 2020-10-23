@@ -4,7 +4,8 @@ from flask import (
     redirect,
     request,
     url_for,
-    current_app
+    current_app,
+    session
 )
 from forms import ContactForm, CommentForm
 from models import (
@@ -15,6 +16,7 @@ from models import (
     Comment,
 )
 import os
+import strgen
 import datetime
 from youtube_transcript_api import YouTubeTranscriptApi
 from werkzeug.utils import secure_filename
@@ -56,11 +58,10 @@ def category(name=None):
         Post.categories.any(Category.category_name == name)
     ).order_by(Post.created_date.desc()).all()
 
-    print(posts)
-
     return render_template(
         'category.html',
         posts=posts,
+        bbcode=bbcode,
         category_name=name
     )
 
@@ -89,6 +90,12 @@ def search(query=None):
 @routes.route('/view/<id>', methods=['GET', 'POST'])
 def view(id=None):
     form = CommentForm()
+    password = session.get('password', None)
+    if not password:
+        session['password'] = strgen.StringGenerator("[\\d\\w]{50}").render()
+
+    comment_password = session['password']
+    form.password.data = comment_password
 
     post = Post.query.get_or_404(id)
     comments = Comment.query.filter_by(

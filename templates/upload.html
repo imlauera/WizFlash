@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% from "_formhelpers.html" import render_field %}
-<h1>{% block title %}Subir un Catálogo{% endblock %}</h1>
+<h1>{% block title %}Crear una nueva publicación{% endblock %}</h1>
 
 {% block content %}
   <div class="container w-75">
@@ -21,7 +21,7 @@
                   </li>
                 </ul>
               </strong>
-              {{ render_field(form.desc, class='form-control', placeholder='Descripción', cols="35", rows="10") }}
+              {{ render_field(form.desc, class='form-control', placeholder='Descripción', rows="6") }}
               {{ form.category.label }}
               {{ render_field(form.category, class='form-control') }}
               {{ form.tags.label }}

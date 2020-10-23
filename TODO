@@ -164,3 +164,6 @@ Agregar Disclaimer: this post and the subject matter and contents thereof - text
 cambiar el directorio en donde el usuario sube imágenes.
 Sistema anti flood.
 Arreglar resolución imágen en los comentarios.
+En cada publicación hacer un geoip y sacar el país a través de la ip.
+Usar porcentajes en imágenes 
+Agregar citas en Comment de la db.

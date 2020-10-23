@@ -4,7 +4,8 @@ from flask import (
     redirect,
     url_for,
     current_app,
-    request
+    request,
+    session
 )
 import strgen
 from forms import (
@@ -114,7 +115,8 @@ def delete(id=None):
 
     if form.validate_on_submit():
         post = Post.query.get(id)
-        if checkph(post.hash_password, form.password.data):
+        if checkph(post.hash_password, form.password.data) \
+           or (current_user.is_authenticated and current_user.admin == 1):
             db.session.delete(post)
             db.session.commit()
         else:
@@ -172,6 +174,11 @@ def delete_comment(id=None):
 @routes.route('/index', methods=['GET'])
 def index():
     lista_categorias = CategoryList.query.all()
+
+    password = session.get('password', None)
+    if not password:
+        session['password'] = strgen.StringGenerator("[\\d\\w]{50}").render()
+
     print(lista_categorias)
     return render_template(
         'home.html',
@@ -210,6 +217,12 @@ def createcategory():
 @routes.route('/upload', methods=['GET', 'POST'])
 def upload():
     form = UploadForm()
+    password = session.get('password', None)
+    if not password:
+        session['password'] = strgen.StringGenerator("[\\d\\w]{50}").render()
+    post_password = session['password']
+    form.password.data = post_password
+
     lista_categorias = CategoryList.query.all()
 
     # Hacerlo de una forma más pythonica o como quiera que se diga.

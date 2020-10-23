@@ -240,7 +240,7 @@ class ProfileForm(FlaskForm):
 
 class CreateCategoryForm(FlaskForm):
     category = StringField('Nombre', [InputRequired()])
-    desc = StringField('Desc', [InputRequired(), Length(max=30)])
+    desc = StringField('Desc', [InputRequired(), Length(max=50)])
     recaptcha = RecaptchaField("Are you real?")
     submit = SubmitField("Crear categoría")
 
