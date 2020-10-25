@@ -1,0 +1,21 @@
+{% extends 'base.html' %} 
+{% block title%}Directorio{%endblock%}
+
+{% block content %}
+<div class="w-75 m-auto">
+				{% for post in news %}
+        <div class="card misc" style="">
+            <div class="row no-gutters">
+                <div class="col-sm-12">
+                    <div class="card-body">
+                        <strong class="card-title"><a class="" href="/view/{{post.id}}">{{post.subject}}</a></strong>
+                        <p class="card-text text-muted">{{post.views}} vistas | 123 comentarios </p>
+                    </div>
+                </div>
+            </div>
+				</div>
+    {% else %}
+        No hay entradas.
+    {% endfor %}
+</div>
+{% endblock %}

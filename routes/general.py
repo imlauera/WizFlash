@@ -2,8 +2,8 @@ from . import routes
 from flask import (
     render_template,
     redirect,
-    request,
     url_for,
+    request,
     current_app,
     session
 )
@@ -67,7 +67,7 @@ def category(name=None):
 
 
 @routes.route('/search', methods=['GET', 'POST'])
-def search(query=None):
+def search():
     # posts_category = Category.query.filter_by(category_name=name).limit(20)
     query = request.args.get('q')
     # Acá tenemos una lista de los tags a buscar, y queremos obtener
@@ -90,6 +90,7 @@ def search(query=None):
 @routes.route('/view/<id>', methods=['GET', 'POST'])
 def view(id=None):
     form = CommentForm()
+
     password = session.get('password', None)
     if not password:
         session['password'] = strgen.StringGenerator("[\\d\\w]{50}").render()

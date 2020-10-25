@@ -4,114 +4,115 @@
 <h1>{% block title %}{{post.subject}}{% endblock %}</h1>
 
 {% block content %}
-  <div class="jumbotron">
-    <div class="container w-75">
-        <p class="lead text-center">Comentar</p>
-        <form method="post" enctype="multipart/form-data">
-          {{ render_field(form.file, class='form-control') }}
-          <div class="form-row">
-            <div class="col-sm-10 my-1">
-              {{ render_field(form.subject, class='form-control', placeholder='Título') }}
-            </div>
-            <div class="col-sm-2 my-1">
-              {{ render_field(form.submit, class='btn form-control btn-sm btn-info') }}
-            </div>
-          </div>
-          {{ render_field(form.comment, class='form-control', placeholder='Comentario*') }}
-          <label>Contraseña generada automáticamente para poder borrar el comentario, si querés podés usar otra.</label>
-          {{ render_field(form.password, class='form-control text-muted', placeholder='Contraseña* (sirve para poder borrar el comentario)') }}
-          <input name="YouTube" class="form-control" type="text" placeholder="YouTube Embed"/>
-          {{ render_field(form.csrf_token) }}
-        </form>
-    </div>
-    <hr class="bg-secondary"/>
-    <a href="/delete/post/{{post.id}}" class="text-dark"><span>BORRAR</span></a> |
-    <a href="/delete/post/{{post.id}}" class="text-dark"><span>REPORTAR</span></a> |
-    <span>Fecha Creación: {{post.created_date.strftime("%A %d/%m/%y %H:%M:%S")}}</span>
-    <h3 style="">{{post.subject}}</h3>
-    <div style="" class="">
-        {% for img in post.files %}
-          <!-- Chequear la extensión primero antes de mostrar img -->
-          {% if img.extension in ('jpg', 'gif', 'jpeg', 'png') %}
-          <p>
-            <a target="_blank" href="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}" >
-              <img id="test" style="float: left; margin: 0px 15px 15px 0px;" src="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}" height="300" />
-            </a>
-            {{bbcode.render_html(post.desc)|safe}}
-            <br style="clear: both;" />
-          </p>
+<div class="jumbotron-fluid">
+  <div class="row">
+		<div class="col">
+				<a href="/delete/post/{{post.id}}" class=""><span>BORRAR</span></a> |
+				<a href="/delete/post/{{post.id}}" class=""><span>REPORTAR</span></a>
+				<h3 style="">{{post.subject}}</h3>
+				<div style="" class="">
+						{% for img in post.files %}
+							<!-- Chequear la extensión primero antes de mostrar img -->
+							{% if img.extension in ('jpg', 'gif', 'jpeg', 'png') %}
+							<p>
+								<a target="_blank" href="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}" >
+									<img id="test" style="float: left; margin: 0px 15px 15px 0px;" src="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}" height="300" />
+								</a>
+								{{bbcode.render_html(post.desc)|safe}}
+								<br style="clear: both;" />
+							</p>
 
-          {% elif img.extension in ('webm', 'mp4') %}
-            <video height=250 src="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}" loop controls/>
-              Your browser does not support the video tag.
-            </video>
-          {% endif %}
-        {% endfor %}
-        <!-- Tengo que detectar la extensión para saber si muestro un video o una imágen -->
-    </div>
-    <div class="mt-5">
-      <b>Category:</b> {{category}}<br/>
-      <b>Tags:</b> 
-      {% for tag in post.tags %}
-        <span class="tags">{{tag.tag_name}}</span>
-      {% endfor %}
-    </div>
-
-      <hr class="bg-secondary"/>
-
-      {% for c in comments %}
-      <div class="container-fluid">
-        <div id="{{c.id}}" class="" style="max-width: 65%; background-color: #111; padding: 10px; margin-bottom: 5px; border-bottom: 4px solid #444; ">
-          <p class="intro">
-            <a class="post_no" onclick="citeReply(350)" href="/delete/comment/{{c.id}}">X</a>
-            <label for="something_{{c.id}}">
-            <span class="name">Anon</span> 
-            <img class="flag flag-ar" xs="//media.8kun.top/static/flags/ar.png" src="//media.8kun.top/static/blank_flag.gif" style="" alt="Argentina" title="Argentina">
-            <time datetime="{{c.created_date}}" data-local="true" title="1 year ago">{{c.created_date.strftime("%d/%m/%y (%A) %H:%M:%S")}}</time>
-            </label>
-            No.    
-            <a class="post_no" onclick="citeReply(350)" href="javascript:void(0)">{{c.id}}</a>
-            <span class="mentioned unimportant">
-              <!-- <a class="mentioned-422" style="margin-left: 10px; " onclick="highlightReply('422', event);" href="#422">&gt;&gt;</a>-->
-            </span>
-          </p> 
-          {% if c.file_ext in ('jpg', 'gif', 'jpeg', 'png', 'webm', 'mp4') %}
-          <div class="files">
-            <div class="file">
-              <p class="fileinfo">
-                <span>
-                  File
-                  :
-                </span>
-                <a title="{{c.filename}}" href="{{url_for('static', filename='user_data/images/')}}{{c.filename}}">{{c.filename}}</a>
-                <span class="unimportant">
-                  (12,47 MB, 1280x720, 16:9
-                  <a download="{{c.filename}}" href="{{url_for('static', filename='user_data/images/')}}{{c.filename}}">descargar</a>)
-                </span>
-              </p>
-              <a href="{{url_for('static', filename='user_data/images/')}}{{c.filename}}" target="_blank" class="file">
-                {% if c.file_ext in ('jpg', 'gif', 'jpeg', 'png') %}
-                  <img class="post-image" src="{{url_for('static', filename='user_data/images/')}}{{c.filename}}" style="height:147px" alt="" data-md5="8roXFP0PYrgtGDXFuop1UA==">
-                {% elif c.file_ext in ('webm', 'mp4') %}
-                  <video class="post-image" src="{{url_for('static', filename='user_data/images/')}}{{c.filename}}" style="width:255px;height:147px" alt="" loop controls/>
-                    Your browser does not support the video tag.
-                  </video>
-                {% endif %}
-              </a>
+							{% elif img.extension in ('webm', 'mp4') %}
+								<video height=250 src="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}" loop controls/>
+									Your browser does not support the video tag.
+								</video>
+							{% endif %}
+						{% endfor %}
+				</div>
+				<div class="mt-5">
+					<span>{{post.created_date.strftime("%A %d/%m/%y %H:%M:%S")}}</span><br/>
+					<b>Category:</b> {{category}}<br/>
+					<b>Tags:</b> 
+					{% for tag in post.tags %}
+						<span class="tags">{{tag.tag_name}}</span>
+					{% endfor %}
+				</div>
+		</div> <!-- col -->
+		<div class="col" style="">
+        <header class="sticky-top">
+          <div class="bg-dark ">
+							<center><h3>Comentarios</h3></center>
+							<br/>
+              <form method="post" enctype="multipart/form-data">
+                {{ render_field(form.file, class='form-control') }}
+                {{ render_field(form.comment, class='form-control', placeholder='Comentario*') }}
+                <div class="form-row">
+                  <div class="col-sm-10 my-1">
+                    {{ render_field(form.password, class='form-control text-muted', placeholder='Contraseña* (sirve para poder borrar el comentario)') }}
+                  </div>
+                  <div class="col-sm-2 my-1">
+                    {{ render_field(form.submit, class='btn form-control btn-sm btn-info') }}
+                  </div>
+                </div>
+                {{ render_field(form.csrf_token) }}
+              </form>
+          </div>
+        </header>
+      <div class="comments" style="">
+        {% for c in comments %}
+        <div class="card misc">
+          <div id="{{c.id}}" class="" style="padding: 10px;">
+            <p class="intro">
+            <a class="post_no" onclick="citeReply(350)" href="/delete/comment/{{c.id}}?id={{post.id}}">X</a>
+              <label for="something_{{c.id}}">
+              <span class="name">Anon</span> 
+              <img class="flag flag-ar" xs="//media.8kun.top/static/flags/ar.png" src="//media.8kun.top/static/blank_flag.gif" style="" alt="Argentina" title="Argentina">
+              <time datetime="{{c.created_date}}" data-local="true" title="1 year ago">{{c.created_date.strftime("%d/%m/%y (%A) %H:%M:%S")}}</time>
+              </label>
+              No.    
+              <a class="post_no" onclick="citeReply(350)" href="javascript:void(0)">{{c.id}}</a>
+              <span class="mentioned unimportant">
+                <!-- <a class="mentioned-422" style="margin-left: 10px; " onclick="highlightReply('422', event);" href="#422">&gt;&gt;</a>-->
+              </span>
+            </p> 
+            {% if c.file_ext in ('jpg', 'gif', 'jpeg', 'png', 'webm', 'mp4') %}
+            <div class="files">
+              <div class="file">
+                <p class="fileinfo">
+                  <span>
+                    Archivo
+                    :
+                  </span>
+                  <a title="{{c.filename}}" href="{{url_for('static', filename='user_data/images/')}}{{c.filename}}">{{c.filename[:10]}}</a>
+                  <span class="unimportant">
+                    (12,47 MB
+                    <a download="{{c.filename}}" href="{{url_for('static', filename='user_data/images/')}}{{c.filename}}">descargar</a>)
+                  </span>
+                </p>
+                <a href="{{url_for('static', filename='user_data/images/')}}{{c.filename}}" target="_blank" class="file">
+                  {% if c.file_ext in ('jpg', 'gif', 'jpeg', 'png') %}
+                    <img class="post-image" src="{{url_for('static', filename='user_data/images/')}}{{c.filename}}" style="height:147px" alt="" data-md5="8roXFP0PYrgtGDXFuop1UA==">
+                  {% elif c.file_ext in ('webm', 'mp4') %}
+                    <video class="post-image" src="{{url_for('static', filename='user_data/images/')}}{{c.filename}}" style="width:255px;height:147px" alt="" loop controls/>
+                      Your browser does not support the video tag.
+                    </video>
+                  {% endif %}
+                </a>
+              </div>
             </div>
-          </div>
-          {% endif %}
-          <div class="body">
-            {{  bbcode.render_html(c.comment)|safe }}<br/>
-          </div>
-          <div>
-            <i> <small class="disclaimer-flashlightning"></small> </i>
-          </div>
-      </div>
+            {% endif %}
+            <div class="body">
+              {{  bbcode.render_html(c.comment)|safe }}<br/>
+            </div>
+            <div>
+              <i> <small class="disclaimer-flashlightning"></small> </i>
+            </div>
         </div>
-          {% else %}
-          <p>Todavía no hay comentarios.</p>
-      {% endfor %}
+          </div>
+            {% else %}
+            <p>Todavía no hay comentarios.</p>
+        {% endfor %}
+      </div>
     </div>
   </div>
 
