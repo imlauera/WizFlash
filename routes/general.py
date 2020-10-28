@@ -15,11 +15,11 @@ from models import (
     Category,
     Comment,
 )
+from .auth.upload import GenerateFilename
 import os
 import strgen
 import datetime
 from youtube_transcript_api import YouTubeTranscriptApi
-from werkzeug.utils import secure_filename
 from werkzeug.security import generate_password_hash as genph
 import bbcode
 
@@ -120,23 +120,20 @@ def view(id=None):
 
     if form.validate_on_submit():
         print(form.file.data)
-        filename = secure_filename(
-            form.file.data.filename
-        ) if (
-            form.file.data is not None
-        ) else ''
 
-        # filename = filename if (filename is not None) else ''
+        # Quiero el nombre del archivo para obtener la extensión,
+        # pero no voy a usar el nombre del archivo para identificarlo
+        file_data = GenerateFilename(form.file.data.filename)
 
-        print("el valor de filename es: {}".format(filename))
+        print("el valor de filename es: {}".format(file_data['name']))
         new_comment = Comment(
             post_id=id,
             comment=form.comment.data,
             hash_password=genph(form.password.data),
             subject=form.subject.data,
             created_date=datetime.datetime.utcnow(),
-            filename=filename,
-            file_ext=filename.split('.').pop(),
+            filename=file_data['name'],
+            file_ext=file_data['ext']
         )
         db.session.add(new_comment)
         db.session.commit()
@@ -145,7 +142,8 @@ def view(id=None):
 
         if file is not None:
             file.save(os.path.join(
-                current_app.config['UPLOAD_FOLDER'], 'images', filename
+                current_app.config['UPLOAD_FOLDER'],
+                'images', file_data['name']
             ))
 
         return redirect(

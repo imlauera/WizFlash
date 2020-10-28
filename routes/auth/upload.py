@@ -214,6 +214,18 @@ def createcategory():
     return render_template('user/createcategory.html', form=form)
 
 
+def GenerateFilename(formfilesdatafilename):
+    # Quiero el nombre del archivo para obtener la extensión,
+    # pero no voy a usar el nombre del archivo para identificarlo
+    filename = secure_filename(formfilesdatafilename)
+
+    extension = filename.split('.').pop()
+    # Voy a guardar el archivo con un nombre random.
+    filename = strgen.StringGenerator("[\\d\\w]{20}").render()
+    filename += '.'+extension
+    return {'name': filename, 'ext': extension}
+
+
 @routes.route('/upload', methods=['GET', 'POST'])
 def upload():
     form = UploadForm()
@@ -248,38 +260,33 @@ def upload():
 
         # Quiero el nombre del archivo para obtener la extensión,
         # pero no voy a usar el nombre del archivo para identificarlo
-        filename = secure_filename(form.files.data.filename)
-
-        extension = filename.split('.').pop()
-        # Voy a guardar el archivo con un nombre random.
-        filename = strgen.StringGenerator("[\\d\\w]{20}").render()
-        filename += '.'+extension
+        file_data = GenerateFilename(form.files.data.filename)
 
         print("Vamos a intentar guardarlo \
-              como {}{}".format(filename, extension))
+              como {}".format(file_data['name']))
 
         # Compruebo que no esté usado.
-        name_used = FilePost.query.filter_by(file=filename).first()
+        name_used = FilePost.query.filter_by(file=file_data['name']).first()
         # Si está usado generá otro hasta que no lo esté.
         print('Name_used vale %s' % name_used)
         while (name_used is not None):
-            filename = strgen.StringGenerator(
-                "[\\d\\w]{20}"
-            ).render()
-            filename += '.'+extension
-            name_used = FilePost.query.filter_by(file=filename).first()
+            file_data = GenerateFilename(form.files.data.filename)
+
+            name_used = FilePost.query.filter_by(
+                file=file_data['name']
+            ).first()
             print("El nombre del archivo estaba \
                   usado voy a usar este {}\
-                  en su lugar". format(filename))
+                  en su lugar". format(file_data['name']))
 
         # Ahora debería guardar el catalogo del negocio en la db
         new_post = Post(
             subject=form.subject.data,
             desc=form.desc.data,
             # Crear el thumbnail pequeño
-            thumbnail=filename,
+            thumbnail=file_data['name'],
             hash_password=genph(form.password.data),
-            thumbnail_max=filename,
+            thumbnail_max=file_data['name'],
             # tags = form.tags.data,
             # cambiar a category
             created_date=datetime.datetime.utcnow(),
@@ -293,12 +300,12 @@ def upload():
         file = form.files.data
 
         file.save(os.path.join(
-            current_app.config['UPLOAD_FOLDER'], 'images', filename
+            current_app.config['UPLOAD_FOLDER'], 'images', file_data['name']
         ))
         new_post_files = FilePost(
             post_id=new_post.id,
-            file=filename,
-            extension=extension
+            file=file_data['name'],
+            extension=file_data['ext']
         )
         db.session.add(new_post_files)
         db.session.commit()

@@ -6,7 +6,7 @@
 {% block content %}
 <div class="jumbotron-fluid">
   <div class="row">
-		<div class="col">
+		<div class="col-lg-6">
 				<a href="/delete/post/{{post.id}}" class=""><span>BORRAR</span></a> |
 				<a href="/delete/post/{{post.id}}" class=""><span>REPORTAR</span></a>
 				<h3 style="">{{post.subject}}</h3>
@@ -16,10 +16,10 @@
 							{% if img.extension in ('jpg', 'gif', 'jpeg', 'png') %}
 							<p>
 								<a target="_blank" href="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}" >
-									<img id="test" style="float: left; margin: 0px 15px 15px 0px;" src="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}" height="300" />
+									<img id="test" style="float: left; margin: 0px 15px 15px 0px; width: 100%;" src="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}" />
+                  <br style="clear: both;" />
 								</a>
 								{{bbcode.render_html(post.desc)|safe}}
-								<br style="clear: both;" />
 							</p>
 
 							{% elif img.extension in ('webm', 'mp4') %}
@@ -38,12 +38,13 @@
 					{% endfor %}
 				</div>
 		</div> <!-- col -->
-		<div class="col" style="">
+		<div class="col-lg-6 bg-dark">
         <header class="sticky-top">
           <div class="bg-dark ">
 							<center><h3>Comentarios</h3></center>
 							<br/>
               <form method="post" enctype="multipart/form-data">
+                {{ render_field(form.csrf_token) }}
                 {{ render_field(form.file, class='form-control') }}
                 {{ render_field(form.comment, class='form-control', placeholder='Comentario*') }}
                 <div class="form-row">
@@ -51,10 +52,9 @@
                     {{ render_field(form.password, class='form-control text-muted', placeholder='Contraseña* (sirve para poder borrar el comentario)') }}
                   </div>
                   <div class="col-sm-2 my-1">
-                    {{ render_field(form.submit, class='btn form-control btn-sm btn-info') }}
+                    {{ render_field(form.submit, class='btn form-control btn-info') }}
                   </div>
                 </div>
-                {{ render_field(form.csrf_token) }}
               </form>
           </div>
         </header>
@@ -67,7 +67,7 @@
               <label for="something_{{c.id}}">
               <span class="name">Anon</span> 
               <img class="flag flag-ar" xs="//media.8kun.top/static/flags/ar.png" src="//media.8kun.top/static/blank_flag.gif" style="" alt="Argentina" title="Argentina">
-              <time datetime="{{c.created_date}}" data-local="true" title="1 year ago">{{c.created_date.strftime("%d/%m/%y (%A) %H:%M:%S")}}</time>
+              <time datetime="{{c.created_date}}" data-local="true">{{c.created_date.strftime("%d/%m/%y (%A) %H:%M:%S")}}</time>
               </label>
               No.    
               <a class="post_no" onclick="citeReply(350)" href="javascript:void(0)">{{c.id}}</a>
@@ -83,7 +83,7 @@
                     Archivo
                     :
                   </span>
-                  <a title="{{c.filename}}" href="{{url_for('static', filename='user_data/images/')}}{{c.filename}}">{{c.filename[:10]}}</a>
+                  <a title="{{c.filename}}" href="{{url_for('static', filename='user_data/images/')}}{{c.filename}}">{{c.filename[:30]}}</a>
                   <span class="unimportant">
                     (12,47 MB
                     <a download="{{c.filename}}" href="{{url_for('static', filename='user_data/images/')}}{{c.filename}}">descargar</a>)

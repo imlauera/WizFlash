@@ -167,3 +167,4 @@ Arreglar resolución imágen en los comentarios.
 En cada publicación hacer un geoip y sacar el país a través de la ip.
 Usar porcentajes en imágenes 
 Agregar citas en Comment de la db.
+En routes dividir mejor las funciones en diferentes archivos.

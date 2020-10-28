@@ -4,14 +4,13 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<meta name="description" content="Anonymous image board">
-		<meta name="author" content="FlashLightning">
+		<meta name="author" content="WizFlash">
 		<link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
 
-		<title>{% block title %} {% endblock %} - FlashLightning</title>
+		<title>{% block title %} {% endblock %} - WizFlash</title>
 
     <link rel="shortcut icon" href="{{ url_for('static', filename='images/thunder.ico') }}" type="image/x-icon">
 		<link rel="stylesheet" href="{{url_for('static', filename='css/style_dark.css')}}"/>
-    <link href="https://fonts.googleapis.com/css2?family=Lato&amp;family=Major+Mono+Display&amp;family=Merriweather&amp;family=Miriam+Libre&amp;family=PT+Sans&amp;display=swap" rel="stylesheet">
 		<meta name="color-scheme" content="dark light">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -31,7 +30,7 @@
 
 	<body>
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand " href="/">FlashLightning</a>
+      <a class="navbar-brand " href="/">WizFlash</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -46,9 +45,9 @@
         </ul>
 				<ul class="navbar-nav navbar-center">
 					<form class="form-inline my-2 my-lg-0" action="/search">
-            <div class="p-1 bg-light shadow-sm mb-0">
+            <div class="p-1  shadow-sm mb-0">
               <div class="input-group">
-                <input type="search" name="q" placeholder="¿Qué estás buscando?" aria-describedby="button-addon1" class="form-control border-0 bg-light text-dark">
+                <input type="search" name="q" placeholder="Buscar" aria-describedby="button-addon1" class="form-control border-0 ">
                 <div class="input-group-append">
                   <button id="button-addon1" type="submit" class="btn btn-link text-primary"><i class="fa fa-search"></i></button>
                 </div>
@@ -98,7 +97,7 @@
     </nav>
 
 
-		<div class="container-fluid" style="margin-top: 5em;">
+		<div class="container-fluid" style="">
         {% block content %} {% endblock %}
 		</div>
 
