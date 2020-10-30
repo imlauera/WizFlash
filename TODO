@@ -168,3 +168,7 @@ En cada publicación hacer un geoip y sacar el país a través de la ip.
 Usar porcentajes en imágenes 
 Agregar citas en Comment de la db.
 En routes dividir mejor las funciones en diferentes archivos.
+Sacar las tags.
+Cuando el mouse se coloca arriba de algún ID, tenés que mostrar un div.
+position: absolute; display: block; z-index:100; y que se ubique
+al costado del id.

@@ -18,7 +18,7 @@ a:hover { color: white!important; }
   height: 100%;
   object-fit: cover;
 }
-.list { transition: all 0.1s; }
+.list { overflow: hidden; transition: all 0.1s; }
 .list:hover { transform: scale(1.05); z-index: 1; }
 .webs-catalog .card-img-overlay{
     background: linear-gradient(
@@ -97,5 +97,9 @@ a:hover { color: white!important; }
 .parent:hover .popup {
 	display: block;
 }
-
-
+.post-image{
+  height:147px;
+}
+.post-image:hover{
+  height:250px;
+}

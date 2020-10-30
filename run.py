@@ -10,7 +10,7 @@ from flask_script import Manager
 from flask_migrate import Migrate
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///flashlightning.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///wizflash.db'
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://username:password@server/db
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'adam$@bjorkdogsandcatsBm1O5s_p#y#r,AH13Q3XXsolP*faХ#3radianteaХ#3'

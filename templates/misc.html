@@ -4,7 +4,7 @@
 {% block content %}
   <div class="webs-catalog">
     {% for post in news %}
-    <div class="card list" style="">
+    <div class="card list" style="overflow: hidden;">
         <!-- Chequear la extensión primero antes de mostrar img -->
       {% for img in post.files %}
         {% if img.extension in ('jpg', 'gif', 'jpeg', 'png') %}
@@ -19,8 +19,9 @@
       <a href="/view/{{post.id}}" >
         <div class="card-img-overlay "> 
           <h4 class="card-title title">{{post.subject[:85]}}</h4>
-          <span class="card-subtitle mb-2 text-muted">{{post.views}} vistas</span> |
-          <span class="card-subtitle mb-2 text-muted">1234 comentarios</span>
+          <span class="card-subtitle mb-2 text-muted">{{post.views}} vistas |</span>
+          <span class="card-subtitle mb-2 text-muted">{{post.total_comments}} comentario(s)</span>
+          <p class="card-text ">{{post.desc[:100] | replace('\n', '<br/>') | safe}}</p>
         </div>
       </a>
     </div>

@@ -291,6 +291,7 @@ def upload():
             # cambiar a category
             created_date=datetime.datetime.utcnow(),
             views=0,
+            total_comments=0,
             total_thanks=0,
             hidden=False,
         )

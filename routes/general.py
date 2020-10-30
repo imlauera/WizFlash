@@ -99,10 +99,13 @@ def view(id=None):
     form.password.data = comment_password
 
     post = Post.query.get_or_404(id)
+    '''
+        post.desc =
+        regex.sub(r'(?<!//.+)->', '.', line)
+        var cite = />>(.*?)->/g;
+    '''
     comments = Comment.query.filter_by(
         post_id=id
-    ).order_by(
-        Comment.created_date.desc()
     )
 
     post.views += 1
@@ -123,9 +126,12 @@ def view(id=None):
 
         # Quiero el nombre del archivo para obtener la extensión,
         # pero no voy a usar el nombre del archivo para identificarlo
-        file_data = GenerateFilename(form.file.data.filename)
+        file_data = GenerateFilename(
+            form.file.data.filename
+        ) if (
+            form.file.data is not None
+        ) else {'name': '', 'ext': ''}
 
-        print("el valor de filename es: {}".format(file_data['name']))
         new_comment = Comment(
             post_id=id,
             comment=form.comment.data,
@@ -135,7 +141,11 @@ def view(id=None):
             filename=file_data['name'],
             file_ext=file_data['ext']
         )
+
         db.session.add(new_comment)
+        db.session.commit()
+
+        post.total_comments += 1
         db.session.commit()
 
         file = form.file.data
