@@ -7,6 +7,7 @@ from flask import (
     current_app,
     session
 )
+from .bbcode_parser import parser
 from forms import ContactForm, CommentForm
 from models import (
     db,
@@ -169,6 +170,7 @@ def view(id=None):
             category=category.category.name,
             form=form,
             bbcode=bbcode,
+            parser=parser,
             comments=comments
     )
 
