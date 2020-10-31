@@ -109,6 +109,18 @@ class UploadForm(FlaskForm):
     )
     hidden = BooleanField('Oculto?')
     tags = StringField('Tags (separado por espacios)', [InputRequired()])
+    audio = FileField(
+        'Audio',
+        [
+            FileRequired(),
+            FileAllowed(
+                [
+                    'm4a',
+                ],
+                """Sólo archivos de audio m4a"""
+            )
+        ]
+    )
     files = FileField(
         'Archivo',
         [
@@ -126,7 +138,7 @@ class UploadForm(FlaskForm):
                 """Sólo archivos jpg, png, gif,
                 jpeg, mp4, webm están permitidos!"""
             )
-        ],
+        ]
         # widget=FileInput(multiple=True, accept=['image/*'])
     )
     password = StringField(

@@ -59,9 +59,10 @@
           </div>
         </header>
       <div class="comments" style="">
+        <a href="#" id="testa" onmouseover="openReply(5)" onmouseout="closeReply(5)">Prueba [5]</a>
         {% for c in comments %}
         <div class="card misc">
-          <div id="{{c.id}}" class="" style="padding: 10px;">
+          <div id="{{c.id}}" class="cc" onclick="closeReply({{c.id}})" style="padding: 10px;">
             <p class="intro">
             <a class="post_no" href="/delete/comment/{{c.id}}?id={{post.id}}">X</a>
               <label for="something_{{c.id}}">
@@ -104,7 +105,7 @@
               {{  parser.format(c.comment)|safe }}<br/>
             </div>
             <div>
-              <i> <small class="disclaimer-flashlightning"></small> </i>
+              <i><small class="disclaimer-flashlightning"></small></i>
             </div>
         </div>
           </div>
@@ -114,18 +115,17 @@
       </div>
     </div>
     <script>
-      function replace(){
-        var cite = />>(.*?)->/g;
-      }
       function openReply(ID){
         var comment = $('#'+ID).html();
 
-        var quote_id = '#'+'quote-'+ID
-        $(quote_id).append('<div class="comment bg-dark" style="position: relative; display: block;  z-index:1000; background-color: red; overflow: visible;">'+comment+'</div>');
+        var quote_id = '#'+ID
+        $(quote_id).css('background-color','#083563');
+        //$(quote_id).append('<div class="comment bg-dark" style="position: absolute; display: block; z-index:1000;">'+comment+'</div>');
       }
 
       function closeReply(ID){
-        $('.comment').detach();
+        var quote_id = '#'+ID
+        $(quote_id).css('background-color','#32383e');
       }
       function citeReply(ID){
         var commentArea = $('#comment');
