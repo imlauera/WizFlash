@@ -1,4 +1,3 @@
-![alt text](screenshots/wz1.png)
 ![alt text](screenshots/wz2.png)
 ![alt text](screenshots/wz3.png)
 
