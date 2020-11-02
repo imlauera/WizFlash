@@ -18,4 +18,4 @@ db.create_all()
 python3 run.py
 ```
 
-*If you had any kind of issues running this, please let me know, I'm very active here and I'll read all the issues.*
+*If you had any kind of issues running this, please let me know, I'm very active here and I'll read all messages.*
