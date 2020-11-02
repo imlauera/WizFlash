@@ -1,7 +1,7 @@
 ### Installation
 pip install -r requirements.txt
 ### Create the database
-On the main dir, type in the python3 console
+On the main dir, open a python3 console and type:
 ```python
 from run import app
 from models import *
