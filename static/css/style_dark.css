@@ -36,7 +36,7 @@ a:hover { color: white!important; }
 	text-shadow: 0 1px 0 black;
 }
 .card { overflow: auto; }
-.misc:hover {  border-left: 8px solid grey; }
+.misc:hover {  border-left: 2px solid lightblue; }
 .webs-catalog .card-img-overlay{
 }
 .webs-catalog .card-img-overlay:hover{

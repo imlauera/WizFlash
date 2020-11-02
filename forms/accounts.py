@@ -112,7 +112,6 @@ class UploadForm(FlaskForm):
     audio = FileField(
         'Audio',
         [
-            FileRequired(),
             FileAllowed(
                 [
                     'm4a',

@@ -39,7 +39,7 @@
 				</div>
 		</div> <!-- col -->
 		<div class="col-lg-6 bg-dark">
-        <header class="sticky-top">
+        <header id="makeacomment" class="sticky-top">
           <div class="bg-dark ">
 							<center><h3>Comentarios</h3></center>
 							<br/>
@@ -59,7 +59,6 @@
           </div>
         </header>
       <div class="comments" style="">
-        <a href="#" id="testa" onmouseover="openReply(5)" onmouseout="closeReply(5)">Prueba [5]</a>
         {% for c in comments %}
         <div class="card misc">
           <div id="{{c.id}}" class="cc" onclick="closeReply({{c.id}})" style="padding: 10px;">
@@ -117,16 +116,15 @@
     <script>
       function openReply(ID){
         var comment = $('#'+ID).html();
-
-        var quote_id = '#'+ID
-        $(quote_id).css('background-color','#083563');
-        //$(quote_id).append('<div class="comment bg-dark" style="position: absolute; display: block; z-index:1000;">'+comment+'</div>');
+        var test = '#makeacomment'
+        $(test).append('<div id="oppened_comment" style="position: absolute; display: block; z-index: 100; padding: 15px; background-color: #2f1c05; width: 100%; border: 3px solid orange; border-radius: 5px;" class="bg-dark" >'+comment+'</div>');
       }
 
       function closeReply(ID){
-        var quote_id = '#'+ID
-        $(quote_id).css('background-color','#32383e');
+        var test = '#oppened_comment'
+        $(test).detach();
       }
+
       function citeReply(ID){
         var commentArea = $('#comment');
         commentArea.val(commentArea.val() + '[q]'+ID+'[/q]'+'\n');

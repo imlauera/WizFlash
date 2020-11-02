@@ -3,10 +3,9 @@ parser = bbcode.Parser()
 parser.add_simple_formatter(
     'q',
     """
-        <a href="#%(value)s"
-            id="cite"
-            onclick="openReply(%(value)s)"
-            class="btn btn-secondary btn-sm">#%(value)s</a>
-        <div style="overflow: visible;" id="quote-%(value)s"></div>
+        <span href="javascript:void(0)"
+            onmouseover="openReply(%(value)s)"
+            onmouseout="closeReply(%(value)s)"
+            class="btn btn-outline-info btn-sm">%(value)s</span>
     """
 )

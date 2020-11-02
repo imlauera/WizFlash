@@ -303,6 +303,7 @@ def upload():
         file.save(os.path.join(
             current_app.config['UPLOAD_FOLDER'], 'images', file_data['name']
         ))
+
         new_post_files = FilePost(
             post_id=new_post.id,
             file=file_data['name'],

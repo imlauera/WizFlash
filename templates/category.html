@@ -1,33 +1,32 @@
-{% extends 'base.html' %}
-{% block title %}Inicio{% endblock %}
+{% extends 'base.html' %} 
+{% block title%}Directorio{%endblock%}
 
 {% block content %}
-<div class="webs-catalog">
-	{% for post in posts %}
-  <div class="card" style="overflow: auto;">
-			<!-- Chequear la extensión primero antes de mostrar img -->
-		{% for img in post.files %}
-			{% if img.extension in ('jpg', 'gif', 'jpeg', 'png') %}
-					<img class="card-img" style="" src="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}"/>
-			{% elif img.extension in ('webm', 'mp4') %}
-					<!-- esto es solucionable porque no vamos a usar el video en sí si no una imágen generada del video -->
-					<video class="card-img " style="" src="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}"/>
-						Your browser does not support the video tag.
-					</video>
-			{% endif %}
-		{% endfor %}
-			<div class="card-img-overlay text-white d-flex flex-column justify-content-center" style="">
-				<h4 class="card-title text-white">{{post.subject}}</h4>
-				<p class="card-text ">{{bbcode.render_html(post.desc[:100])|safe}}</p>
-				<h6 class="card-subtitle mb-2 text-muted">{{post.views}} vistas</h6>
-				<div class="link d-flex">
-					<a href="/view/{{post.id}}" class="btn btn-primary card-link" style=""> Leer Más</a>
-					<a href="#" class="btn btn-outline-primary card-link"><i class="fas fa-flag"></i> Reportar</a>
-				</div>
-			</div>
-		</div>
-	{% else %}
-			No hay entradas.
-  {% endfor %}
-</div>
+  <div class="webs-catalog">
+    {% for post in posts %}
+    <div class="card list" style="overflow: hidden;">
+        <!-- Chequear la extensión primero antes de mostrar img -->
+      {% for img in post.files %}
+        {% if img.extension in ('jpg', 'gif', 'jpeg', 'png') %}
+            <img class="card-img" src="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}"/>
+        {% elif img.extension in ('webm', 'mp4') %}
+            <!-- esto es solucionable porque no vamos a usar el video en sí si no una imágen generada del video -->
+            <video class="card-img" src="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}"/>
+              Your browser does not support the video tag.
+            </video>
+        {% endif %}
+      {% endfor %}
+      <a href="/view/{{post.id}}" >
+        <div class="card-img-overlay "> 
+          <h4 class="card-title title">{{post.subject[:85]}}</h4>
+          <span class="card-subtitle mb-2 text-muted">{{post.views}} vistas |</span>
+          <span class="card-subtitle mb-2 text-muted">{{post.total_comments}} comentario(s)</span>
+          <p class="card-text ">{{post.desc[:100] | replace('\n', '<br/>') | safe}}</p>
+        </div>
+      </a>
+    </div>
+    {% else %}
+        No hay entradas.
+    {% endfor %}
+  </div>
 {% endblock %}
