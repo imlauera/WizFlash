@@ -1,5 +1,6 @@
 ![alt text](screenshots/wz2.png)
 ![alt text](screenshots/wz3.png)
+![alt text](screenshots/wz4.png)
 
 ### Installation
 pip install -r requirements.txt
