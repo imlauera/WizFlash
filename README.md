@@ -1,7 +1,8 @@
-Installation: pip install -r requirements.txt
-Usage: python3 run.py
+### Installation
+pip install -r requirements.txt
+### Usage: python3 run.py
 
-Create the database:
+### Create the database:
 In the python3 console
 ```python
 from run import app
