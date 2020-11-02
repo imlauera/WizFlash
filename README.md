@@ -1,3 +1,6 @@
+![alt text](screenshots/wz2.png)
+![alt text](screenshots/wz2.png)
+
 ### Installation
 pip install -r requirements.txt
 ### Create the database
@@ -15,6 +18,3 @@ python3 run.py
 ```
 
 *If you had any kind of issue running this, please let me know, I'm very active here and I'll read all the issues.*
-
-![alt text](screenshots/wz2.png)
-![alt text](screenshots/wz2.jpg)
