@@ -12,4 +12,4 @@ db.create_all()
 ### Usage
 python3 run.py
 
-__If you had issues running this, please let me know, I'm very active here and I'll read all the issues.__
+*If you had any kind of issue running this, please let me know, I'm very active here and I'll read all the issues.*
