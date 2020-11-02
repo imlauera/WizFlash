@@ -19,4 +19,4 @@ python3 run.py
 ```
 
 *If you had any kind of issues running this, please let me know, I'm very active here and I'll make sure to read your message.*
-*Also I'm open to listen to any advice you may have.*
+*And if have any kind of advice, feel free to let me know.*
