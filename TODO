@@ -1,5 +1,4 @@
-El mensaje de bad proxy me tira porque no uso el is_safe_url lo saqué porque sino
-no puedo acceder a la db.
+El mensaje de bad proxy me tira porque no uso el is_safe_url lo saqué porque sino no puedo acceder a la db.
 
 Cuando borrás un post también borrá los archivos del mismo
 Cambiar _formhelpers por form.errors en templates
@@ -172,3 +171,6 @@ Sacar las tags.
 Cuando el mouse se coloca arriba de algún ID, tenés que mostrar un div.
 position: absolute; display: block; z-index:100; y que se ubique
 al costado del id.
+Hacer una página aparte para los moderadores.
+No quiero usar el sistema de usuarios que tengo, 
+
