@@ -186,9 +186,6 @@ class CommentForm(FlaskForm):
     )
     comment = StringField(
         'Comentario',
-        validators=[
-            InputRequired()
-        ],
         widget=TextArea()
     )
     password = StringField(

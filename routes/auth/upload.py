@@ -141,6 +141,8 @@ def delete_comment(id=None):
     if form.validate_on_submit():
         comment = Comment.query.get(id)
         if checkph(comment.hash_password, form.password.data):
+            post = Post.query.get(post_id)
+            post.total_comments -= 1
             db.session.delete(comment)
             db.session.commit()
 
