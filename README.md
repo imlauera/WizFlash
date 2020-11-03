@@ -2,7 +2,7 @@
 ![alt text](screenshots/wz3.png)
 ![alt text](screenshots/wz4.png)
 
-### Installation
+## Installation
 pip install -r requirements.txt
 #### Create the database
 On the main dir, open a python3 console and type:
