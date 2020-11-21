@@ -39,9 +39,6 @@
           <li class="nav-item ">
             <a class="nav-link {% if nbar == 'categories' %}active{% endif %}" href="/misc">Misc</a>
           </li>
-          <li class="nav-item ">
-            <a class="nav-link {% if nbar == 'categories' %}active{% endif %}" href="/globalmsgs">GlobalMsg</a>
-          </li>
         </ul>
 				<ul class="navbar-nav navbar-center">
 					<form class="form-inline my-2 my-lg-0" action="/search">
@@ -69,15 +66,6 @@
                       Anon
                     {% endif %}
 									</a>
-									<div class="dropdown-menu dropdown-menu-right " aria-labelledby="navbarDropdown">
-                    {% if current_user.is_authenticated %}
-											<a class="dropdown-item" href="/settings/profile"><span class="fas fa-user"></span> Perfil</a>
-											<a class="dropdown-item" href="/logout"><span class="fas fa-sign-out-alt"></span> Salir</a>
-                    {% else %}
-											<a class="dropdown-item" href="/login"><span class="fas fa-user"></span> Ingreso</a>
-											<a class="dropdown-item" href="/register"><span class="fas fa-pencil-alt"></span> Registro</a>
-                    {% endif %}
-									</div>
 							</li>
               <li class="nav-item dropdown {% if nbar in ('action1','action2','action3') %}active{% endif %}">
                   <a class="nav-link dropdown-toggle btn" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
