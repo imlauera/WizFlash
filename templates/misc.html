@@ -2,31 +2,18 @@
 {% block title%}Directorio{%endblock%}
 
 {% block content %}
-  <div class="webs-catalog">
-    {% for post in news %}
-    <div class="card list" style="overflow: hidden;">
-        <!-- Chequear la extensión primero antes de mostrar img -->
-      {% for img in post.files %}
-        {% if img.extension in ('jpg', 'gif', 'jpeg', 'png') %}
-            <img class="card-img" src="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}"/>
-        {% elif img.extension in ('webm', 'mp4') %}
-            <!-- esto es solucionable porque no vamos a usar el video en sí si no una imágen generada del video -->
-            <video class="card-img" src="{{ url_for ('static', filename='user_data/images/')}}{{img.file}}"/>
-              Your browser does not support the video tag.
-            </video>
-        {% endif %}
-      {% endfor %}
-      <a href="/view/{{post.id}}" >
-        <div class="card-img-overlay "> 
-          <h4 class="card-title title">{{post.subject[:85]}}</h4>
-          <span class="card-subtitle mb-2 text-muted">{{post.views}} vistas |</span>
-          <span class="card-subtitle mb-2 text-muted">{{post.total_comments}} comentario(s)</span>
-          <p class="card-text ">{{post.desc[:100] | replace('\n', '<br/>') | safe}}</p>
-        </div>
-      </a>
+<div class="webs-catalog" style="grid-auto-rows: 250px;">
+  {% for category in lista_categorias %}
+  <div class="card text-center" style=" overflow: auto;">
+    <!-- Chequear la extensión primero antes de mostrar img -->
+    <div class="card-img-overlay  d-flex flex-column justify-content-center">
+      <h2 class="card-title  text-center">/{{category.name}}/</h2>
+      <p class="card-text ">{{category.desc}}</p>
+      <a href="/c/{{category.name}}" class="btn btn-primary card-link">Acceder</a>
     </div>
-    {% else %}
-        No hay entradas.
-    {% endfor %}
   </div>
+	{% else %}
+			No hay entradas.
+  {% endfor %}
+</div>
 {% endblock %}

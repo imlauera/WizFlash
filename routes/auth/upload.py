@@ -172,9 +172,8 @@ def delete_comment(id=None):
 '''
 
 
-@routes.route('/', methods=['GET'])
-@routes.route('/index', methods=['GET'])
-def index():
+@routes.route('/categories', methods=['GET'])
+def misc():
     lista_categorias = CategoryList.query.all()
 
     password = session.get('password', None)
@@ -183,7 +182,7 @@ def index():
 
     print(lista_categorias)
     return render_template(
-        'home.html',
+        'misc.html',
         lista_categorias=lista_categorias,
         nbar='categories'
     )

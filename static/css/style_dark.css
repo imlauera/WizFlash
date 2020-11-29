@@ -6,7 +6,7 @@ body { margin-top: 70px!important; font-family: 'Source Sans Pro', sans-serif!im
     El auto-fit estira el elemento a la resolución del monitor,
     el auto-fill al igual que el auto-fit hace que entre más elementos en la misma fila pero no los estira
   */
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   grid-auto-rows: 380px;
 }
 a { color: #c8c8c8!important; }

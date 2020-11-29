@@ -148,7 +148,7 @@ pre{
     El auto-fit estira el elemento a la resolución del monitor,
     el auto-fill al igual que el auto-fit hace que entre más elementos en la misma fila pero no los estira
   */
-  grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
   grid-gap: 4px;
 }
 .webs-catalog > div {

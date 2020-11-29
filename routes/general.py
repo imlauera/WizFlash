@@ -25,8 +25,9 @@ from werkzeug.security import generate_password_hash as genph
 import bbcode
 
 
-@routes.route('/misc')
-def misc():
+@routes.route('/')
+@routes.route('/index')
+def home():
     # Orden descending
     news = Post.query.order_by(Post.created_date.desc()).limit(25)
 
@@ -37,7 +38,7 @@ def misc():
     # destacados = Post.query.order_by(Post.views.desc()).limit(10)
 
     return render_template(
-        'misc.html',
+        'home.html',
         nbar='directory',
         news=news,
         fijados=fijados,

@@ -174,3 +174,5 @@ al costado del id.
 Hacer una página aparte para los moderadores.
 No quiero usar el sistema de usuarios que tengo, 
 
+Implementar sistema de bump, autoreload en las publicaciones y en la portada,
+y notificaciones en tiempo real.
