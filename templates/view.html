@@ -7,8 +7,8 @@
 <div class="jumbotron-fluid">
   <div class="row">
 		<div class="col-lg-6">
-				<a href="/delete/post/{{post.id}}" class="btn-sm btn-danger"><span>BORRAR</span></a>
-				<a href="/delete/post/{{post.id}}" class="btn-sm btn-secondary"><span>REPORTAR</span></a>
+				<a href="/delete/post/{{post.id}}" class="btn-sm btn-outline-danger"><span>BORRAR</span></a>
+				<a href="/delete/post/{{post.id}}" class="btn-sm btn-outline-secondary"><span>REPORTAR</span></a>
 				<h3 style="word-wrap: break-word;">{{post.subject}}</h3>
 				<div style="" class="">
 						{% for img in post.files %}
@@ -63,29 +63,20 @@
         <div class="card misc">
           <div id="{{c.id}}" class="cc" onclick="closeReply({{c.id}})" style="padding: 10px;">
             <p class="intro">
-            <a class="post_no btn-danger btn-sm" href="/delete/comment/{{c.id}}?id={{post.id}}">X</a>
+            <a class="post_no btn-outline-danger btn-sm" href="/delete/comment/{{c.id}}?id={{post.id}}"><i class="fas fa-trash"></i></a>
+            <a class="post_no btn-outline-primary btn-sm" href="/delete/comment/{{c.id}}?id={{post.id}}"><i class="fas fa-flag"></i></a>
               <label for="something_{{c.id}}">
-              <span class="name">Anon</span> 
+              <strong class="name">Hernán</strong>
               <!--<img class="flag flag-ar" xs="media.8kun.top/static/flags/ar.png" src="https://media.8kun.top/static/flags/ar.png" style="" alt="Argentina" title="Argentina">-->
-              <time datetime="{{c.created_date}}" data-local="true">{{c.created_date.strftime("%d/%m/%y (%A) %H:%M:%S")}}</time>
+              <time datetime="{{c.created_date}}" class="bg-dark rounded btn-sm btn-dark" data-local="true">{{c.created_date.strftime("%d/%m/%y (%A) %H:%M:%S")}}</time>
               </label>
-              <a class="post_no btn-sm btn-info text-dark rounded-pill" onclick="citeReply({{c.id}})" href="javascript:void(0)"> No. {{c.id}} </a>
+              <a class="post_no btn-sm btn-dark text-white" onclick="citeReply({{c.id}})" href="javascript:void(0)"> {{c.id}} </a>
               <span class="mentioned unimportant">
               </span>
             </p> 
             {% if c.file_ext in ('jpg', 'gif', 'jpeg', 'png', 'webm', 'mp4') %}
             <div class="files">
               <div class="file">
-                <p class="fileinfo">
-                  <span>
-                    Archivo
-                    :
-                  </span>
-                  <a title="{{c.filename}}" href="{{url_for('static', filename='user_data/images/')}}{{c.filename}}">{{c.filename[:30]}}</a>
-                  <span class="unimportant">
-                   (<a download="{{c.filename}}" href="{{url_for('static', filename='user_data/images/')}}{{c.filename}}">descargar</a>)
-                  </span>
-                </p>
                 <a href="{{url_for('static', filename='user_data/images/')}}{{c.filename}}" target="_blank" class="file">
                   {% if c.file_ext in ('jpg', 'gif', 'jpeg', 'png') %}
                     <img class="post-image" src="{{url_for('static', filename='user_data/images/')}}{{c.filename}}" style="" alt="" data-md5="8roXFP0PYrgtGDXFuop1UA==">

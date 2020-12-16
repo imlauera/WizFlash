@@ -51,6 +51,11 @@ def aboutus():
     return render_template('aboutus.html')
 
 
+@routes.route('/tor', methods=['GET'])
+def tor():
+    return render_template('tor.html')
+
+
 @routes.route('/c/<name>', methods=['GET', 'POST'])
 def category(name=None):
     posts = db.session.query(Post)
